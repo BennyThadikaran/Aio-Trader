@@ -1,6 +1,6 @@
 # Aio-Trader
 
-An Async library for accessing Indian stock broker api and Websockets. 
+An Async library for accessing Indian stock broker API and Websockets. 
 
 Currently supports only Zerodha Kite (KiteConnect and Kite Web)
 
@@ -8,15 +8,15 @@ Library is currently in Alpha stage. Once testing is completed, I will release a
 
 ## Installation
 
-1. Clone the repo
+**1. Clone the repo**
 
 ```bash
-git clone 
+git clone https://github.com/BennyThadikaran/Aio-Trader.git
 
 cd aio_trader
 ```
 
-2. Create virtual env using venv and activate it.
+**2. Create virtual env using venv and activate it.**
 
 ```bash
 py -m venv .
@@ -27,7 +27,7 @@ source bin/activate
 # source bin/activate.ps1
 ```
 
-3. Install aio_trader
+**3. Install aio_trader**
 
 ```bash
 pip install .
@@ -35,7 +35,7 @@ pip install .
 
 ## Kite api usage
 
-Kite Web login (Interactive prompt) - Requires user_id, password and twofa.
+**Kite Web login (Interactive prompt)** - Requires user_id, password and twofa.
 To avoid interactive prompt, pass full or partial info to `kite.authorize`. Missing information will be prompted.
 
 ```python
@@ -72,7 +72,7 @@ async with Kite() as kite:
     )
 ```
 
-KiteConnect Login - Requires api_key, request_token and api_secret.
+**KiteConnect Login** - Requires api_key, request_token and api_secret.
 
 ```python
 async with Kite(api_key=config['api_key']) as kite:
