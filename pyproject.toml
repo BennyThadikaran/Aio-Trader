@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aio_trader"
+version = "0.0.1"
+author = "Benny Thadikaran"
+description = "Async Python library for various Indian stock brokers."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+dependencies = [
+  "aiodns==3.2.*",
+  "aiohttp==3.9.*",
+  "Brotli==1.1.*",
+  "throttler==1.2.*",
+]
+keywords = ["kite", "kiteconnect", "zerodha", "algo-trading", "stock-market", "historical-data", "intraday-data"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Programming Language :: Python",
+    "Natural Language :: English",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/BennyThadikaran/aio-trader/issues"
+Issues = "https://github.com/BennyThadikaran/aio-trader"
