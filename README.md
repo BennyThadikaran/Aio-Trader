@@ -1,10 +1,16 @@
 # Aio-Trader
 
-An Async library for accessing Indian stock broker API and Websockets. 
+An Async library for accessing Indian stockbroker API and real-time market feeds. 
 
 Currently supports only Zerodha Kite (KiteConnect and Kite Web)
 
-Library is currently in Alpha stage. Once testing is completed, I will release a pip package and begin work on adding other brokers.
+This Library is currently in Alpha. Expect breaking changes. Once testing is complete, I will release a pip package, and begin work on adding other brokers.
+
+**Supports python 3.8+**
+
+If you ❤️  my work so far, please 🌟 this repo.
+
+The [Wiki](https://github.com/BennyThadikaran/Aio-Trader/wiki) is regularly updated with code examples and recipes.
 
 ## Installation
 
@@ -16,7 +22,7 @@ git clone https://github.com/BennyThadikaran/Aio-Trader.git
 cd aio_trader
 ```
 
-**2. Create virtual env using venv and activate it.**
+**2. Create a virtual env using `venv` and activate it.**
 
 ```bash
 py -m venv .
@@ -33,10 +39,10 @@ source bin/activate
 pip install .
 ```
 
-## Kite api usage
+## Kite API usage
 
-**Kite Web login (Interactive prompt)** - Requires user_id, password and twofa.
-To avoid interactive prompt, pass full or partial info to `kite.authorize`. Missing information will be prompted.
+**Kite Web login (via interactive user input)** - Requires user_id, password and twofa.
+To avoid interactive inputs, pass full or partial info to `kite.authorize`. Any missing information will require user input.
 
 ```python
 # Kite Web Login Example 1
@@ -131,5 +137,41 @@ async def main():
 
 asyncio.run(main())
 ```
+
+Another example without `asyncio.run`
+
+```python
+kws = KiteFeed(
+    user_id=user_id,
+    enctoken=enctoken,
+)
+
+kws.on_tick = on_tick
+kws.on_connect = on_connect
+
+# Handle KeyboardInterupt
+utils.add_signal_handlers(cleanup, kws)
+
+kws.run_forever()  # No code will run after this line
+```
+
+## Differences between Aio-Trader and pykiteconnect(KiteConnect Official library)
+
+| aio-trader | pykiteconnect |
+|---|---|
+| Uses aiohttp | Uses Twisted, an event-driven framework |
+| Supports Python version 3.8+ | Supports Python version 2 & 3 |
+
+Aio-Trader has fewer dependencies owing to its Python support.
+
+KiteFeed uses the [python struct module](https://docs.python.org/3/library/struct.html) to parse binary data. It tries to unpack all values in a single function call, which is slightly more efficient.
+
+You can also bypass parsing binary data if you want to use a custom parser.
+
+```python
+kws = KiteFeed(parse_data=False)
+```
+
+Another use case is to forward the data to the browser and parse it client-side. It avoids the overhead of serializing and deserializing the data.
 
 ## More detailed documentation to follow soon
