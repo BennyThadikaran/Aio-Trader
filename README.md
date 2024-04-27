@@ -39,6 +39,30 @@ source bin/activate
 pip install .
 ```
 
+**Note on Windows compatibility**
+
+The `aio_dns` package requires SelectorEventLoop to work correctly. Import the `sys` module and add the below code, before any async code is run.
+
+```python
+if 'win' in sys.platform:
+	asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+```
+
+**Uvloop / Winloop**
+
+[Uvloop](https://github.com/MagicStack/uvloop) is a fast, drop-in replacement for the default event loop. It only works on Linux/Mac. On Windows, you will need [Winloop](https://github.com/Vizonex/Winloop).
+
+Once installed, you can add the below code after your imports. Replace `asyncio.run(main())` with `run(main())`
+
+```python
+if 'win' in sys.platform:
+    from winloop import run
+else:
+    from uvloop import run
+```
+
+This setup works well with `aio_dns` no need to set an event loop policy on Windows.
+
 ## Kite API usage
 
 **Kite Web login (via interactive user input)** - Requires user_id, password and twofa.
@@ -113,7 +137,7 @@ def on_connect(kws: KiteFeed):
 
 
 async def cleanup(kws):
-    # perform clean up operations here
+    # perform cleanup operations here
     await kws.close()
 
 
