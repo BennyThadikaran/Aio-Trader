@@ -29,8 +29,8 @@ py -m venv .
 
 source bin/activate
 
-# On windows
-# source bin/activate.ps1
+# On Windows, run the below to activate venv
+.\Scripts\Activate.ps1
 ```
 
 **3. Install aio_trader**
