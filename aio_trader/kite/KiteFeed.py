@@ -137,37 +137,37 @@ class KiteFeed(AbstractFeeder):
             aiohttp.ClientSession.ws_connect
         """
 
-        async with self.session.ws_connect(
+        self.ws = await self.session.ws_connect(
             self.WSS_URL,
             heartbeat=self.ping_interval,
             params=self.auth_params,
             **kwargs,
-        ) as ws:
-            self.ws = ws
-            self.connected = True
+        )
 
-            if self.on_connect:
-                self.on_connect(self)
+        self.connected = not self.ws.closed
 
-            async for msg in self.ws:
-                # Ignore heartbeat pings
-                if len(msg.data) == 1 or not self.on_tick:
-                    continue
+        if self.on_connect:
+            self.on_connect(self)
 
-                is_binary = msg.type == aiohttp.WSMsgType.BINARY
+        async for msg in self.ws:
+            # Ignore heartbeat pings
+            if len(msg.data) == 1 or not self.on_tick:
+                continue
 
-                if not self.parse_data:
-                    self.on_tick(msg.data, binary=is_binary)
-                    continue
+            is_binary = msg.type == aiohttp.WSMsgType.BINARY
 
-                fn = self._parse_binary if is_binary else self._parse_text
+            if not self.parse_data:
+                self.on_tick(msg.data, binary=is_binary)
+                continue
 
-                data = fn(msg.data)
+            fn = self._parse_binary if is_binary else self._parse_text
 
-                if data:
-                    self.on_tick(data, binary=is_binary)
+            data = fn(msg.data)
 
-            await self.close()
+            if data:
+                self.on_tick(data, binary=is_binary)
+
+        await self.close()
 
     async def subscribe_symbols(
         self,
