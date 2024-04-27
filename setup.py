@@ -5,7 +5,7 @@ DIR = pathlib.Path(__file__).parent
 
 setup(
     name="aio_trader",
-    version="0.0.1",
+    version="0.0.2",
     description="Async Python library for various Indian stock brokers.",
     long_description=(DIR / "README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
