@@ -197,5 +197,3 @@ kws = KiteFeed(parse_data=False)
 ```
 
 Another use case is to forward the data to the browser and parse it client-side. It avoids the overhead of serializing and deserializing the data.
-
-## More detailed documentation to follow soon
