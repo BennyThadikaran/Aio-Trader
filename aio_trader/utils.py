@@ -3,7 +3,7 @@ import logging, signal, asyncio
 from typing import Any, List, AsyncGenerator
 
 
-def configure_default_logger(name) -> logging.Logger:
+def configure_default_logger(name="aio_trader") -> logging.Logger:
     """Return a configured logger"""
 
     logging.basicConfig(

@@ -66,7 +66,7 @@ class KiteFeed(AbstractFeeder):
         self.loop = asyncio.get_event_loop()
         self._shared_session = bool(session)
 
-        self.log = logger if logger else configure_default_logger(__name__)
+        self.log = logger if logger else configure_default_logger()
 
         if not (self.enctoken or self.access_token):
             raise ValueError("Either enctoken or access_token is required.")
