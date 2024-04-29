@@ -61,9 +61,9 @@ class AbstractFeeder(ABC):
     """
 
     on_connect: Optional[Callable] = None
-    on_close: Optional[Callable] = None
     on_tick: Optional[Callable] = None
     on_order_update: Optional[Callable] = None
+    on_message: Optional[Callable] = None
     on_error: Optional[Callable] = None
     ws: aiohttp.ClientWebSocketResponse
     session: aiohttp.ClientSession

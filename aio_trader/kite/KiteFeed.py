@@ -344,7 +344,7 @@ class KiteFeed(AbstractFeeder):
 
         return data
 
-    def _parse_text(self, payload):
+    def _parse_text(self, payload) -> None:
         if isinstance(payload, bytes):
             payload = payload.decode("utf-8")
 
@@ -353,20 +353,24 @@ class KiteFeed(AbstractFeeder):
         except ValueError:
             return
 
+        msg = data["data"]
+        dtype = data["type"]
+
         # Order update callback
-        if self.on_order_update and data["type"] == "order" and "data" in data:
-            self.on_order_update(data["data"])
+        if dtype == "order" and self.on_order_update:
+            self.on_order_update(msg)
 
-        # Custom error with websocket error code 0
-        if data["type"] == "error":
-            self._on_error(0, data["data"])
+        if dtype == "error":
+            if self.on_error:
+                return self.on_error(self, msg)
 
-    def _on_error(self, code, reason):
-        """Call `on_error` callback when connection throws an error."""
-        self.log.warn(f"Connection error: {code} - {reason}")
+            self.log.warn(f"Error: {msg}")
 
-        if self.on_error:
-            self.on_error(self, code, reason)
+        if dtype == "messsage":
+            if self.on_message:
+                return self.on_message(msg)
+
+            self.log.info(f"Message: {msg}")
 
     def _unpack_int(self, bin, start, end, byte_format="I"):
         """Unpack binary data as unsgined interger."""
