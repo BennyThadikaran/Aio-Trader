@@ -29,8 +29,6 @@ class Kite(AbstractBroker):
     :type enctoken: Optional[str]
     :param access_token: Api login token from a previous login
     :type access_token: Optional[str]
-    :param api_key: KiteConnect api key. Required if access_token is passed
-    :type api_key: Optional[str]
     :param logger: Instance of logging.Logger
     :type logger: Optional[logging.Logger]
     """
@@ -106,28 +104,19 @@ class Kite(AbstractBroker):
         self,
         enctoken: Optional[str] = None,
         access_token: Optional[str] = None,
-        api_key: Optional[str] = None,
         logger: Optional[logging.Logger] = None,
-        session: Optional[aiohttp.ClientSession] = None,
     ):
 
         self.cookie_path = self.base_dir / "kite_cookies"
         self.enctoken = enctoken
         self.access_token = access_token
-        self.api_key = api_key
 
-        if access_token and not api_key:
-            raise ValueError("api_key is required, when access_token is passed")
+        self.log = logger if logger else configure_default_logger()
 
-        self.log = logger if logger else configure_default_logger(__name__)
-
-        if session:
-            self.session = session
-        else:
-            self._initialise_session(
-                headers={"X-Kite-version": "3"},
-                throttler=Throttler(rate_limit=10),
-            )
+        self._initialise_session(
+            headers={"X-Kite-version": "3"},
+            throttler=Throttler(rate_limit=10),
+        )
 
     def _get_cookie(self):
         """Load the pickle format cookie file"""
@@ -169,6 +158,8 @@ class Kite(AbstractBroker):
         :type twofa: Union[str, Callable, None]
         :param request_token: KiteConnect request_token
         :type request_token: Optional[str]
+        :param api_key: KiteConnect api key. Required if access_token is passed
+        :type api_key: Optional[str]
         :param secret: KiteConnect secret
         :type secret: Optional[str]
 
@@ -198,33 +189,39 @@ class Kite(AbstractBroker):
         user_id = kwargs.get("user_id", None)
         password = kwargs.get("password", None)
         twofa = kwargs.get("twofa", None)
+        api_key = kwargs.get("api_key", None)
 
         if (request_token and not secret) or (secret and not request_token):
             raise ValueError("Both request_token and secret are required")
 
-        if request_token and secret and not self.api_key:
+        if request_token and secret and not api_key:
             raise ValueError("No api_key provided during initialization")
 
         if self.enctoken:
+            if not api_key:
+                raise ValueError(
+                    "api_key is required, when access_token is passed"
+                )
+
             self.log.info("enctoken set")
             return self._set_enctoken(self.enctoken)
 
         if self.access_token:
             self.log.info("access_token set")
-            return self._set_access_token(self.api_key, self.access_token)
+            return self._set_access_token(api_key, self.access_token)
 
         login_url = "https://kite.zerodha.com"
 
         if request_token and secret:
             # API LOGIN
             checksum = hashlib.sha256(
-                f"{self.api_key}{request_token}{secret}".encode("utf-8")
+                f"{api_key}{request_token}{secret}".encode("utf-8")
             ).hexdigest()
 
             response = await self.req.post(
                 f"{login_url}/session/token",
                 params={
-                    "api_key": self.api_key,
+                    "api_key": api_key,
                     "request_token": request_token,
                     "checksum": checksum,
                 },
@@ -234,7 +231,7 @@ class Kite(AbstractBroker):
 
             self.log.info(f"Api login success: {response['login_time']}")
 
-            return self._set_access_token(self.api_key, self.access_token)
+            return self._set_access_token(api_key, self.access_token)
 
         # WEB LOGIN
         if self.cookie_path.exists():
