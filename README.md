@@ -10,8 +10,6 @@ This Library is currently in Alpha. Expect breaking changes. Once testing is com
 
 If you ❤️  my work so far, please 🌟 this repo.
 
-The [Wiki](https://github.com/BennyThadikaran/Aio-Trader/wiki) is regularly updated with code examples and recipes.
-
 ## Installation
 
 **1. Clone the repo**
