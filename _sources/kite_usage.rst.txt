@@ -13,10 +13,10 @@ You can import them as
     from aio_trader.kite import Kite, KiteFeed
     from aio_trader import utils
 
-aio_trader.kite.Kite
-====================
+kite.Kite
+=========
 
-:py:obj:`Kite` provides methods for managing orders, accessing profile, getting historical market data and quotes.
+:py:obj:`Kite` provides methods for managing orders, accessing profiles, and getting historical market data and quotes.
 
 With async context manager
 --------------------------
@@ -48,19 +48,19 @@ Once authorization is complete, the token is set. You can access them as
 - :py:obj:`kite.enctoken` - For Kite web login 
 - :py:obj:`kite.access_token` - For KiteConnect login
 
-These can be stored or saved and reused on next run. You can pass the token to the Kite class during initialization.
+These can be stored or saved and reused on the next run. You can pass the token to the Kite class during initialization.
 
 **For Kite web login**, :py:obj:`Kite.authorize` takes the following optional parameters:
 
-- :py:obj:`user_id` : Kite Web user id
-- :py:obj:`password` : Kite Web login password
-- :py:obj:`twofa` : string or callable function that returns OTP
+- :py:obj:`user_id`: Kite Web user-id
+- :py:obj:`password`: Kite Web login password
+- :py:obj:`twofa`: string or callable function that returns OTP
 
 To generate OTP you can use a package like `pyotp <https://pypi.org/project/pyotp/>`_, just pass :py:obj:`totp.now` to **twofa** argument.
 
 .. code:: python
 
-    # Kite Web login
+    # Kite Web Login
     async with Kite(enctoken=enctoken) as kite:
       await kite.authorize(
           user_id=user_id,
@@ -71,8 +71,8 @@ To generate OTP you can use a package like `pyotp <https://pypi.org/project/pyot
 **For KiteConnect login**, :py:obj:`Kite.authorize` takes the following optional parameters:
 
 - :py:obj:`request_token` : KiteConnect request_token 
-- :py:obj:`api_key` : KiteConnect api key
-- :py:obj:`secret` : KiteConnect api secret
+- :py:obj:`api_key`: KiteConnect API key
+- :py:obj:`secret`: KiteConnect API secret
 
 .. code:: python
 
@@ -84,10 +84,10 @@ To generate OTP you can use a package like `pyotp <https://pypi.org/project/pyot
           secret=secret,
       )
 
-aio_trader.kite.KiteFeed
-========================
+kite.KiteFeed
+=============
 
-:py:obj:`KiteFeed` provides WebSocket connection to receive real-time market quotes and order updates.
+:py:obj:`KiteFeed` provides a WebSocket connection to receive real-time market quotes and order updates.
 
 With async context manager
 --------------------------
@@ -104,7 +104,7 @@ Without context manager
 
 It is important to close WebSocket connections and Client Session before exiting the application.
 
-In the below example, :py:obj:`kws.close` will not be executed. However it is shown here for completeness.
+In the below example, :py:obj:`kws.close` will not be executed. However, it is shown here for completeness.
 
 .. code:: python
 
@@ -113,7 +113,7 @@ In the below example, :py:obj:`kws.close` will not be executed. However it is sh
     # No code executes after this line
     await kws.connect()
     
-    # Close Unsubscribe instruments, close WebSocket connection and session
+    # Close Unsubscribe instruments, close WebSocket connection, and session
     kws.close()
 
 Using :py:obj:`kws.run_forever`
@@ -132,18 +132,18 @@ KiteFeed requires the following optional arguments
 
 **For Kite Web:**
 
-- :py:obj:`user_id` : Kite Web user id
-- :py:obj:`enctoken` : enctoken obtained from Kite Web login
+- :py:obj:`user_id`: Kite Web user-id
+- :py:obj:`enctoken`: enctoken obtained from Kite Web Login
 
 **For KiteConnect:**
 
-- :py:obj:`api_key` : Kite Web user id
+- :py:obj:`api_key`: Kite Web user-id
 - :py:obj:`access_token` : access_token obtained from KiteConnect login
 
 Event handlers
 --------------
 
-The :py:obj:`KiteFeed` class accepts the below optional handlers. You may define them as per your need.
+The :py:obj:`KiteFeed` class accepts the below optional handlers. You may define them as per your needs.
 
 .. code:: python
 
@@ -178,7 +178,7 @@ The :py:obj:`KiteFeed` class accepts the below optional handlers. You may define
 Get Raw Binary data
 -------------------
 
-If you wish to receive the raw binary data from the WebSocket connection, you can set **parse_data** argument of :py:obj:`KiteFeed` to :py:obj:`False`.
+If you wish to receive the raw binary data from the WebSocket connection, you can set the **parse_data** argument of :py:obj:`KiteFeed` to :py:obj:`False`.
 
 .. code:: python
 
@@ -190,22 +190,22 @@ Authorization Flow
 ==================
 
 1. On running :py:obj:`Kite.authorize`, it first checks if :py:obj:`enctoken` or :py:obj:`access_token` was set during initialization. 
-    - If yes, the authorization headers are updated and the class is ready to make api requests. 
+    - If yes, the authorization headers are updated, and the class is ready to make API requests. 
 2. If :py:obj:`request_token` and :py:obj:`secret` are provided, proceed with KiteConnect login. Once the :py:obj:`access_token` is received, set the authorization headers.
 3. For Kite Web login, :py:obj:`enctoken` is stored in cookies. Check if the cookie file exists and has not expired. If yes, load the :py:obj:`enctoken` and update headers.
 4. If no cookie file exists or has expired, proceed with Kite Web login. Once the :py:obj:`enctoken` is received:
-    - Set the cookie expiry for end of day.
+    - Set the cookie expiry for the end of the day.
     - Save the cookie to file
     - Update the authorization headers with :py:obj:`enctoken`
 
 Session Sharing
 ===============
 
-Both :py:obj:`Kite` and :py:obj:`KiteFeed` store an instance of :py:obj:`aiohttp.ClientSession`. A session allows the sharing of cookies and maintains a connection pool which can be reused between http requests. This speeds up requests by not having to reestablish secure connections.
+Both :py:obj:`Kite` and :py:obj:`KiteFeed` store an instance of :py:obj:`aiohttp.ClientSession`. A session allows sharing of cookies and maintains a connection pool, to be reused between HTTP requests. It speeds up requests by not having to reestablish secure connections.
 
-The session object can be accessed as :py:obj:`Kite.session` and :py:obj:`KiteFeed.session`.
+You can access the session object with :py:obj:`Kite.session` and :py:obj:`KiteFeed.session`.
 
-The Kite session can be shared with KiteFeed by passing it during initialization.
+A Kite session, can be shared with KiteFeed by passing it during initialization.
 
 .. code:: python
     
@@ -216,7 +216,7 @@ The Kite session can be shared with KiteFeed by passing it during initialization
 Logging
 =======
 
-Aio-Trader uses the python `logging` module to output logs. You can define your own logger and pass the instance to :py:obj:`Kite` and :py:obj:`KiteFeed`.
+Aio-Trader uses the Python `logging` module to output logs. You can define your logger and pass the instance to :py:obj:`Kite` and :py:obj:`KiteFeed`.
 
 .. code:: python
     
@@ -225,7 +225,7 @@ Aio-Trader uses the python `logging` module to output logs. You can define your 
     # Share the same logger instance
     kws = KiteFeed(logger=kite.log)
 
-Alternatively, the :py:obj:`aio_trader.utils` module provides a helper function :py:obj:`configure_default_logger`. It takes an optional name argument which defaults to `aio_trader` and returns a configured logger instance of that name.
+Alternatively, the :py:obj:`aio_trader.utils` module provides a helper function :py:obj:`configure_default_logger`. It takes an optional name argument, which defaults to `aio_trader` and returns a configured logger instance of that name.
 
 .. code:: python
 

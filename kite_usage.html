@@ -203,9 +203,9 @@
 <span class="kn">from</span> <span class="nn">aio_trader</span> <span class="kn">import</span> <span class="n">utils</span>
 </pre></div>
 </div>
-<section id="aio-trader-kite-kite">
-<h2>aio_trader.kite.Kite<a class="headerlink" href="#aio-trader-kite-kite" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> provides methods for managing orders, accessing profile, getting historical market data and quotes.</p>
+<section id="kite-kite">
+<h2>kite.Kite<a class="headerlink" href="#kite-kite" title="Link to this heading">¶</a></h2>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> provides methods for managing orders, accessing profiles, and getting historical market data and quotes.</p>
 <section id="with-async-context-manager">
 <h3>With async context manager<a class="headerlink" href="#with-async-context-manager" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">Kite</span><span class="p">()</span> <span class="k">as</span> <span class="n">kite</span><span class="p">:</span>
@@ -231,15 +231,15 @@
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">kite.enctoken</span></code> - For Kite web login</p></li>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">kite.access_token</span></code> - For KiteConnect login</p></li>
 </ul>
-<p>These can be stored or saved and reused on next run. You can pass the token to the Kite class during initialization.</p>
+<p>These can be stored or saved and reused on the next run. You can pass the token to the Kite class during initialization.</p>
 <p><strong>For Kite web login</strong>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.authorize</span></code> takes the following optional parameters:</p>
 <ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_id</span></code> : Kite Web user id</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">password</span></code> : Kite Web login password</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">twofa</span></code> : string or callable function that returns OTP</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_id</span></code>: Kite Web user-id</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">password</span></code>: Kite Web login password</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">twofa</span></code>: string or callable function that returns OTP</p></li>
 </ul>
 <p>To generate OTP you can use a package like <a class="reference external" href="https://pypi.org/project/pyotp/">pyotp</a>, just pass <code class="xref py py-obj docutils literal notranslate"><span class="pre">totp.now</span></code> to <strong>twofa</strong> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kite Web login</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kite Web Login</span>
 <span class="k">async</span> <span class="k">with</span> <span class="n">Kite</span><span class="p">(</span><span class="n">enctoken</span><span class="o">=</span><span class="n">enctoken</span><span class="p">)</span> <span class="k">as</span> <span class="n">kite</span><span class="p">:</span>
   <span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span>
       <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
@@ -251,8 +251,8 @@
 <p><strong>For KiteConnect login</strong>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.authorize</span></code> takes the following optional parameters:</p>
 <ul class="simple">
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_token</span></code> : KiteConnect request_token</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span></code> : KiteConnect api key</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">secret</span></code> : KiteConnect api secret</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span></code>: KiteConnect API key</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">secret</span></code>: KiteConnect API secret</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># KiteConnect login</span>
 <span class="k">async</span> <span class="k">with</span> <span class="n">Kite</span><span class="p">(</span><span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">)</span> <span class="k">as</span> <span class="n">kite</span><span class="p">:</span>
@@ -265,9 +265,9 @@
 </div>
 </section>
 </section>
-<section id="aio-trader-kite-kitefeed">
-<h2>aio_trader.kite.KiteFeed<a class="headerlink" href="#aio-trader-kite-kitefeed" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> provides WebSocket connection to receive real-time market quotes and order updates.</p>
+<section id="kite-kitefeed">
+<h2>kite.KiteFeed<a class="headerlink" href="#kite-kitefeed" title="Link to this heading">¶</a></h2>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> provides a WebSocket connection to receive real-time market quotes and order updates.</p>
 <section id="id1">
 <h3>With async context manager<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">enctoken</span><span class="o">=</span><span class="n">enctoken</span><span class="p">)</span> <span class="k">as</span> <span class="n">kws</span><span class="p">:</span>
@@ -280,13 +280,13 @@
 <section id="id2">
 <h3>Without context manager<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <p>It is important to close WebSocket connections and Client Session before exiting the application.</p>
-<p>In the below example, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kws.close</span></code> will not be executed. However it is shown here for completeness.</p>
+<p>In the below example, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kws.close</span></code> will not be executed. However, it is shown here for completeness.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">)</span>
 
 <span class="c1"># No code executes after this line</span>
 <span class="k">await</span> <span class="n">kws</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
-<span class="c1"># Close Unsubscribe instruments, close WebSocket connection and session</span>
+<span class="c1"># Close Unsubscribe instruments, close WebSocket connection, and session</span>
 <span class="n">kws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -304,18 +304,18 @@
 <p>KiteFeed requires the following optional arguments</p>
 <p><strong>For Kite Web:</strong></p>
 <ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_id</span></code> : Kite Web user id</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> : enctoken obtained from Kite Web login</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">user_id</span></code>: Kite Web user-id</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code>: enctoken obtained from Kite Web Login</p></li>
 </ul>
 <p><strong>For KiteConnect:</strong></p>
 <ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span></code> : Kite Web user id</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span></code>: Kite Web user-id</p></li>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">access_token</span></code> : access_token obtained from KiteConnect login</p></li>
 </ul>
 </section>
 <section id="event-handlers">
 <h3>Event handlers<a class="headerlink" href="#event-handlers" title="Link to this heading">¶</a></h3>
-<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> class accepts the below optional handlers. You may define them as per your need.</p>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> class accepts the below optional handlers. You may define them as per your needs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_tick</span><span class="p">(</span><span class="n">tick</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
   <span class="c1"># To receive market quotes</span>
   <span class="k">pass</span>
@@ -348,7 +348,7 @@
 </section>
 <section id="get-raw-binary-data">
 <h3>Get Raw Binary data<a class="headerlink" href="#get-raw-binary-data" title="Link to this heading">¶</a></h3>
-<p>If you wish to receive the raw binary data from the WebSocket connection, you can set <strong>parse_data</strong> argument of <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>If you wish to receive the raw binary data from the WebSocket connection, you can set the <strong>parse_data</strong> argument of <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">parse_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -360,7 +360,7 @@
 <ol class="arabic simple">
 <li><dl class="simple">
 <dt>On running <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.authorize</span></code>, it first checks if <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">access_token</span></code> was set during initialization.</dt><dd><ul class="simple">
-<li><p>If yes, the authorization headers are updated and the class is ready to make api requests.</p></li>
+<li><p>If yes, the authorization headers are updated, and the class is ready to make API requests.</p></li>
 </ul>
 </dd>
 </dl>
@@ -369,7 +369,7 @@
 <li><p>For Kite Web login, <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> is stored in cookies. Check if the cookie file exists and has not expired. If yes, load the <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> and update headers.</p></li>
 <li><dl class="simple">
 <dt>If no cookie file exists or has expired, proceed with Kite Web login. Once the <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> is received:</dt><dd><ul class="simple">
-<li><p>Set the cookie expiry for end of day.</p></li>
+<li><p>Set the cookie expiry for the end of the day.</p></li>
 <li><p>Save the cookie to file</p></li>
 <li><p>Update the authorization headers with <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code></p></li>
 </ul>
@@ -380,9 +380,9 @@
 </section>
 <section id="session-sharing">
 <h2>Session Sharing<a class="headerlink" href="#session-sharing" title="Link to this heading">¶</a></h2>
-<p>Both <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> store an instance of <code class="xref py py-obj docutils literal notranslate"><span class="pre">aiohttp.ClientSession</span></code>. A session allows the sharing of cookies and maintains a connection pool which can be reused between http requests. This speeds up requests by not having to reestablish secure connections.</p>
-<p>The session object can be accessed as <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.session</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed.session</span></code>.</p>
-<p>The Kite session can be shared with KiteFeed by passing it during initialization.</p>
+<p>Both <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> store an instance of <code class="xref py py-obj docutils literal notranslate"><span class="pre">aiohttp.ClientSession</span></code>. A session allows sharing of cookies and maintains a connection pool, to be reused between HTTP requests. It speeds up requests by not having to reestablish secure connections.</p>
+<p>You can access the session object with <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.session</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed.session</span></code>.</p>
+<p>A Kite session, can be shared with KiteFeed by passing it during initialization.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">()</span>
 
 <span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">kite</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
@@ -391,14 +391,14 @@
 </section>
 <section id="logging">
 <h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">¶</a></h2>
-<p>Aio-Trader uses the python <cite>logging</cite> module to output logs. You can define your own logger and pass the instance to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code>.</p>
+<p>Aio-Trader uses the Python <cite>logging</cite> module to output logs. You can define your logger and pass the instance to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
 
 <span class="c1"># Share the same logger instance</span>
 <span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">kite</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Alternatively, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.utils</span></code> module provides a helper function <code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_default_logger</span></code>. It takes an optional name argument which defaults to <cite>aio_trader</cite> and returns a configured logger instance of that name.</p>
+<p>Alternatively, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.utils</span></code> module provides a helper function <code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_default_logger</span></code>. It takes an optional name argument, which defaults to <cite>aio_trader</cite> and returns a configured logger instance of that name.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.utils</span> <span class="kn">import</span> <span class="n">configure_default_logger</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
@@ -470,13 +470,13 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Kite Usage</a><ul>
-<li><a class="reference internal" href="#aio-trader-kite-kite">aio_trader.kite.Kite</a><ul>
+<li><a class="reference internal" href="#kite-kite">kite.Kite</a><ul>
 <li><a class="reference internal" href="#with-async-context-manager">With async context manager</a></li>
 <li><a class="reference internal" href="#without-context-manager">Without context manager</a></li>
 <li><a class="reference internal" href="#kite-login-and-authorization">Kite Login and authorization</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#aio-trader-kite-kitefeed">aio_trader.kite.KiteFeed</a><ul>
+<li><a class="reference internal" href="#kite-kitefeed">kite.KiteFeed</a><ul>
 <li><a class="reference internal" href="#id1">With async context manager</a></li>
 <li><a class="reference internal" href="#id2">Without context manager</a></li>
 <li><a class="reference internal" href="#using-kws-run-forever">Using <code class="xref py py-obj docutils literal notranslate"><span class="pre">kws.run_forever</span></code></a></li>
