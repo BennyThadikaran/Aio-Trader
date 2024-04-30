@@ -15,7 +15,7 @@ sys.path.insert(0, src.as_posix())
 project = "Aio-Trader"
 copyright = "2024, Benny Thadikaran"
 author = "Benny Thadikaran"
-release = "0.0.3"
+release = "0.0.4"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
