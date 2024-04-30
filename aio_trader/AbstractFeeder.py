@@ -97,9 +97,6 @@ class AbstractFeeder(ABC):
             connector=tcp_connector,
         )
 
-    def run_forever(self):
-        asyncio.get_event_loop().run_until_complete(self.connect())
-
     @abstractmethod
     async def close(self):
         pass
