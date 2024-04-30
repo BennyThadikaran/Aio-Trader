@@ -40,6 +40,7 @@ class AbstractBroker(ABC):
         self.req = AsyncRequest(
             logger=self.log,
             throttle=throttler,
+            cookie_path=self.cookie_path,
             headers=headers,
             skip_auto_headers=("User-Agent"),
             connector=tcp_connector,

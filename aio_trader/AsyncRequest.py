@@ -81,10 +81,12 @@ class AsyncRequest:
         self,
         logger: logging.Logger,
         throttle: Optional[Throttler] = None,
+        cookie_path: Optional[pathlib.Path] = None,
         **kwargs,
     ) -> None:
         self.session_args: Dict[str, Any] = kwargs
         self.logger = logger
+        self.cookie_path = cookie_path
 
         if throttle is None:
             raise RuntimeError("Default Throttler is required")
@@ -134,6 +136,12 @@ class AsyncRequest:
                 raise RuntimeError("429: API Rate limit reached.")
 
             if response.status == 403:
+                if self.cookie_path and self.cookie_path.exists():
+                    self.cookie_path.unlink()
+                    self.logger.info(
+                        "Cookie file deleted. Try logging in again"
+                    )
+
                 raise RuntimeError("403: Forbidden")
 
             raise ConnectionError(f"{response.status}: {response.reason}")
