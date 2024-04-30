@@ -4,7 +4,11 @@ from typing import Any, List, AsyncGenerator
 
 
 def configure_default_logger(name="aio_trader") -> logging.Logger:
-    """Return a configured logger"""
+    """Return a configured logger
+
+    :param name: Name of logger instance to be returned. Default `aio_trader`
+    :type name: str
+    """
 
     logging.basicConfig(
         level=logging.INFO,
@@ -14,14 +18,18 @@ def configure_default_logger(name="aio_trader") -> logging.Logger:
     return logging.getLogger(name)
 
 
-def add_signal_handlers(handler: Callable, *args: Any, **kwargs: Any):
+def add_signal_handlers(handler: Callable, *args: Any, **kwargs: Any) -> None:
     """
-    Add signal handlers for KeyboardInterrupt and terminate/kill commands
+    Add signal handlers for KeyboardInterrupt and terminate/kill commands.
 
-    handler must be an async function. It is used to perform clean up resources
-    and allows graceful shutdown.
+    Any positional or keyword arguments are passed to handler
 
-    Any positional or keyword arguments are passed to the handler
+    :param handler: Async function to perform clean up operations before shutdown.
+    :type handler: Callable
+    :param args: Positional arguments to pass to handler function
+    :type args: Any
+    :param kwargs: Keyword arguments to pass to handler function
+    :type kwargs: Any
     """
 
     loop = asyncio.get_event_loop()
@@ -36,40 +44,48 @@ async def as_completed(
     tasks: List[asyncio.Task],
 ) -> AsyncGenerator[asyncio.Task, None]:
     """
-    source: https://stackoverflow.com/a/55531688
+    Similar to `asyncio.as_completed` but returns the original Task object.
+
+    Source: https://stackoverflow.com/a/55531688
+
+    :param tasks: A list of Task objects
+    :type tasks: List[asyncio.Task]
+    :return: AsyncGenerator[asyncio.Task, None]
 
     When calling asyncio.as_completed, results are not returned
     in insertion order, but in the order of completion.
 
-    The result is a coroutine object and not the original Task object.
+    The result is a `Coroutine` object and not the original `Task` object.
     There is no link to the original Task, so any context information like the
     Task name is lost forever.
 
+    **Code Explanation**:
+
     Every task must be assigned a name, providing some context information.
 
-    ```
-    task = asyncio.create_task(fn, name='my_task')
-    task.get_name() # my_task
-    ```
+    .. code:: python
 
-    This function creates a Futures object and adds the `Futures.set_result`
+        task = asyncio.create_task(fn, name='my_task')
+        task.get_name() # my_task
+
+    This function creates a Futures object and adds the :py:obj:`Futures.set_result`
     method as a callback to the task.
 
-    The futures are added to a list and passed to `asyncio.as_completed`
+    The futures are added to a list and passed to :py:obj:`asyncio.as_completed`
     awaiting completion.
 
-    When the task is completed, the callback (`Futures.set_result`) is called.
-    It receives the completed task object marks the Futures object as done.
+    When the task is completed, the callback is called.
+    It receives the completed task object and marks the Futures object as done.
 
-    Usage:
+    **Usage**:
 
-    ```
-    # tasks: List[asyncio.Task]
+    .. code:: python
 
-    async for task in as_completed(tasks):
-        name = task.get_name()
-        result = task.result()
-    ```
+        # tasks: List[asyncio.Task]
+
+        async for task in as_completed(tasks):
+            name = task.get_name()
+            result = task.result()
 
     Read the in-code documentation for further understanding.
     """
