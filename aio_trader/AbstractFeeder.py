@@ -1,6 +1,7 @@
 import asyncio, aiohttp
 from abc import ABC, abstractmethod
 from typing import Callable, List, Optional, Union, Dict
+from functools import wraps
 
 
 def retry(max_retries=50, base_wait=2, max_wait=60):
@@ -8,20 +9,28 @@ def retry(max_retries=50, base_wait=2, max_wait=60):
     Decorator that retries a function or method with exponential backoff
     in case of exceptions.
 
-    Parameters:
-    - max_retry_attempts (int): The maximum number of retry attempts.
-    - base_wait_time (float): The initial delay in seconds before the first retry.
-    - max_wait_time (float): The maximum delay in seconds between retries.
+    Retry terminates if response code is 403: Session Expired
+
+    :param max_retries: The maximum number of retry attempts. Default 50
+    :type max_retries: int
+    :param base_wait: The initial delay in seconds before the first retry. Default 2
+    :type max_retries: float
+    :param max_wait_time: The maximum delay in seconds between retries. Default 60
+    :type max_wait_time: float
 
     Usage:
-    @retry(max_retry_attempts=5, base_wait_time=2, max_wait_time=60)
-    async def your_function_or_method(*args, **kwargs):
-        # Your function or method logic goes here
-        pass
+
+    .. code:: python
+
+        @retry(max_retries=5, base_wait=2, max_wait=60)
+        async def your_function_or_method(*args, **kwargs):
+            # Your function or method logic goes here
+            pass
     """
 
     def decorator(method):
 
+        @wraps(method)
         async def wrapper(instance, *args, **kwargs):
             retries = 0
 
