@@ -15,6 +15,8 @@ Python version: >= 3.8
    kite_usage
    examples
    implementation
+   kite_reference
+   kitefeed_reference
 
 Installation
 ------------
