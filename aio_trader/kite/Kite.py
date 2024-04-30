@@ -191,20 +191,16 @@ class Kite(AbstractBroker):
         twofa = kwargs.get("twofa", None)
         api_key = kwargs.get("api_key", None)
 
-        if (request_token and not secret) or (secret and not request_token):
-            raise ValueError("Both request_token and secret are required")
-
-        if request_token and secret and not api_key:
-            raise ValueError("No api_key provided during initialization")
-
         if self.enctoken:
-            if not api_key:
-                raise ValueError(
-                    "api_key is required, when access_token is passed"
-                )
-
             self.log.info("enctoken set")
             return self._set_enctoken(self.enctoken)
+
+        kite_connect_args = (request_token, secret, api_key)
+
+        if any(kite_connect_args) and None in kite_connect_args:
+            raise ValueError(
+                "`request_token`, `secret` and `api_key` are required for KiteConnect login"
+            )
 
         if self.access_token:
             self.log.info("access_token set")
