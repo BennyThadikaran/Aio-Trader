@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-src = Path(__file__).parents[2].resolve() / "aio_trader"
+src = Path(__file__).parents[2].resolve()
 
 sys.path.insert(0, src.as_posix())
 # Configuration file for the Sphinx documentation builder.
