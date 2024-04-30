@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Optional, Union, Collection
 from throttler import Throttler
 from datetime import datetime
-import pickle, logging, aiohttp, hashlib
+import pickle, logging, hashlib
 from ..AbstractBroker import AbstractBroker
 from ..utils import configure_default_logger
 
