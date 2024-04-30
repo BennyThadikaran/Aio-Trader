@@ -116,18 +116,6 @@ In the below example, :py:obj:`kws.close` will not be executed. However, it is s
     # Close Unsubscribe instruments, close WebSocket connection, and session
     kws.close()
 
-Using :py:obj:`kws.run_forever`
--------------------------------
-
-.. code:: python
-
-    kws = KiteFeed(
-      user_id=user_id,
-      enctoken=enctoken,
-    )
-
-    kws.run_forever()  # No code will run after this line
-
 KiteFeed requires the following optional arguments
 
 **For Kite Web:**
