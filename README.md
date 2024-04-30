@@ -12,9 +12,9 @@ If you ❤️  my work so far, please 🌟 this repo.
 
 ## Documentation
 
-https://bennythadikaran.github.io/Aio-Trader
+Docs are complete and covers all aspects. 👍
 
-API reference will be added in a day or two.
+https://bennythadikaran.github.io/Aio-Trader
 
 ## Installation
 
@@ -77,11 +77,3 @@ This setup works well with `aio_dns` no need to set an event loop policy on Wind
 Aio-Trader has fewer dependencies owing to its Python support.
 
 KiteFeed uses the [python struct module](https://docs.python.org/3/library/struct.html) to parse binary data. It tries to unpack all values in a single function call, which is slightly more efficient.
-
-You can also bypass parsing binary data if you want to use a custom parser.
-
-```python
-kws = KiteFeed(parse_data=False)
-```
-
-Another use case is to forward the data to the browser and parse it client-side. It avoids the overhead of serializing and deserializing the data.
