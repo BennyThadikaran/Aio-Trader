@@ -48,7 +48,7 @@ def retry(max_retries=50, base_wait=2, max_wait=60):
                     retries += 1
                 except RuntimeError as e:
                     instance.logger.warn(str(e))
-                    await instance.close()
+                    await instance.close_session()
                     raise e
 
             instance.logger.warn("Exceeded maximum retry attempts. Exiting.")
