@@ -13,17 +13,10 @@ orders_throttler = Throttler(rate_limit=10)
 
 class Kite(AbstractBroker):
     """
-    Unofficial implementation of Zerodha Kite api
+    Unofficial implementation of Zerodha Kite API
     using aiohttp for async requests
 
-    All initialization arguments are Optional
-
-    logger if not provided will initialize a default logger.
-
-    In case of previous login, the enctoken or access_token and api_key
-    can be passed.
-
-    ValueError is raised if access_token is provided and api_key is missing
+    Implements :py:obj:`AbstractBroker`
 
     :param enctoken: Optional Web or browser token from a previous login
     :type enctoken: Optional[str]
@@ -31,6 +24,33 @@ class Kite(AbstractBroker):
     :type access_token: Optional[str]
     :param logger: Instance of logging.Logger
     :type logger: Optional[logging.Logger]
+
+    All arguments are Optional
+
+    :py:obj:`logger` if not provided will initialize a default logging.Logger instance.
+
+    :py:obj:`enctoken` or :py:obj:`access_token` if available can be reused to login.
+
+    .. code:: bash
+
+        # Successful request
+        HTTP/1.1 200 OK
+        Content-Type: application/json
+
+        {
+            "status": "success",
+            "data": {}
+        }
+
+        # Failed request
+        HTTP/1.1 500 Server error
+        Content-Type: application/json
+
+        {
+            "status": "error",
+            "message": "Error message",
+            "error_type": "GeneralException"
+        }
     """
 
     # Exchanges
@@ -150,40 +170,39 @@ class Kite(AbstractBroker):
         """
         Authorize the User
 
-        :param user_id: Kite Web user id
+        :param user_id: Kite Web user-id
         :type user_id: Optional[str]
         :param password: Kite Web password
         :type password: Optional[str]
         :param twofa: An optional OTP string or Callable that returns OTP
-        :type twofa: Union[str, Callable, None]
+        :type twofa: str | Callable | None
         :param request_token: KiteConnect request_token
         :type request_token: Optional[str]
         :param api_key: KiteConnect api key. Required if access_token is passed
         :type api_key: Optional[str]
         :param secret: KiteConnect secret
         :type secret: Optional[str]
+        :raises ValueError: if one of `request_token` or `secret` or `api_key` is provided but others are missing.
 
-        WEB login - requires user_id, password and twofa or enctoken
-
-            - enctoken from web login is stored in a cookie file and reused
-
-        KiteConnect/API login - requires request_token, secret or access_token.
-
-            - api_key is required for Api login.
-            - ValueError is raised if api_key is missing
+        - WEB login - requires :py:obj:`user_id`, :py:obj:`password` and :py:obj:`twofa`
+        - KiteConnect login - requires :py:obj:`request_token`, :py:obj:`secret` or :py:obj:`access_token`.
+        - :py:obj:`enctoken` from web login is stored in a cookie file and reused.
 
         If no arguments passed, defaults to web login using interactive prompt
 
-        if enctoken or access_token is provided, update the headers and return
+        If :py:obj:`enctoken` or :py:obj:`access_token` was provided, update the headers and return
 
-        if request_token and secret are provided, proceed to API login
+        If :py:obj:`request_token` and :py:obj:`secret` are provided, proceed to KiteConnect login
 
-        Check if cookie file exists and load the enctoken, update the headers
+        Else proceed with WEB login.
+
+        Check if cookie file exists and not expired. Load the `enctoken`, update the headers
         and return
 
-        Else proceed with WEB login. Prompt for missing arguments, request the
-        enctoken, update the headers and return
+        If no cookie file exists or has expired, prompt for missing arguments, request the
+        `enctoken`, update the headers and return.
         """
+
         request_token = kwargs.get("request_token", None)
         secret = kwargs.get("secret", None)
         user_id = kwargs.get("user_id", None)
@@ -298,7 +317,27 @@ class Kite(AbstractBroker):
         self.log.info(f"Web Login success: {login_time}")
 
     async def instruments(self, exchange: Optional[str] = None) -> bytes:
-        """return a CSV dump of all tradable instruments"""
+        """
+        Return a CSV dump of all tradable instruments in binary format
+
+        Example:
+
+        .. code:: python
+
+            with Kite() as kite:
+                data = await kite.instruments(kite.EXCHANGE_NSE)
+
+            with open('instruments.csv', 'wb') as f:
+                f.write(data)
+
+        .. code:: python
+
+            import pandas as pd
+            import io
+
+            # Load data into pandas Dataframe
+            df = pd.read_csv(io.BytesIO(data), index_col='tradingsymbol')
+        """
 
         endpoint = "instruments"
 
@@ -307,8 +346,21 @@ class Kite(AbstractBroker):
 
         return await self.req.get(f"{self.base_url}/{endpoint}")
 
-    async def quote(self, instruments: Union[str, Collection[str]]):
-        """Return the full market quotes - ohlc, OI, bid/ask etc"""
+    async def quote(self, instruments: Union[str, Collection[str]]) -> dict:
+        """Return the full market quotes - ohlc, OI, bid/ask etc
+
+        instrument identified by `exchange:tradingsymbol` example. NSE:INFY
+
+        :param instruments: A str or collection of instruments
+        :raises ValueError: If length of instruments collection exceeds 500
+
+        Example:
+
+        .. code:: python
+
+            await kite.quote('NSE:INFY')
+            await kite.quote(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
+        """
 
         if not isinstance(instruments, str) and len(instruments) > 500:
             raise ValueError("Instruments length cannot exceed 500")
@@ -319,8 +371,21 @@ class Kite(AbstractBroker):
             throttle=quote_throttler,
         )
 
-    async def ohlc(self, instruments: Union[str, Collection[str]]):
-        """Returns ohlc and last traded price"""
+    async def ohlc(self, instruments: Union[str, Collection[str]]) -> dict:
+        """Returns ohlc and last traded price
+
+        instrument identified by `exchange:tradingsymbol` example. NSE:INFY
+
+        :param instruments: A str or collection of instruments
+        :raises ValueError: If length of instruments collection exceeds 1000
+
+        Example:
+
+        .. code:: python
+
+            await kite.ohlc('NSE:INFY')
+            await kite.ohlc(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
+        """
 
         if not isinstance(instruments, str) and len(instruments) > 1000:
             raise ValueError("Instruments length cannot exceed 1000")
@@ -331,8 +396,21 @@ class Kite(AbstractBroker):
             throttle=quote_throttler,
         )
 
-    async def ltp(self, instruments: Union[str, Collection[str]]):
-        """Returns the last traded price"""
+    async def ltp(self, instruments: Union[str, Collection[str]]) -> dict:
+        """Returns the last traded price
+
+        instrument identified by `exchange:tradingsymbol` example. NSE:INFY
+
+        :param instruments: A str or collection of instruments
+        :raises ValueError: If length of instruments collection exceeds 1000
+
+        Example:
+
+        .. code:: python
+
+            await kite.ltp('NSE:INFY')
+            await kite.ltp(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
+        """
 
         if not isinstance(instruments, str) and len(instruments) > 1000:
             raise ValueError("Instruments length cannot exceed 1000")
@@ -343,24 +421,28 @@ class Kite(AbstractBroker):
             throttle=quote_throttler,
         )
 
-    async def holdings(self):
+    async def holdings(self) -> dict:
         """Return the list of long term equity holdings"""
 
         return await self.req.get(f"{self.base_url}/portfolio/holdings")
 
-    async def positions(self):
+    async def positions(self) -> dict:
         """Retrieve the list of short term positions"""
 
         return await self.req.get(f"{self.base_url}/portfolio/positions")
 
-    async def auctions(self):
+    async def auctions(self) -> dict:
         """Retrieve the list of auctions that are currently being held"""
 
         return await self.req.get(f"{self.base_url}/portfolio/auctions")
 
-    async def margins(self, segment: Optional[str] = None):
+    async def margins(self, segment: Optional[str] = None) -> dict:
         """Returns funds, cash, and margin information for the user
-        for equity and commodity segments"""
+        for equity and commodity segments
+
+        :param segment: One of `equity` or `commodity`
+        :type segment: Optional[str]
+        """
 
         url = f"{self.base_url}/user/margins"
 
@@ -369,7 +451,7 @@ class Kite(AbstractBroker):
 
         return await self.req.get(url)
 
-    async def profile(self):
+    async def profile(self) -> dict:
         """Retrieve the user profile"""
 
         return await self.req.get(f"{self.base_url}/user/profile")
@@ -382,8 +464,22 @@ class Kite(AbstractBroker):
         interval: str,
         continuous=False,
         oi=False,
-    ):
-        """return historical candle records for a given instrument."""
+    ) -> dict:
+        """Return historical candle records for a given instrument.
+
+        :param instrument_token:
+        :type instrument_token: str
+        :param from_dt: ISO format datetime string or datetime
+        :type from_dt: datetime.datetime | str
+        :param to_dt: ISO format datetime string or datetime
+        :type to_dt: datetime.datetime | str
+        :param interval: minute, day, 3minute, 5minute, 10minute, 15minute, 30minute, 60minute
+        :type interval: str
+        :param continuous: Pass True to get continuous data (F & O)
+        :type continuous: bool
+        :param oi: Pass True to get OI data (F & O)
+        :type oi: bool
+        """
 
         endpoint = f"instruments/historical/{instrument_token}/{interval}"
 
@@ -424,8 +520,44 @@ class Kite(AbstractBroker):
         iceberg_quantity: Optional[int] = None,
         auction_number: Optional[str] = None,
         tag: Optional[str] = None,
-    ):
-        """Place an order of a particular variety"""
+    ) -> dict:
+        """Place an order of a particular variety
+
+        :param variety: One of `regular`, `co`, `amo`, `iceberg`, `auction`
+        :type variety: str
+        :param exchange: One of `NSE`, `BSE`, `NFO`, `CDS`, `BFO`, `MCX`, `BCD`
+        :type exchange: str,
+        :param tradingsymbol: Stock symbol name
+        :type tradingsymbol: str
+        :param transaction_type: One of `BUY` or `SELL`
+        :type transaction_type: str
+        :param quantity: Quantity to transact
+        :type quantity: int
+        :param product: One of `MIS`, `CNC`, `NRML`, `CO`
+        :type product: str
+        :param order_type: One of `MARKET`, `LIMIT`, `SL-M`, `SL`
+        :type order: str
+        :param price: The price to execute the order at (for LIMIT orders)
+        :type price: Optional[float] = None,
+        :param validity: One of `DAY`, `IOC`, `TTL`
+        :type validity: Optional[str] = None
+        :param validity_ttl: Order life span in minutes for TTL validity orders
+        :type validity_ttl: Optional[int] = None,
+        :param disclosed_quantity: Disclosed quantity (for equity trades)
+        :type disclosed_quantity: Optional[int] = None
+        :param trigger_price: Price at which an order should trigger (SL, SL-M)
+        :type trigger_price: Optional[float] = None
+        :param iceberg_legs: Total number of legs for iceberg order type (Between 2 and 10)
+        :type iceberg_legs: Optional[int] = None
+        :param iceberg_quantity: Split quantity for each iceberg leg order (qty/iceberg_legs)
+        :type iceberg_quantity: Optional[int] = None
+        :param auction_number: A unique identifier for a particular auction
+        :type auction_number: Optional[str] = None
+        :param tag: An optional tag to identify an order (alphanumeric, max 20 chars)
+        :type tag: Optional[str] = None
+
+        **Parameters are not validated**
+        """
 
         params = {k: v for k, v in locals().items() if v is not None}
 
@@ -447,8 +579,26 @@ class Kite(AbstractBroker):
         trigger_price: Optional[float] = None,
         validity: Optional[str] = None,
         disclosed_quantity: Optional[int] = None,
-    ):
-        """Modify an open order."""
+    ) -> dict:
+        """Modify an open order.
+
+        :param variety: One of `regular`, `co`, `amo`, `iceberg`, `auction`
+        :type variety: str
+        :param order_id:
+        :type order_id: str
+        :param quantity:
+        :type quantity: Optional[int] = None
+        :param price:
+        :type price: Optional[float] = None
+        :param order_type:
+        :type order_type: Optional[str] = None
+        :param trigger_price:
+        :type trigger_price: Optional[float] = None
+        :param validity:
+        :type validity: Optional[str] = None
+        :param disclosed_quantity:
+        :type disclosed_quantity: Optional[int] = None
+        """
 
         params = {k: v for k, v in locals().items() if v}
 
@@ -460,37 +610,51 @@ class Kite(AbstractBroker):
             throttle=orders_throttler,
         )
 
-    async def cancel_order(self, variety: str, order_id: str):
-        """Cancel an order."""
+    async def cancel_order(self, variety: str, order_id: str) -> dict:
+        """Cancel an order.
+
+        :param variety: One of `regular`, `co`, `amo`, `iceberg`, `auction`
+        :type variety: str
+        :param order_id:
+        :type order_id: str
+        """
 
         return await self.req.delete(
             f"{self.base_url}/orders/{variety}/{order_id}",
             throttle=orders_throttler,
         )
 
-    async def orders(self):
+    async def orders(self) -> dict:
         """Get list of all orders for the day"""
 
         return await self.req.get(
             f"{self.base_url}/orders", throttle=orders_throttler
         )
 
-    async def order_history(self, order_id: str):
-        """Get history of individual orders"""
+    async def order_history(self, order_id: str) -> dict:
+        """Get history of individual orders
+
+        :param order_id:
+        :type order_id: str
+        """
 
         return await self.req.get(
             f"{self.base_url}/orders/{order_id}", throttle=orders_throttler
         )
 
-    async def trades(self):
+    async def trades(self) -> dict:
         """Get the list of all executed trades for the day"""
 
         return await self.req.get(
             f"{self.base_url}/trades", throttle=orders_throttler
         )
 
-    async def order_trades(self, order_id: str):
-        """Get the the trades generated by an order"""
+    async def order_trades(self, order_id: str) -> dict:
+        """Get the the trades generated by an order
+
+        :param order_id:
+        :type order_id: str
+        """
 
         return await self.req.get(
             f"{self.base_url}/orders/{order_id}/trades",
