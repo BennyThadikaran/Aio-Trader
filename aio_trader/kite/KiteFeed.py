@@ -9,22 +9,25 @@ class KiteFeed(AbstractFeeder):
     """
     Websocket class for Zerodha Kite
 
-    Implements the AbstractFeeder base class
+    Implements the :py:obj:`AbstractFeeder` base class
 
-    :param api_key: KiteConnect api_key. Default is "kitefront" for Web login.
+    :param api_key: KiteConnect `api_key`. Default is "kitefront" for Web login.
     :type api_key: str
-    :param user_id: Optional user_id for Kite Web login.
+    :param user_id: Optional `user_id` for Kite Web login.
     :type user_id: Optional[str]
-    :param enctoken: Optional enctoken for Kite Web login.
+    :param enctoken: Optional `enctoken` for Kite Web login.
     :type enctoken: Optional[str]
-    :param access_token: Optional KiteConnect access_token.
+    :param access_token: Optional KiteConnect `access_token`.
     :type access_token: Optional[str]
-    :param parse_data: Flag indicating whether to parse Websocket data. Default True.
+    :param parse_data: If true, `on_tick` handler receives raw binary/text data. Default True.
     :type parse_data: bool
-    :param session: Optional aiohttp.ClientSession for making HTTP requests.
+    :param session: Client Session for making HTTP requests.
     :type session: Optional[aiohttp.ClientSession].
-    :param logger: Optional logger instance for logging.
+    :param logger: logger instance for logging.
     :type logger: Optional[logging.Logger]
+    :raises ValueError: If `enctoken` or `access_token` is not provided
+    :raises ValueError: If `enctoken` is provided, but `user_id` is missing
+    :raises ValueError: If `access_token` is provided, but `api_key` is the default value
     """
 
     WSS_URL = "wss://ws.zerodha.com"
@@ -105,7 +108,7 @@ class KiteFeed(AbstractFeeder):
         return False
 
     async def close(self):
-        """Perform clean up operations"""
+        """Perform clean up operations to gracefully exit"""
 
         if hasattr(self, "ws"):
             if not self.ws.closed:
@@ -130,11 +133,15 @@ class KiteFeed(AbstractFeeder):
         await self.close()
 
     @retry(max_retries=50, base_wait=2, max_wait=60)
-    async def connect(self, **kwargs):
+    async def connect(self, **kwargs) -> None:
         """Connect and start the Websocket connection
 
-        :param **kwargs: Any additional keyword arguments to pass to
-            aiohttp.ClientSession.ws_connect
+        Use the retry decorator
+        @retry(max_retries=50, base_wait=2, max_wait=60)
+
+
+        :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
+        :type: kwargs: Any
         """
 
         self.ws = await self.session.ws_connect(
@@ -173,7 +180,15 @@ class KiteFeed(AbstractFeeder):
         self,
         symbols: Union[List[int], Tuple[int]],
         mode: str = "quote",
-    ):
+    ) -> None:
+        """
+        Subscribe to live market feeds
+
+        :param symbols: A collection of instrument tokens
+        :type symbols: List[int] | Tuple[int]
+        :param mode: Default `quote`. One of `quote`, `ltp`, `full`
+        :type mode: str
+        """
         try:
             await self.ws.send_str(
                 json.dumps(dict(a="mode", v=[mode, symbols]))
@@ -186,7 +201,13 @@ class KiteFeed(AbstractFeeder):
         except Exception as e:
             await self._close(code=0, reason=f"Error while setting mode: {e}")
 
-    async def unsubscribe_symbols(self, symbols: List[int]):
+    async def unsubscribe_symbols(self, symbols: List[int]) -> None:
+        """
+        Unsubscribe from live market feed
+
+        :param symbols: A collection of instrument tokens
+        :type symbols: List[int] | Tuple[int]
+        """
         try:
             await self.ws.send_str(json.dumps(dict(a="unsubscribe", v=symbols)))
 
