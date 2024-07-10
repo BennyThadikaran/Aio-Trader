@@ -116,6 +116,8 @@ class Kite(AbstractBroker):
     GTT_STATUS_REJECTED = "rejected"
     GTT_STATUS_DELETED = "deleted"
 
+    _type = "KITE_CONNECT"
+
     base_dir = Path(__file__).parent
     base_url = "https://api.kite.trade"
     cookies = None
@@ -160,6 +162,7 @@ class Kite(AbstractBroker):
 
     def _set_enctoken(self, token):
         self.req.session.headers.update({"Authorization": f"enctoken {token}"})
+        self._type = "KITE_WEB"
 
     def _set_access_token(self, api_key, token):
         return self.req.session.headers.update(
@@ -341,6 +344,9 @@ class Kite(AbstractBroker):
 
         endpoint = "instruments"
 
+        if self._type == "KITE_WEB" and exchange:
+            raise ValueError("Exchange parameter cannot be used with Kite Web")
+
         if exchange:
             endpoint = f"{endpoint}/{exchange}"
 
@@ -481,6 +487,8 @@ class Kite(AbstractBroker):
         :type oi: bool
         """
 
+        kite_web_url = "https://kite.zerodha.com/oms"
+
         endpoint = f"instruments/historical/{instrument_token}/{interval}"
 
         if isinstance(from_dt, datetime):
@@ -496,8 +504,13 @@ class Kite(AbstractBroker):
             "oi": int(oi),
         }
 
+        if self._type == "KITE_WEB":
+            url = kite_web_url
+        else:
+            url = self.base_url
+
         return await self.req.get(
-            f"{self.base_url}/{endpoint}",
+            f"{url}/{endpoint}",
             params=params,
             throttle=hist_throttler,
         )
