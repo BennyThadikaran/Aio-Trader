@@ -1,20 +1,29 @@
-from pathlib import Path
-from typing import Optional, Union, Collection
-from throttler import Throttler
+import hashlib
+import pickle
 from datetime import datetime
-import pickle, logging, hashlib
+from pathlib import Path
+from typing import Collection, Optional, Union
+
+from throttler import Throttler
+
 from ..AbstractBroker import AbstractBroker
 from ..utils import configure_default_logger
 
-quote_throttler = Throttler(rate_limit=1)
-hist_throttler = Throttler(rate_limit=3)
-orders_throttler = Throttler(rate_limit=10)
+default_throttlers = [Throttler(rate_limit=10)]
+
+quote_throttlers = [Throttler(rate_limit=1)]
+
+order_throttlers = [
+    Throttler(rate_limit=10),
+    Throttler(rate_limit=200, period=60),
+]
+
+data_throttlers = [Throttler(rate_limit=3)]
 
 
 class Kite(AbstractBroker):
     """
-    Unofficial implementation of Zerodha Kite API
-    using aiohttp for async requests
+    Unofficial implementation of Zerodha Kite API using aiohttp for async requests
 
     Implements :py:obj:`AbstractBroker`
 
@@ -22,12 +31,8 @@ class Kite(AbstractBroker):
     :type enctoken: Optional[str]
     :param access_token: Api login token from a previous login
     :type access_token: Optional[str]
-    :param logger: Instance of logging.Logger
-    :type logger: Optional[logging.Logger]
 
     All arguments are Optional
-
-    :py:obj:`logger` if not provided will initialize a default logging.Logger instance.
 
     :py:obj:`enctoken` or :py:obj:`access_token` if available can be reused to login.
 
@@ -126,18 +131,17 @@ class Kite(AbstractBroker):
         self,
         enctoken: Optional[str] = None,
         access_token: Optional[str] = None,
-        logger: Optional[logging.Logger] = None,
     ):
 
         self.cookie_path = self.base_dir / "kite_cookies"
         self.enctoken = enctoken
         self.access_token = access_token
 
-        self.log = logger if logger else configure_default_logger()
+        self.log = configure_default_logger(__name__)
 
         self._initialise_session(
             headers={"X-Kite-version": "3"},
-            throttler=Throttler(rate_limit=10),
+            throttlers=default_throttlers,
         )
 
     def _get_cookie(self):
@@ -374,7 +378,7 @@ class Kite(AbstractBroker):
         return await self.req.get(
             f"{self.base_url}/quote",
             params={"i": instruments},
-            throttle=quote_throttler,
+            throttlers=quote_throttlers,
         )
 
     async def ohlc(self, instruments: Union[str, Collection[str]]) -> dict:
@@ -399,7 +403,7 @@ class Kite(AbstractBroker):
         return await self.req.get(
             f"{self.base_url}/quote/ohlc",
             params={"i": instruments},
-            throttle=quote_throttler,
+            throttlers=quote_throttlers,
         )
 
     async def ltp(self, instruments: Union[str, Collection[str]]) -> dict:
@@ -424,7 +428,7 @@ class Kite(AbstractBroker):
         return await self.req.get(
             f"{self.base_url}/quote/ltp",
             params={"i": instruments},
-            throttle=quote_throttler,
+            throttlers=quote_throttlers,
         )
 
     async def holdings(self) -> dict:
@@ -512,7 +516,7 @@ class Kite(AbstractBroker):
         return await self.req.get(
             f"{url}/{endpoint}",
             params=params,
-            throttle=hist_throttler,
+            throttlers=data_throttlers,
         )
 
     async def place_order(
@@ -579,7 +583,7 @@ class Kite(AbstractBroker):
         return await self.req.post(
             f"{self.base_url}/orders/{variety}",
             data=params,
-            throttle=orders_throttler,
+            throttlers=order_throttlers,
         )
 
     async def modify_order(
@@ -620,7 +624,7 @@ class Kite(AbstractBroker):
         return await self.req.put(
             f"{self.base_url}/orders/{variety}/{order_id}",
             data=params,
-            throttle=orders_throttler,
+            throttlers=order_throttlers,
         )
 
     async def cancel_order(self, variety: str, order_id: str) -> dict:
@@ -634,14 +638,14 @@ class Kite(AbstractBroker):
 
         return await self.req.delete(
             f"{self.base_url}/orders/{variety}/{order_id}",
-            throttle=orders_throttler,
+            throttlers=order_throttlers,
         )
 
     async def orders(self) -> dict:
         """Get list of all orders for the day"""
 
         return await self.req.get(
-            f"{self.base_url}/orders", throttle=orders_throttler
+            f"{self.base_url}/orders", throttlers=order_throttlers
         )
 
     async def order_history(self, order_id: str) -> dict:
@@ -652,14 +656,14 @@ class Kite(AbstractBroker):
         """
 
         return await self.req.get(
-            f"{self.base_url}/orders/{order_id}", throttle=orders_throttler
+            f"{self.base_url}/orders/{order_id}", throttlers=order_throttlers
         )
 
     async def trades(self) -> dict:
         """Get the list of all executed trades for the day"""
 
         return await self.req.get(
-            f"{self.base_url}/trades", throttle=orders_throttler
+            f"{self.base_url}/trades", throttlers=order_throttlers
         )
 
     async def order_trades(self, order_id: str) -> dict:
@@ -671,5 +675,5 @@ class Kite(AbstractBroker):
 
         return await self.req.get(
             f"{self.base_url}/orders/{order_id}/trades",
-            throttle=orders_throttler,
+            throttlers=order_throttlers,
         )
