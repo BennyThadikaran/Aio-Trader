@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aio_trader"
-version = "0.0.5"
+version = "0.1.0"
 author = "Benny Thadikaran"
 description = "Async Python library for various Indian stock brokers."
 readme = "README.md"
