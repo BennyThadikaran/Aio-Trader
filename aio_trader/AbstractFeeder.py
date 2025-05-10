@@ -1,10 +1,12 @@
-import asyncio, aiohttp
+import asyncio
 from abc import ABC, abstractmethod
-from typing import Callable, List, Optional, Union, Dict
 from functools import wraps
+from typing import Callable, Optional
+
+import aiohttp
 
 
-def retry(max_retries=50, base_wait=2, max_wait=60):
+def retry(max_retries=5, base_wait=2, max_wait=60):
     """
     Decorator that retries a function or method with exponential backoff
     in case of exceptions.
@@ -37,17 +39,13 @@ def retry(max_retries=50, base_wait=2, max_wait=60):
             while retries < max_retries:
                 try:
                     return await method(instance, *args, **kwargs)
-                except Exception as e:
-                    if (
-                        isinstance(e, aiohttp.WSServerHandshakeError)
-                        and getattr(e, "status") == 403
-                    ):
-                        await instance.close()
-                        return instance.log.warn(
-                            f"Session expired or invalid. Must relogin"
-                        )
-
-                    instance.log.warn(f"Operation failed: {e}")
+                except aiohttp.ClientResponseError as e:
+                    await instance.close()
+                    return instance.log.warning(
+                        f"Client Response Error: {e.code} {e.message}"
+                    )
+                except aiohttp.ClientConnectionError as e:
+                    instance.log.warning(f"Connection Error: {e}")
 
                     # Calculate the wait time using exponential backoff
                     wait = min(base_wait * (2**retries), max_wait)
@@ -56,7 +54,11 @@ def retry(max_retries=50, base_wait=2, max_wait=60):
                     await asyncio.sleep(wait)
 
                     retries += 1
+                except Exception as e:
+                    await instance.close()
+                    return instance.log.exception("An error occurred: %s", e)
 
+            await instance.close()
             instance.log.warn("Exceeded maximum retry attempts. Exiting.")
 
         return wrapper
@@ -69,8 +71,8 @@ class AbstractFeeder(ABC):
     Base class for all Market Feeds
     """
 
+    on_tick: Callable
     on_connect: Optional[Callable] = None
-    on_tick: Optional[Callable] = None
     on_order_update: Optional[Callable] = None
     on_message: Optional[Callable] = None
     on_error: Optional[Callable] = None
@@ -80,13 +82,24 @@ class AbstractFeeder(ABC):
     connected = False
 
     def __init__(self) -> None:
-        self.ping_interval = 2.5
+        self.ping_interval = 10
+
+    async def __aenter__(self):
+        """On entering async context manager"""
+        return self
+
+    async def __aexit__(self, *_):
+        """On exiting async context manager"""
+        await self.close()
+        return False
 
     @abstractmethod
     async def connect(self):
+        """Connect to websocket and handle incoming messages"""
         pass
 
     def _initialise_session(self):
+        """Start a aiohttp.ClientSession"""
         tcp_connector = aiohttp.TCPConnector(
             ttl_dns_cache=375 * 60,
             resolver=aiohttp.resolver.AsyncResolver(),
@@ -99,16 +112,5 @@ class AbstractFeeder(ABC):
 
     @abstractmethod
     async def close(self):
-        pass
-
-    @abstractmethod
-    def _parse_binary(self, bin) -> Union[List[Dict], Dict]:
-        pass
-
-    @abstractmethod
-    async def subscribe_symbols(self, symbols: List[int], mode: str):
-        pass
-
-    @abstractmethod
-    async def unsubscribe_symbols(self, symbols):
+        """Close the websocket connection and allow for graceful shutdown"""
         pass

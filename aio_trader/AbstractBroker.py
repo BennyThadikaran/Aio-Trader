@@ -1,7 +1,12 @@
+import logging
+import pathlib
 from abc import ABC, abstractmethod
-from aio_trader.AsyncRequest import AsyncRequest
+from typing import List
+
+import aiohttp
 from throttler import Throttler
-import pathlib, aiohttp, logging
+
+from aio_trader.AsyncRequest import AsyncRequest
 
 
 class AbstractBroker(ABC):
@@ -12,9 +17,11 @@ class AbstractBroker(ABC):
     log: logging.Logger
 
     async def __aenter__(self):
+        """On entering async context manager"""
         return self
 
     async def __aexit__(self, *_):
+        """On exiting async context manager"""
         await self.close()
 
         return False
@@ -30,7 +37,7 @@ class AbstractBroker(ABC):
         if self.session and not self.session.closed:
             await self.session.close()
 
-    def _initialise_session(self, headers: dict, throttler: Throttler):
+    def _initialise_session(self, headers: dict, throttlers: List[Throttler]):
         """Start a aiohttp.ClientSession and assign a default throttler"""
 
         tcp_connector = aiohttp.TCPConnector(
@@ -38,12 +45,12 @@ class AbstractBroker(ABC):
         )
 
         self.req = AsyncRequest(
-            logger=self.log,
-            throttle=throttler,
+            throttlers=throttlers,
             cookie_path=self.cookie_path,
             headers=headers,
             skip_auto_headers=("User-Agent"),
             connector=tcp_connector,
+            timeout=aiohttp.ClientTimeout(total=60),
         )
 
         self.req.start_session()
