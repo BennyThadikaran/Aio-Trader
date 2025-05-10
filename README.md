@@ -1,18 +1,28 @@
 # Aio-Trader
 
-An Async library for accessing Indian stockbroker API and real-time market feeds. 
+An Async library for accessing Indian stockbroker API and real-time market feeds.
 
-Currently supports only Zerodha Kite (KiteConnect and Kite Web)
+Supported brokers:
+
+- Zerodha Kite (KiteConnect and Kite Web),
+- DhanHQ (API, Real-Time market & Order feeds),
+- Fyers (API, Real-Time market & Order feeds)
+
+This library uses [aiohttp](https://docs.aiohttp.org/en/stable/index.html) for both HTTP requests and websockets.
+
+Having the same dependencies across all brokers, ensures the same basic setup and predictable error handling. The library allows flexible application design whether running in the main event loop or multithreaded.
+
+While the basic setup is the same for all brokers, the API methods and their signatures, mimic the official implementation.
+
+In the future, it might be possible to add an Adapter class to smooth out differences between the brokers.
 
 This Library is currently in Alpha. Expect breaking changes. Once testing is complete, I will release a pip package, and begin work on adding other brokers.
 
 **Supports python 3.8+**
 
-If you ❤️  my work so far, please 🌟 this repo.
+If you ❤️ my work so far, please 🌟 this repo.
 
 ## Documentation
-
-Docs are complete and covers all aspects. 👍
 
 https://bennythadikaran.github.io/Aio-Trader
 
@@ -66,14 +76,3 @@ else:
 ```
 
 This setup works well with `aio_dns` no need to set an event loop policy on Windows.
-
-## Differences between Aio-Trader and pykiteconnect (KiteConnect Official library)
-
-| aio-trader | pykiteconnect |
-|---|---|
-| Uses aiohttp | Uses Twisted, an event-driven framework |
-| Supports Python version 3.8+ | Supports Python version 2 & 3 |
-
-Aio-Trader has fewer dependencies owing to its Python support.
-
-KiteFeed uses the [python struct module](https://docs.python.org/3/library/struct.html) to parse binary data. It tries to unpack all values in a single function call, which is slightly more efficient.
