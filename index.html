@@ -3,11 +3,11 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Kite Usage" href="kite_usage.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Usage" href="usage.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>Aio-Trader 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.04.27 -->
+        <title>Aio-Trader 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Aio-Trader 0.0.5 documentation</div></a>
+      <a href="#"><div class="brand">Aio-Trader 0.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -148,7 +148,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">Aio-Trader 0.0.5 documentation</span>
+  <span class="sidebar-brand-text">Aio-Trader 0.1.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -157,12 +157,19 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="kite_usage.html">Kite Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Complete Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Package Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kite_reference.html">KITE API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kitefeed_reference.html">KiteFeed API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fyers.html">Fyers Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -203,23 +210,22 @@
 <p>Python version: &gt;= 3.8</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="kite_usage.html">Kite Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kite_usage.html#kite-kite">kite.Kite</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#with-async-context-manager">With async context manager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#without-context-manager">Without context manager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#kite-login-and-authorization">Kite Login and authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#with-async-context-manager">With async context manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#without-context-manager">Without context manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#event-handlers">Event handlers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#get-raw-binary-data">Get Raw Binary data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#session-sharing">Session Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#logging">Logging</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="kite_usage.html#kite-kitefeed">kite.KiteFeed</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#id1">With async context manager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#id2">Without context manager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#event-handlers">Event handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_usage.html#get-raw-binary-data">Get Raw Binary data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authorization.html#kite-login-and-authorization">Kite login and authorization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authorization.html#authorization-flow">Authorization Flow</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="kite_usage.html#authorization-flow">Authorization Flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kite_usage.html#session-sharing">Session Sharing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kite_usage.html#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authorization.html#dhan-login-and-authorization">Dhan login and authorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authorization.html#fyers-login-and-authorization">Fyers login and authorization</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Complete Examples</a><ul>
@@ -227,57 +233,200 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html#downloading-historical-data">Downloading historical data</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Package Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="implementation.html#kite-py">Kite.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation.html#kitefeed-py">KiteFeed.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementation.html#utils-py">Utils.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kite.html#aio_trader.kite.Kite"><code class="docutils literal notranslate"><span class="pre">Kite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.auctions"><code class="docutils literal notranslate"><span class="pre">Kite.auctions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.authorize"><code class="docutils literal notranslate"><span class="pre">Kite.authorize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.cancel_order"><code class="docutils literal notranslate"><span class="pre">Kite.cancel_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.historical_data"><code class="docutils literal notranslate"><span class="pre">Kite.historical_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.holdings"><code class="docutils literal notranslate"><span class="pre">Kite.holdings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.instruments"><code class="docutils literal notranslate"><span class="pre">Kite.instruments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.ltp"><code class="docutils literal notranslate"><span class="pre">Kite.ltp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.margins"><code class="docutils literal notranslate"><span class="pre">Kite.margins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.modify_order"><code class="docutils literal notranslate"><span class="pre">Kite.modify_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.ohlc"><code class="docutils literal notranslate"><span class="pre">Kite.ohlc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.order_history"><code class="docutils literal notranslate"><span class="pre">Kite.order_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.order_trades"><code class="docutils literal notranslate"><span class="pre">Kite.order_trades()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.orders"><code class="docutils literal notranslate"><span class="pre">Kite.orders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.place_order"><code class="docutils literal notranslate"><span class="pre">Kite.place_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.positions"><code class="docutils literal notranslate"><span class="pre">Kite.positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.profile"><code class="docutils literal notranslate"><span class="pre">Kite.profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.quote"><code class="docutils literal notranslate"><span class="pre">Kite.quote()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.Kite.trades"><code class="docutils literal notranslate"><span class="pre">Kite.trades()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="kite_reference.html">KITE API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite"><code class="docutils literal notranslate"><span class="pre">Kite</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.authorize"><code class="docutils literal notranslate"><span class="pre">Kite.authorize()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.instruments"><code class="docutils literal notranslate"><span class="pre">Kite.instruments()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.quote"><code class="docutils literal notranslate"><span class="pre">Kite.quote()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.ohlc"><code class="docutils literal notranslate"><span class="pre">Kite.ohlc()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.ltp"><code class="docutils literal notranslate"><span class="pre">Kite.ltp()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.holdings"><code class="docutils literal notranslate"><span class="pre">Kite.holdings()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.positions"><code class="docutils literal notranslate"><span class="pre">Kite.positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.auctions"><code class="docutils literal notranslate"><span class="pre">Kite.auctions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.margins"><code class="docutils literal notranslate"><span class="pre">Kite.margins()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.profile"><code class="docutils literal notranslate"><span class="pre">Kite.profile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.historical_data"><code class="docutils literal notranslate"><span class="pre">Kite.historical_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.place_order"><code class="docutils literal notranslate"><span class="pre">Kite.place_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.modify_order"><code class="docutils literal notranslate"><span class="pre">Kite.modify_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.cancel_order"><code class="docutils literal notranslate"><span class="pre">Kite.cancel_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.orders"><code class="docutils literal notranslate"><span class="pre">Kite.orders()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.order_history"><code class="docutils literal notranslate"><span class="pre">Kite.order_history()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.trades"><code class="docutils literal notranslate"><span class="pre">Kite.trades()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="kite_reference.html#aio_trader.kite.Kite.order_trades"><code class="docutils literal notranslate"><span class="pre">Kite.order_trades()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="kitefeed_reference.html">KiteFeed API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kitefeed_reference.html#retry-decorator">Retry Decorator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kitefeed_reference.html#aio_trader.AbstractFeeder.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="kitefeed_reference.html#kitefeed-api">KiteFeed API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="kitefeed_reference.html#aio_trader.kite.KiteFeed"><code class="docutils literal notranslate"><span class="pre">KiteFeed</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="kitefeed_reference.html#aio_trader.kite.KiteFeed.close"><code class="docutils literal notranslate"><span class="pre">KiteFeed.close()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="kitefeed_reference.html#aio_trader.kite.KiteFeed.connect"><code class="docutils literal notranslate"><span class="pre">KiteFeed.connect()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="kitefeed_reference.html#aio_trader.kite.KiteFeed.subscribe_symbols"><code class="docutils literal notranslate"><span class="pre">KiteFeed.subscribe_symbols()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="kitefeed_reference.html#aio_trader.kite.KiteFeed.unsubscribe_symbols"><code class="docutils literal notranslate"><span class="pre">KiteFeed.unsubscribe_symbols()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed"><code class="docutils literal notranslate"><span class="pre">KiteFeed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed.close"><code class="docutils literal notranslate"><span class="pre">KiteFeed.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed.connect"><code class="docutils literal notranslate"><span class="pre">KiteFeed.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed.set_mode"><code class="docutils literal notranslate"><span class="pre">KiteFeed.set_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed.subscribe"><code class="docutils literal notranslate"><span class="pre">KiteFeed.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed.unsubscribe"><code class="docutils literal notranslate"><span class="pre">KiteFeed.unsubscribe()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="fyers.html">Fyers Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers"><code class="docutils literal notranslate"><span class="pre">Fyers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.authorize"><code class="docutils literal notranslate"><span class="pre">Fyers.authorize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.cancel_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_basket_orders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.cancel_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_gtt_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.cancel_order"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.convert_position"><code class="docutils literal notranslate"><span class="pre">Fyers.convert_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.depth"><code class="docutils literal notranslate"><span class="pre">Fyers.depth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.exit_positions"><code class="docutils literal notranslate"><span class="pre">Fyers.exit_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.funds"><code class="docutils literal notranslate"><span class="pre">Fyers.funds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.get_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.get_orders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.get_profile"><code class="docutils literal notranslate"><span class="pre">Fyers.get_profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.gtt_orderbook"><code class="docutils literal notranslate"><span class="pre">Fyers.gtt_orderbook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.history"><code class="docutils literal notranslate"><span class="pre">Fyers.history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.holdings"><code class="docutils literal notranslate"><span class="pre">Fyers.holdings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.logout"><code class="docutils literal notranslate"><span class="pre">Fyers.logout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.market_status"><code class="docutils literal notranslate"><span class="pre">Fyers.market_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.modify_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_basket_orders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.modify_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_gtt_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.modify_order"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.optionchain"><code class="docutils literal notranslate"><span class="pre">Fyers.optionchain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.orderbook"><code class="docutils literal notranslate"><span class="pre">Fyers.orderbook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.place_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.place_basket_orders()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.place_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_gtt_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.place_multileg_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_multileg_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.place_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.positions"><code class="docutils literal notranslate"><span class="pre">Fyers.positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.quotes"><code class="docutils literal notranslate"><span class="pre">Fyers.quotes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers.tradebook"><code class="docutils literal notranslate"><span class="pre">Fyers.tradebook()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="utils_reference.html">Utils Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils_reference.html#aio_trader.utils.configure_default_logger"><code class="docutils literal notranslate"><span class="pre">configure_default_logger()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils_reference.html#aio_trader.utils.add_signal_handlers"><code class="docutils literal notranslate"><span class="pre">add_signal_handlers()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils_reference.html#aio_trader.utils.as_completed"><code class="docutils literal notranslate"><span class="pre">as_completed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersAuth"><code class="docutils literal notranslate"><span class="pre">FyersAuth</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersAuth.generate_authcode"><code class="docutils literal notranslate"><span class="pre">FyersAuth.generate_authcode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersAuth.generate_token"><code class="docutils literal notranslate"><span class="pre">FyersAuth.generate_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersAuth.refresh_token"><code class="docutils literal notranslate"><span class="pre">FyersAuth.refresh_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed"><code class="docutils literal notranslate"><span class="pre">FyersFeed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.on_tick"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_tick</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.on_connect"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_connect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.on_error"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.channel_resume"><code class="docutils literal notranslate"><span class="pre">FyersFeed.channel_resume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.close"><code class="docutils literal notranslate"><span class="pre">FyersFeed.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.connect"><code class="docutils literal notranslate"><span class="pre">FyersFeed.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.subscribe"><code class="docutils literal notranslate"><span class="pre">FyersFeed.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed.unsubscribe"><code class="docutils literal notranslate"><span class="pre">FyersFeed.unsubscribe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder"><code class="docutils literal notranslate"><span class="pre">FyersOrder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder.on_tick"><code class="docutils literal notranslate"><span class="pre">FyersOrder.on_tick</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder.close"><code class="docutils literal notranslate"><span class="pre">FyersOrder.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder.connect"><code class="docutils literal notranslate"><span class="pre">FyersOrder.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder.subscribe"><code class="docutils literal notranslate"><span class="pre">FyersOrder.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder.unsubscribe"><code class="docutils literal notranslate"><span class="pre">FyersOrder.unsubscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan"><code class="docutils literal notranslate"><span class="pre">Dhan</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.authorize"><code class="docutils literal notranslate"><span class="pre">Dhan.authorize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.cancel_forever"><code class="docutils literal notranslate"><span class="pre">Dhan.cancel_forever()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.cancel_order"><code class="docutils literal notranslate"><span class="pre">Dhan.cancel_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.convert_position"><code class="docutils literal notranslate"><span class="pre">Dhan.convert_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.convert_to_date_time"><code class="docutils literal notranslate"><span class="pre">Dhan.convert_to_date_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.edis_inquiry"><code class="docutils literal notranslate"><span class="pre">Dhan.edis_inquiry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.expiry_list"><code class="docutils literal notranslate"><span class="pre">Dhan.expiry_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.fetch_security_list"><code class="docutils literal notranslate"><span class="pre">Dhan.fetch_security_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.generate_tpin"><code class="docutils literal notranslate"><span class="pre">Dhan.generate_tpin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_forever"><code class="docutils literal notranslate"><span class="pre">Dhan.get_forever()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_fund_limits"><code class="docutils literal notranslate"><span class="pre">Dhan.get_fund_limits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_holdings"><code class="docutils literal notranslate"><span class="pre">Dhan.get_holdings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_order_by_correlationID"><code class="docutils literal notranslate"><span class="pre">Dhan.get_order_by_correlationID()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_order_by_id"><code class="docutils literal notranslate"><span class="pre">Dhan.get_order_by_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_order_list"><code class="docutils literal notranslate"><span class="pre">Dhan.get_order_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_positions"><code class="docutils literal notranslate"><span class="pre">Dhan.get_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_trade_book"><code class="docutils literal notranslate"><span class="pre">Dhan.get_trade_book()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.get_trade_history"><code class="docutils literal notranslate"><span class="pre">Dhan.get_trade_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.historical_daily_data"><code class="docutils literal notranslate"><span class="pre">Dhan.historical_daily_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.intraday_minute_data"><code class="docutils literal notranslate"><span class="pre">Dhan.intraday_minute_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.kill_switch"><code class="docutils literal notranslate"><span class="pre">Dhan.kill_switch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.ledger_report"><code class="docutils literal notranslate"><span class="pre">Dhan.ledger_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.margin_calculator"><code class="docutils literal notranslate"><span class="pre">Dhan.margin_calculator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.modify_forever"><code class="docutils literal notranslate"><span class="pre">Dhan.modify_forever()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.modify_order"><code class="docutils literal notranslate"><span class="pre">Dhan.modify_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.ohlc_data"><code class="docutils literal notranslate"><span class="pre">Dhan.ohlc_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.open_browser_for_tpin"><code class="docutils literal notranslate"><span class="pre">Dhan.open_browser_for_tpin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.option_chain"><code class="docutils literal notranslate"><span class="pre">Dhan.option_chain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.place_forever"><code class="docutils literal notranslate"><span class="pre">Dhan.place_forever()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.place_order"><code class="docutils literal notranslate"><span class="pre">Dhan.place_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.place_slice_order"><code class="docutils literal notranslate"><span class="pre">Dhan.place_slice_order()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.quote_data"><code class="docutils literal notranslate"><span class="pre">Dhan.quote_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan.ticker_data"><code class="docutils literal notranslate"><span class="pre">Dhan.ticker_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed"><code class="docutils literal notranslate"><span class="pre">DhanFeed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.on_tick"><code class="docutils literal notranslate"><span class="pre">DhanFeed.on_tick</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.on_connect"><code class="docutils literal notranslate"><span class="pre">DhanFeed.on_connect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.close"><code class="docutils literal notranslate"><span class="pre">DhanFeed.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.connect"><code class="docutils literal notranslate"><span class="pre">DhanFeed.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.subscribe"><code class="docutils literal notranslate"><span class="pre">DhanFeed.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.subscribe_symbols"><code class="docutils literal notranslate"><span class="pre">DhanFeed.subscribe_symbols()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed.unsubscribe_symbols"><code class="docutils literal notranslate"><span class="pre">DhanFeed.unsubscribe_symbols()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanOrder"><code class="docutils literal notranslate"><span class="pre">DhanOrder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanOrder.on_tick"><code class="docutils literal notranslate"><span class="pre">DhanOrder.on_tick</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanOrder.close"><code class="docutils literal notranslate"><span class="pre">DhanOrder.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanOrder.connect"><code class="docutils literal notranslate"><span class="pre">DhanOrder.connect()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest"><code class="docutils literal notranslate"><span class="pre">AsyncRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.__aenter__"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.__aenter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.__aexit__"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.__aexit__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.__init__"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.close_session"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.close_session()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.delete"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.get"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.patch"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.post"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.put"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.start_session"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.start_session()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.AsyncRequest.__weakref__"><code class="docutils literal notranslate"><span class="pre">AsyncRequest.__weakref__</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="AsyncRequest.html#aio_trader.AsyncRequest.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils_reference.html#aio_trader.utils.configure_default_logger"><code class="docutils literal notranslate"><span class="pre">configure_default_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils_reference.html#aio_trader.utils.add_signal_handlers"><code class="docutils literal notranslate"><span class="pre">add_signal_handlers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils_reference.html#aio_trader.utils.as_completed"><code class="docutils literal notranslate"><span class="pre">as_completed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker"><code class="docutils literal notranslate"><span class="pre">AbstractBroker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker.__aenter__"><code class="docutils literal notranslate"><span class="pre">AbstractBroker.__aenter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker.__aexit__"><code class="docutils literal notranslate"><span class="pre">AbstractBroker.__aexit__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker._initialise_session"><code class="docutils literal notranslate"><span class="pre">AbstractBroker._initialise_session()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker.authorize"><code class="docutils literal notranslate"><span class="pre">AbstractBroker.authorize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker.close"><code class="docutils literal notranslate"><span class="pre">AbstractBroker.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker.__weakref__"><code class="docutils literal notranslate"><span class="pre">AbstractBroker.__weakref__</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.__aenter__"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.__aenter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.__aexit__"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.__aexit__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.__init__"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder._initialise_session"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder._initialise_session()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.close"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.connect"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder.__weakref__"><code class="docutils literal notranslate"><span class="pre">AbstractFeeder.__weakref__</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.retry"><code class="docutils literal notranslate"><span class="pre">retry()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -310,12 +459,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="kite_usage.html">
+          <a class="next-page" href="usage.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Kite Usage</div>
+                <div class="title">Usage</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -363,7 +512,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=282f96c0"></script>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>

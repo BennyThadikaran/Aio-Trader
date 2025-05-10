@@ -3,11 +3,11 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Package Implementation" href="implementation.html" /><link rel="prev" title="Kite Usage" href="kite_usage.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Implementation" href="implementation.html" /><link rel="prev" title="Authorization" href="authorization.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>Complete Examples - Aio-Trader 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.04.27 -->
+        <title>Complete Examples - Aio-Trader 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Aio-Trader 0.0.5 documentation</div></a>
+      <a href="index.html"><div class="brand">Aio-Trader 0.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -148,7 +148,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Aio-Trader 0.0.5 documentation</span>
+  <span class="sidebar-brand-text">Aio-Trader 0.1.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -157,12 +157,19 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="kite_usage.html">Kite Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Complete Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Package Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kite_reference.html">KITE API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kitefeed_reference.html">KiteFeed API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fyers.html">Fyers Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -202,36 +209,36 @@
 <section id="handling-keyboard-interupt">
 <h2>Handling Keyboard Interupt<a class="headerlink" href="#handling-keyboard-interupt" title="Link to this heading">¶</a></h2>
 <p>Graceful exit on KeyboardInterupts</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.kite</span> <span class="kn">import</span> <span class="n">KiteFeed</span>
-<span class="kn">from</span> <span class="nn">aio_trader</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">asyncio</span><span class="o">,</span> <span class="nn">sys</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader.kite</span><span class="w"> </span><span class="kn">import</span> <span class="n">KiteFeed</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
 
 
 <span class="c1"># Define handlers</span>
-<span class="k">def</span> <span class="nf">on_tick</span><span class="p">(</span><span class="n">tick</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_tick</span><span class="p">(</span><span class="n">tick</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">tick</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">on_connect</span><span class="p">(</span><span class="n">kws</span><span class="p">:</span> <span class="n">KiteFeed</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_connect</span><span class="p">(</span><span class="n">kws</span><span class="p">:</span> <span class="n">KiteFeed</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;connected&quot;</span><span class="p">)</span>
 
     <span class="c1"># Subscribe to Aarti Industries</span>
     <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">kws</span><span class="o">.</span><span class="n">subscribe_symbols</span><span class="p">([</span><span class="mi">1793</span><span class="p">]))</span>
 
 
-<span class="k">def</span> <span class="nf">on_order_update</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_order_update</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
     <span class="c1"># Store order data in database or other operations</span>
     <span class="k">pass</span>
 
 
-<span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="n">kws</span><span class="p">,</span> <span class="n">kite</span><span class="p">):</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="n">kws</span><span class="p">,</span> <span class="n">kite</span><span class="p">):</span>
     <span class="c1"># perform cleanup operations here</span>
     <span class="k">await</span> <span class="n">kws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
-<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 
     <span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span>
         <span class="n">request_token</span><span class="o">=</span><span class="n">request_token</span><span class="p">,</span>
@@ -292,14 +299,14 @@
 <li><p>As the response returns, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Task</span></code> is marked completed, and the result is available for processing. It eliminates a lot of time waiting on the network.</p></li>
 </ol>
 <p>Long CPU-intensive or IO-bound tasks can block the event loop. Use <code class="xref py py-obj docutils literal notranslate"><span class="pre">loop.run_in_executor</span></code> to execute functions in separate threads or processes, without blocking the event loop.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.kite</span> <span class="kn">import</span> <span class="n">Kite</span>
-<span class="kn">from</span> <span class="nn">aio_trader</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">asyncio</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader.kite</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kite</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="o">,</span><span class="w"> </span><span class="nn">asyncio</span>
 
 
-<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
     <span class="n">DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">instruments_file</span> <span class="o">=</span> <span class="n">DIR</span> <span class="o">/</span> <span class="s2">&quot;nse_instruments.csv&quot;</span>
 
@@ -379,18 +386,18 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Package Implementation</div>
+                <div class="title">Implementation</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="kite_usage.html">
+          <a class="prev-page" href="authorization.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Kite Usage</div>
+                <div class="title">Authorization</div>
                 
               </div>
             </a>
@@ -438,7 +445,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=282f96c0"></script>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>

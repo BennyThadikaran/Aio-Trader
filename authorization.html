@@ -3,11 +3,11 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Complete Examples" href="examples.html" /><link rel="prev" title="Welcome to Aio-Trader’s documentation!" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Complete Examples" href="examples.html" /><link rel="prev" title="Usage" href="usage.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>Kite Usage - Aio-Trader 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.04.27 -->
+        <title>Authorization - Aio-Trader 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Aio-Trader 0.0.5 documentation</div></a>
+      <a href="index.html"><div class="brand">Aio-Trader 0.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -148,7 +148,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Aio-Trader 0.0.5 documentation</span>
+  <span class="sidebar-brand-text">Aio-Trader 0.1.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -157,12 +157,19 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Kite Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Authorization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Complete Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">Package Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kite_reference.html">KITE API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kitefeed_reference.html">KiteFeed API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fyers.html">Fyers Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -197,37 +204,10 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="kite-usage">
-<h1>Kite Usage<a class="headerlink" href="#kite-usage" title="Link to this heading">¶</a></h1>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Aio-Trader</span></code> contains the <code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite</span></code> package and <code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.utils</span></code> module.</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite</span></code> package comes with 2 modules - <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code>.</p>
-<p>You can import them as</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.kite</span> <span class="kn">import</span> <span class="n">Kite</span><span class="p">,</span> <span class="n">KiteFeed</span>
-<span class="kn">from</span> <span class="nn">aio_trader</span> <span class="kn">import</span> <span class="n">utils</span>
-</pre></div>
-</div>
-<section id="kite-kite">
-<h2>kite.Kite<a class="headerlink" href="#kite-kite" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> provides methods for managing orders, accessing profiles, and getting historical market data and quotes.</p>
-<section id="with-async-context-manager">
-<h3>With async context manager<a class="headerlink" href="#with-async-context-manager" title="Link to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">Kite</span><span class="p">()</span> <span class="k">as</span> <span class="n">kite</span><span class="p">:</span>
-  <span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">authorize</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="without-context-manager">
-<h3>Without context manager<a class="headerlink" href="#without-context-manager" title="Link to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">()</span>
-<span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">authorize</span><span class="p">()</span>
-
-<span class="c1"># Close session</span>
-<span class="n">kite</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
+          <section id="authorization">
+<h1>Authorization<a class="headerlink" href="#authorization" title="Link to this heading">¶</a></h1>
 <section id="kite-login-and-authorization">
-<h3>Kite Login and authorization<a class="headerlink" href="#kite-login-and-authorization" title="Link to this heading">¶</a></h3>
+<h2>Kite login and authorization<a class="headerlink" href="#kite-login-and-authorization" title="Link to this heading">¶</a></h2>
 <p>All arguments are optional. It defaults to Kite web login if no arguments are provided. You will be required to enter your credentials via terminal user input.</p>
 <p>Once authorization is complete, the token is set. You can access them as</p>
 <ul class="simple">
@@ -247,7 +227,7 @@
   <span class="k">await</span> <span class="n">kite</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span>
       <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
       <span class="n">password</span><span class="o">=</span><span class="n">pwd</span><span class="p">,</span>
-      <span class="n">twofa</span><span class="o">=</span><span class="s2">&quot;123124&quot;</span><span class="p">,</span>
+      <span class="n">twofa</span><span class="o">=</span><span class="n">pyotp</span><span class="o">.</span><span class="n">TOTP</span><span class="p">(</span><span class="s1">&#39;TOTP_STRING&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="c1"># dont invoke now()</span>
   <span class="p">)</span>
 </pre></div>
 </div>
@@ -266,33 +246,6 @@
   <span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="kite-kitefeed">
-<h2>kite.KiteFeed<a class="headerlink" href="#kite-kitefeed" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> provides a WebSocket connection to receive real-time market quotes and order updates.</p>
-<section id="id1">
-<h3>With async context manager<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">enctoken</span><span class="o">=</span><span class="n">enctoken</span><span class="p">)</span> <span class="k">as</span> <span class="n">kws</span><span class="p">:</span>
-
-  <span class="c1"># No code executes after this line</span>
-  <span class="k">await</span> <span class="n">Kws</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="id2">
-<h3>Without context manager<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>It is important to close WebSocket connections and Client Session before exiting the application.</p>
-<p>In the below example, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kws.close</span></code> will not be executed. However, it is shown here for completeness.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">)</span>
-
-<span class="c1"># No code executes after this line</span>
-<span class="k">await</span> <span class="n">kws</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-
-<span class="c1"># Close Unsubscribe instruments, close WebSocket connection, and session</span>
-<span class="n">kws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
 <p>KiteFeed requires the following optional arguments</p>
 <p><strong>For Kite Web:</strong></p>
 <ul class="simple">
@@ -304,51 +257,8 @@
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_key</span></code>: Kite Web user-id</p></li>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">access_token</span></code> : access_token obtained from KiteConnect login</p></li>
 </ul>
-</section>
-<section id="event-handlers">
-<h3>Event handlers<a class="headerlink" href="#event-handlers" title="Link to this heading">¶</a></h3>
-<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> class accepts the below optional handlers. You may define them as per your needs.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_tick</span><span class="p">(</span><span class="n">tick</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-  <span class="c1"># To receive market quotes</span>
-  <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">on_connect</span><span class="p">(</span><span class="n">kws</span><span class="p">:</span> <span class="n">KiteFeed</span><span class="p">):</span>
-  <span class="c1"># Notify when WebSockets connection established</span>
-  <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">on_order_update</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-  <span class="c1"># Notify on order updates</span>
-  <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="n">kws</span><span class="p">:</span> <span class="n">KiteFeed</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-  <span class="c1"># Notify on error</span>
-  <span class="k">pass</span>
-
-<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-  <span class="c1"># Other text messages or alerts</span>
-  <span class="k">pass</span>
-
-<span class="k">with</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">enctoken</span><span class="o">=</span><span class="n">enctoken</span><span class="p">)</span> <span class="k">as</span> <span class="n">kws</span><span class="p">:</span>
-  <span class="n">kws</span><span class="o">.</span><span class="n">on_tick</span> <span class="o">=</span> <span class="n">on_tick</span>
-  <span class="n">kws</span><span class="o">.</span><span class="n">on_connect</span> <span class="o">=</span> <span class="n">on_connect</span>
-  <span class="n">kws</span><span class="o">.</span><span class="n">on_order_update</span> <span class="o">=</span> <span class="n">on_order_update</span>
-  <span class="n">kws</span><span class="o">.</span><span class="n">on_error</span> <span class="o">=</span> <span class="n">on_error</span>
-
-  <span class="k">await</span> <span class="n">kws</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="get-raw-binary-data">
-<h3>Get Raw Binary data<a class="headerlink" href="#get-raw-binary-data" title="Link to this heading">¶</a></h3>
-<p>If you wish to receive the raw binary data from the WebSocket connection, you can set the <strong>parse_data</strong> argument of <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">parse_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You may want to use a custom binary parser or forward the data to the browser and parse it client-side. It avoids the overhead of serializing and deserializing the data.</p>
-</section>
-</section>
 <section id="authorization-flow">
-<h2>Authorization Flow<a class="headerlink" href="#authorization-flow" title="Link to this heading">¶</a></h2>
+<h3>Authorization Flow<a class="headerlink" href="#authorization-flow" title="Link to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><dl class="simple">
 <dt>On running <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.authorize</span></code>, it first checks if <code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">access_token</span></code> was set during initialization.</dt><dd><ul class="simple">
@@ -370,37 +280,51 @@
 </li>
 </ol>
 </section>
-<section id="session-sharing">
-<h2>Session Sharing<a class="headerlink" href="#session-sharing" title="Link to this heading">¶</a></h2>
-<p>Both <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code> store an instance of <code class="xref py py-obj docutils literal notranslate"><span class="pre">aiohttp.ClientSession</span></code>. A session allows sharing of cookies and maintains a connection pool, to be reused between HTTP requests. It speeds up requests by not having to reestablish secure connections.</p>
-<p>You can access the session object with <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.session</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed.session</span></code>.</p>
-<p>A Kite session, can be shared with KiteFeed by passing it during initialization.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">()</span>
-
-<span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">kite</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+</section>
+<section id="dhan-login-and-authorization">
+<h2>Dhan login and authorization<a class="headerlink" href="#dhan-login-and-authorization" title="Link to this heading">¶</a></h2>
+<p>Authorization with Dhan is simple. Pass the <cite>client_id</cite> and <cite>access_token</cite> (provided during app registration) to the constructor.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">Dhan</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="s2">&quot;access_token&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dhan</span><span class="p">:</span>
+     <span class="n">holdings</span> <span class="o">=</span> <span class="k">await</span> <span class="n">dhan</span><span class="o">.</span><span class="n">get_holdings</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
-<section id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">¶</a></h2>
-<p>Aio-Trader uses the Python <cite>logging</cite> module to output logs. You can define your logger and pass the instance to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+<section id="fyers-login-and-authorization">
+<h2>Fyers login and authorization<a class="headerlink" href="#fyers-login-and-authorization" title="Link to this heading">¶</a></h2>
+<p>Fyers requires generating an app at <a class="reference external" href="https://myapi.fyers.in/">https://myapi.fyers.in/</a> to get the APP id and secret id.</p>
+<p>You must also provide the redirect url, which is required during the authorization.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader.fyers</span><span class="w"> </span><span class="kn">import</span> <span class="n">FyersAuth</span>
 
-<span class="c1"># Share the same logger instance</span>
-<span class="n">kws</span> <span class="o">=</span> <span class="n">KiteFeed</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">kite</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># STEP 1</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">FyersAuth</span><span class="p">(</span>
+        <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span>
+        <span class="n">redirect_uri</span><span class="o">=</span><span class="s2">&quot;redirect_uri&quot;</span><span class="p">,</span>
+        <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;secret_key&quot;</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="s2">&quot;OPTIONAL random string&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Open the below url in a browser and login</span>
+    <span class="c1"># On successful login you will be redirected to the redirect_uri</span>
+    <span class="c1"># with the auth_token and state in url parameters</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">generate_authcode</span><span class="p">()</span>
+
+    <span class="c1"># STEP 2: Use the auth_token received in previous step</span>
+    <span class="n">auth_token</span> <span class="o">=</span> <span class="s2">&quot;auth_token&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">auth</span><span class="o">.</span><span class="n">generate_token</span><span class="p">(</span><span class="n">auth_code</span><span class="o">=</span><span class="n">auth_token</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;access_token&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to get access_token&quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">auth</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">access_token</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Alternatively, the <code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.utils</span></code> module provides a helper function <code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_default_logger</span></code>. It takes an optional name argument, which defaults to <cite>aio_trader</cite> and returns a configured logger instance of that name.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.utils</span> <span class="kn">import</span> <span class="n">configure_default_logger</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="c1"># Returns a logging.Logger instance of name aio_trader</span>
-<span class="n">logger</span> <span class="o">=</span> <span class="n">configure_default_logger</span><span class="p">(</span><span class="s1">&#39;aio_trader&#39;</span><span class="p">)</span>
-
-<span class="c1"># Default level is INFO</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-
-<span class="n">kite</span> <span class="o">=</span> <span class="n">Kite</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+<p>Use the access token received to make requests.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">Fyers</span><span class="p">(</span><span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="s2">&quot;access_token&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fyers</span><span class="p">:</span>
+     <span class="k">await</span> <span class="n">fyers</span><span class="o">.</span><span class="n">get_profile</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -420,14 +344,14 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="usage.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">Usage</div>
                 
               </div>
             </a>
@@ -461,23 +385,13 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Kite Usage</a><ul>
-<li><a class="reference internal" href="#kite-kite">kite.Kite</a><ul>
-<li><a class="reference internal" href="#with-async-context-manager">With async context manager</a></li>
-<li><a class="reference internal" href="#without-context-manager">Without context manager</a></li>
-<li><a class="reference internal" href="#kite-login-and-authorization">Kite Login and authorization</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#kite-kitefeed">kite.KiteFeed</a><ul>
-<li><a class="reference internal" href="#id1">With async context manager</a></li>
-<li><a class="reference internal" href="#id2">Without context manager</a></li>
-<li><a class="reference internal" href="#event-handlers">Event handlers</a></li>
-<li><a class="reference internal" href="#get-raw-binary-data">Get Raw Binary data</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Authorization</a><ul>
+<li><a class="reference internal" href="#kite-login-and-authorization">Kite login and authorization</a><ul>
 <li><a class="reference internal" href="#authorization-flow">Authorization Flow</a></li>
-<li><a class="reference internal" href="#session-sharing">Session Sharing</a></li>
-<li><a class="reference internal" href="#logging">Logging</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dhan-login-and-authorization">Dhan login and authorization</a></li>
+<li><a class="reference internal" href="#fyers-login-and-authorization">Fyers login and authorization</a></li>
 </ul>
 </li>
 </ul>
@@ -489,7 +403,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=282f96c0"></script>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>

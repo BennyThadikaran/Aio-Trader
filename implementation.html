@@ -3,11 +3,11 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="KITE API Reference" href="kite_reference.html" /><link rel="prev" title="Complete Examples" href="examples.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="api_reference.html" /><link rel="prev" title="Complete Examples" href="examples.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.04.27 -->
-        <title>Package Implementation - Aio-Trader 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.04.27 -->
+        <title>Implementation - Aio-Trader 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=437aa6ec" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -125,7 +125,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Aio-Trader 0.0.5 documentation</div></a>
+      <a href="index.html"><div class="brand">Aio-Trader 0.1.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -136,7 +136,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -148,7 +148,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Aio-Trader 0.0.5 documentation</span>
+  <span class="sidebar-brand-text">Aio-Trader 0.1.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -157,12 +157,19 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="kite_usage.html">Kite Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Complete Examples</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Package Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kite_reference.html">KITE API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kitefeed_reference.html">KiteFeed API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Implementation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api_reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fyers.html">Fyers Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -191,67 +198,49 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="package-implementation">
-<h1>Package Implementation<a class="headerlink" href="#package-implementation" title="Link to this heading">¶</a></h1>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aio_trader/
-├──<span class="w"> </span>kite
-│<span class="w">   </span>├──<span class="w"> </span>Kite.py
-│<span class="w">   </span>├──<span class="w"> </span>KiteFeed.py
-│<span class="w">   </span>└──<span class="w"> </span>__init__.py
-├──<span class="w"> </span>AbstractBroker.py
-├──<span class="w"> </span>AbstractFeeder.py
-├──<span class="w"> </span>AsyncRequest.py
-├──<span class="w"> </span>__init__.py
-└──<span class="w"> </span>utils.py
-</pre></div>
-</div>
-<p>Each Stockbroker is packaged into a directory and can be imported independently of other brokers.</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite</span></code> is the only package available now. I will be adding more soon.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aio_trader.kite</span> <span class="kn">import</span> <span class="n">Kite</span><span class="p">,</span> <span class="n">KiteFeed</span>
-</pre></div>
-</div>
-<section id="kite-py">
-<h2>Kite.py<a class="headerlink" href="#kite-py" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite.py</span></code> is used to make and manage orders, access profiles, holdings, etc.</p>
-<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code> class implements the <code class="xref py py-obj docutils literal notranslate"><span class="pre">AbstractBroker</span></code> class.</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">AsyncRequest</span></code> is responsible for making HTTP requests, handling errors, and returning the response.</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">AsyncRequest</span></code> has a mechanism for retrying requests in case of errors. It uses [exponential backoff](<a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_backoff#Rate_limiting">https://en.wikipedia.org/wiki/Exponential_backoff#Rate_limiting</a>) to gradually increase the wait time between retries.</p>
-<p>It starts with a 3-second wait after the first try and incrementally increases to a max wait of 30 seconds. See the simple implementation below. It is similar to [pykiteconnect](<a class="reference external" href="https://github.com/zerodha/pykiteconnect">https://github.com/zerodha/pykiteconnect</a>) implementation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># incremental backoff</span>
-<span class="n">base_wait</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">max_wait</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">retries</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
-    <span class="n">wait</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">base_wait</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">retries</span><span class="p">),</span> <span class="n">max_wait</span><span class="p">)</span>
-    <span class="n">retries</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">retries</span><span class="si">}</span><span class="s2"> retry: </span><span class="si">{</span><span class="n">wait</span><span class="si">}</span><span class="s2"> seconds wait&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In case of any network error or HTTP status codes other than 200, the request is retried. The only exception is a RuntimeError, which closes the connection and raises the error.</p>
-<p>The following status codes can trigger a RuntimeError:</p>
+          <section id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h1>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Aio-Trader</span></code> library comes with 3 packages:</p>
 <ul class="simple">
-<li><p><strong>400</strong>: Incorrect method or params</p></li>
-<li><p><strong>429</strong>: API Rate limit reached.</p></li>
-<li><p><strong>403</strong>: Forbidden</p></li>
+<li><p><a class="reference internal" href="kite.html#module-aio_trader.kite" title="aio_trader.kite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="kite.html#aio_trader.kite.Kite" title="aio_trader.kite.Kite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite.Kite</span></code></a> : Class for making API requests</p></li>
+<li><p><a class="reference internal" href="kite.html#aio_trader.kite.KiteFeed" title="aio_trader.kite.KiteFeed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.kite.KiteFeed</span></code></a> : Websockets class for real time stock data.</p></li>
 </ul>
-</section>
-<section id="kitefeed-py">
-<h2>KiteFeed.py<a class="headerlink" href="#kitefeed-py" title="Link to this heading">¶</a></h2>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">KiteFeed.py</span></code> provides a WebSocket connection for receiving real-time market quotes.</p>
-<p>KiteFeed implements the <code class="xref py py-obj docutils literal notranslate"><span class="pre">AbstractFeeder</span></code> class. It has a similar retry mechanism to <code class="xref py py-obj docutils literal notranslate"><span class="pre">Kite</span></code>. If there is an error, the connection is re-attempted. A response code of 403 indicates the session has expired or is invalid. The connection is closed, with no attempts to retry.</p>
-</section>
-<section id="utils-py">
-<h2>Utils.py<a class="headerlink" href="#utils-py" title="Link to this heading">¶</a></h2>
-<p>Utils.py contains helper functions. It will be covered later.</p>
-</section>
+</li>
+<li><p><a class="reference internal" href="fyers.html#module-aio_trader.fyers" title="aio_trader.fyers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.fyers</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="fyers.html#aio_trader.fyers.Fyers" title="aio_trader.fyers.Fyers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.fyers.Fyers</span></code></a> : Class for making API requests</p></li>
+<li><p><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersFeed" title="aio_trader.fyers.FyersFeed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.fyers.FyersFeed</span></code></a> : Websockets class for real time stock data.</p></li>
+<li><p><a class="reference internal" href="fyers.html#aio_trader.fyers.FyersOrder" title="aio_trader.fyers.FyersOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.fyers.FyersOrder</span></code></a> : Websockets class for order notifications.</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="dhan.html#module-aio_trader.dhan" title="aio_trader.dhan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.dhan</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="dhan.html#aio_trader.dhan.Dhan" title="aio_trader.dhan.Dhan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.dhan.Dhan</span></code></a> : Class for making API requests</p></li>
+<li><p><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanFeed" title="aio_trader.dhan.DhanFeed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.dhan.DhanFeed</span></code></a> : Websockets class for real time stock data.</p></li>
+<li><p><a class="reference internal" href="dhan.html#aio_trader.dhan.DhanOrder" title="aio_trader.dhan.DhanOrder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.dhan.DhanOrder</span></code></a> : Websockets class for order notifications.</p></li>
+</ul>
+</li>
+</ul>
+<p>There are also helper classes.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="AsyncRequest.html#module-aio_trader.AsyncRequest" title="aio_trader.AsyncRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.AsyncRequest</span></code></a> : Class for making HTTP requests, handling errors and processing the response.</p>
+<ul>
+<li><p>AsyncRequest has a mechanism for retrying requests in case of errors.
+It uses <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_backoff#Rate_limiting">exponential backoff</a> to gradually increase the wait time between retries.</p></li>
+</ul>
+</li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.utils</span></code> : Contains helper functions.</p></li>
+</ul>
+<p>The broker class like Kite, implement the <a class="reference internal" href="abstract.html#module-aio_trader.AbstractBroker" title="aio_trader.AbstractBroker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.AbstractBroker</span></code></a></p>
+<p>The market feed (FyersFeed), and order feeds (FyersOrder), implement the <a class="reference internal" href="abstract.html#module-aio_trader.AbstractFeeder" title="aio_trader.AbstractFeeder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aio_trader.AbstractFeeder</span></code></a></p>
 </section>
 
         </article>
@@ -259,12 +248,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="kite_reference.html">
+          <a class="next-page" href="api_reference.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">KITE API Reference</div>
+                <div class="title">API Reference</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -297,34 +286,13 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Package Implementation</a><ul>
-<li><a class="reference internal" href="#kite-py">Kite.py</a></li>
-<li><a class="reference internal" href="#kitefeed-py">KiteFeed.py</a></li>
-<li><a class="reference internal" href="#utils-py">Utils.py</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=282f96c0"></script>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>

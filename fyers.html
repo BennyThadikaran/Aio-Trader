@@ -1,0 +1,1074 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dhan Reference" href="dhan.html" /><link rel="prev" title="Kite Reference" href="kite.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.04.27 -->
+        <title>Fyers Reference - Aio-Trader 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=437aa6ec" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Aio-Trader 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Aio-Trader 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Complete Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="api_reference.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kite.html">Kite Reference</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Fyers Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dhan.html">Dhan Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsyncRequest.html">AsyncRequest Class Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils_reference.html">Utils Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="abstract.html">Abstract Class Reference</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-aio_trader.fyers">
+<span id="fyers-reference"></span><h1>Fyers Reference<a class="headerlink" href="#module-aio_trader.fyers" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aio_trader.fyers.</span></span><span class="sig-name descname"><span class="pre">Fyers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.Fyers" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="abstract.html#aio_trader.AbstractBroker.AbstractBroker" title="aio_trader.AbstractBroker.AbstractBroker"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBroker</span></code></a></p>
+<p>Unofficial implementation of Fyers API using aiohttp for async requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client_id</strong> (<em>str</em>) – APP_ID of the created app.</p></li>
+<li><p><strong>token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Api login token from a previous login</p></li>
+</ul>
+</dd>
+</dl>
+<p>All arguments are Optional</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">enctoken</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">access_token</span></code> if available can be reused to login.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.authorize">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.authorize" title="Link to this definition">¶</a></dt>
+<dd><p>Not required can be skipped</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.cancel_basket_orders">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cancel_basket_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.cancel_basket_orders" title="Link to this definition">¶</a></dt>
+<dd><p>Cancels the orders with the provided IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details.</p>
+</dd>
+</dl>
+<p><strong>data (dict):</strong></p>
+<ul class="simple">
+<li><p>order_ids (list): A list of order IDs to be cancelled.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.cancel_gtt_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cancel_gtt_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.cancel_gtt_order" title="Link to this definition">¶</a></dt>
+<dd><p>Cancel order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The data containing the order ID.</p>
+</dd>
+</dl>
+<p><strong>Data must contain the following keys: values:</strong></p>
+<ul class="simple">
+<li><p>id (str): Unique identifier for the order to be cancelled,
+e.g., “25010700000001”.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.cancel_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cancel_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.cancel_order" title="Link to this definition">¶</a></dt>
+<dd><p>Cancel order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The data containing the order ID.</p>
+</dd>
+</dl>
+<p><strong>Data must contain the following keys: values:</strong></p>
+<ul class="simple">
+<li><p>id (str, optional): ID of the position to close.
+If not provided, all open positions will be closed.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.convert_position">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.convert_position" title="Link to this definition">¶</a></dt>
+<dd><p>Converts positions from one product type to another based on the provided details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dict containing details about the position.</p>
+</dd>
+</dl>
+<p><strong>Data must contain the following keys: values:</strong></p>
+<ul class="simple">
+<li><p>symbol (str): Symbol of the positions. Eg: “MCX:SILVERMIC20NOVFUT”.</p></li>
+<li><p>positionSide (int): Side of the positions. 1 for open long positions, -1 for open short positions.</p></li>
+<li><p>convertQty (int): Quantity to be converted. Should be in multiples of lot size for derivatives.</p></li>
+<li><p>convertFrom (str): Existing product type of the positions. (CNC positions cannot be converted)</p></li>
+<li><p>convertTo (str): The new product type to convert the positions to.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.depth">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.depth" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches market depth data for a symbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dict containing symbol name</p>
+</dd>
+</dl>
+<p><strong>data: dict</strong></p>
+<ul class="simple">
+<li><p>symbol (str): Symbol of the product. Eg: ‘NSE:SBIN-EQ’.</p></li>
+<li><p>ohlcv_flag (int): Flag to indicate whether to retrieve open, high,
+low, closing, and volume quantity. Set to 1 for yes.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.exit_positions">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exit_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.exit_positions" title="Link to this definition">¶</a></dt>
+<dd><p>Closes open positions based on the provided ID or closes all open positions if ID is not passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the position id.</p>
+</dd>
+</dl>
+<p><strong>data (dict):</strong></p>
+<ul class="simple">
+<li><p>id (str, optional): ID of the position to close. If not provided, all open positions will be closed.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.funds">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">funds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.funds" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves funds details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.get_orders">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.get_orders" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves order details by ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The data containing the order ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.get_profile">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_profile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.get_profile" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the user profile information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.gtt_orderbook">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gtt_orderbook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.gtt_orderbook" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the gtt order information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – Default None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.history">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.history" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches candle data based on the provided parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dict containing details of symbol</p>
+</dd>
+</dl>
+<p><strong>Data dict must contain the below keys:</strong></p>
+<ul class="simple">
+<li><p>symbol (str): Symbol of the product. Eg: <code class="docutils literal notranslate"><span class="pre">NSE:SBIN-EQ</span></code>.</p></li>
+<li><p>resolution (str): The candle resolution. Possible values are:
+<code class="docutils literal notranslate"><span class="pre">Day</span></code> or <code class="docutils literal notranslate"><span class="pre">1D</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">5</span></code>, <code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">15</span></code>,
+<code class="docutils literal notranslate"><span class="pre">20</span></code>, <code class="docutils literal notranslate"><span class="pre">30</span></code>, <code class="docutils literal notranslate"><span class="pre">60</span></code>, <code class="docutils literal notranslate"><span class="pre">120</span></code>, <code class="docutils literal notranslate"><span class="pre">240</span></code>.</p></li>
+<li><p>date_format (int): Date format flag. 0 to enter the epoch value,
+1 to enter the date format as <code class="docutils literal notranslate"><span class="pre">yyyy-mm-dd</span></code>.</p></li>
+<li><p>range_from (str): Start date of the records. Accepts epoch value if
+date_format flag is set to 0, or <code class="docutils literal notranslate"><span class="pre">yyyy-mm-dd</span></code> format if
+date_format flag is set to 1.</p></li>
+<li><p>range_to (str): End date of the records. Accepts epoch value if
+<code class="docutils literal notranslate"><span class="pre">date_format</span></code> flag is set to 0, or <code class="docutils literal notranslate"><span class="pre">yyyy-mm-dd</span></code> format if
+<code class="docutils literal notranslate"><span class="pre">date_format</span></code> flag is set to 1.</p></li>
+<li><p>cont_flag (int): Flag indicating continuous data and future options.
+Set to 1 for continuous data.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.holdings">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">holdings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.holdings" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves information about current holdings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.logout">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.logout" title="Link to this definition">¶</a></dt>
+<dd><p>Invalidates the access token.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.market_status">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">market_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.market_status" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves market status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.modify_basket_orders">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modify_basket_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.Fyers.modify_basket_orders" title="Link to this definition">¶</a></dt>
+<dd><p>Modifies multiple pending orders based on the provided details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>orders</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – A list of dictionaries containing the order details.</p>
+</dd>
+</dl>
+<p><strong>orders (list):</strong></p>
+<p>A list of dictionaries containing the order details to be modified.</p>
+<p>Each dictionary should have the following keys:</p>
+<ul class="simple">
+<li><p>‘id’ (str): ID of the pending order to be modified.</p></li>
+<li><p>‘limitPrice’ (float): New limit price for the order. Mandatory for Limit/Stoplimit orders.</p></li>
+<li><p>‘stopPrice’ (float): New stop price for the order. Mandatory for Stop/Stoplimit orders.</p></li>
+<li><p>‘qty’ (int): New quantity for the order.</p></li>
+<li><p>‘type’ (int): New order type for the order.</p></li>
+</ul>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>The response JSON as a dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.modify_gtt_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modify_gtt_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.modify_gtt_order" title="Link to this definition">¶</a></dt>
+<dd><p>Modifies the parameters of a pending order based on the provided details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details.</p>
+</dd>
+</dl>
+<p><strong>data (dict):</strong></p>
+<ul>
+<li><p>id (str): Unique identifier for the order to be modified,
+e.g., “25010700000001”</p></li>
+<li><p>orderInfo* (object): Contains updated information about the GTT/OCO
+order legs.</p></li>
+<li><p>orderInfo.leg1* (object): Details for GTT order leg.
+Mandatory for all modifications.</p>
+<blockquote>
+<div><ul>
+<li><p>orderInfo.leg1.price* (number): Updated price at which the order
+should be placed.</p></li>
+<li><p>orderInfo.leg1.triggerPrice* (number): Updated trigger price for the
+GTT order.</p>
+<p><strong>NOTE: for OCO order this leg trigger price should be always above LTP.</strong></p>
+</li>
+<li><p>orderInfo.leg1.qty** (integer): Updated quantity for the GTT order leg.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>orderInfo.leg2* (object): Details for OCO order leg. Required if the
+order is an OCO type.</p>
+<blockquote>
+<div><ul>
+<li><p>orderInfo.leg2.triggerPrice* (number): Updated trigger price for the
+second leg of the OCO order.</p>
+<p><strong>NOTE: for OCO order this leg trigger price should be always below LTP.</strong></p>
+</li>
+<li><p>orderInfo.leg2.qty* (integer): Updated quantity for the second leg
+of the OCO order.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.modify_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modify_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.modify_order" title="Link to this definition">¶</a></dt>
+<dd><p>Modifies the parameters of a pending order based on the provided details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details.</p>
+</dd>
+</dl>
+<p><strong>data (dict):</strong></p>
+<ul class="simple">
+<li><p>id (str): ID of the pending order to be modified.</p></li>
+<li><p>limitPrice (float, optional): New limit price for the order.
+Mandatory for Limit/Stoplimit orders.</p></li>
+<li><p>stopPrice (float, optional): New stop price for the order.
+Mandatory for Stop/Stoplimit orders.</p></li>
+<li><p>qty (int, optional): New quantity for the order.</p></li>
+<li><p>type (int, optional): New order type for the order.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.optionchain">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">optionchain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.optionchain" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches option chain data for a given symbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – Dict containing symbol name and strikecount</p>
+</dd>
+</dl>
+<p><strong>data: dict</strong></p>
+<ul class="simple">
+<li><p>symbol (str): The symbol of the product. For example,
+‘NSE:NIFTY50-INDEX’.</p></li>
+<li><p>timestamp (int): Expiry timestamp of the stock. Use empty for
+current expiry. Example: 1813831200.</p></li>
+<li><p>strikecount (int): Number of strike price data points desired.
+For instance, setting it to 7 provides: 1 INDEX + 7 ITM + 1 ATM +
+7 OTM = 1 INDEX and 15 STRIKE (15 CE + 15 PE).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.orderbook">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">orderbook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.orderbook" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the order information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – Default None. The data containing the order ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.place_basket_orders">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">place_basket_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.place_basket_orders" title="Link to this definition">¶</a></dt>
+<dd><p>Places multiple orders based on the provided details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>orders</strong> (<em>List</em><em>[</em><em>dict</em><em>]</em>) – A list of dictionaries containing the order details.</p>
+</dd>
+</dl>
+<p><strong>orders (list):</strong></p>
+<p>Each dictionary should have the following keys:</p>
+<ul class="simple">
+<li><p>‘symbol’ (str): Symbol of the product. Eg: ‘MCX:SILVERM20NOVFUT’.</p></li>
+<li><p>‘qty’ (int): Quantity of the product.</p></li>
+<li><p>‘type’ (int): Type of the order. 1 for Limit Order, 2 for Market Order, and so on.</p></li>
+<li><p>‘side’ (int): Side of the order. 1 for Buy, -1 for Sell.</p></li>
+<li><p>‘productType’ (str): Type of the product. Eg: ‘INTRADAY’, ‘CNC’, etc.</p></li>
+<li><p>‘limitPrice’ (float): Valid price for Limit and Stoplimit orders.</p></li>
+<li><p>‘stopPrice’ (float): Valid price for Stop and Stoplimit orders.</p></li>
+<li><p>‘disclosedQty’ (int): Disclosed quantity. Allowed only for equity.</p></li>
+<li><p>‘validity’ (str): Validity of the order. Eg: ‘DAY’, ‘IOC’, etc.</p></li>
+<li><p>‘offlineOrder’ (bool): Specifies if the order is placed when the market is open (False) or as an AMO order (True).</p></li>
+<li><p>‘stopLoss’ (float): Valid price for CO and BO orders.</p></li>
+<li><p>‘takeProfit’ (float): Valid price for BO orders.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.place_gtt_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">place_gtt_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.place_gtt_order" title="Link to this definition">¶</a></dt>
+<dd><p>Places an order based on the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details.</p>
+</dd>
+</dl>
+<p>data (dict):</p>
+<ul class="simple">
+<li><p>‘id*’ (str): Unique identifier for the order to be modified,
+e.g., “25010700000001”.</p></li>
+<li><p>‘side’ (int): Indicates the side of the order: 1 for buy,
+-1 for sell.</p></li>
+<li><p>‘symbol’ (str): The instrument’s unique identifier,
+e.g., “NSE:CHOLAFIN-EQ”</p></li>
+<li><p>‘productType*’ (str): The product type for the order.
+Valid values: “CNC”, “MARGIN”, “MTF”.</p></li>
+<li><p>‘orderInfo*’ (object): Contains information about the
+GTT/OCO order legs.</p></li>
+<li><p>‘orderInfo.leg1*’ (object): Details for GTT order leg.
+Mandatory for all orders.</p></li>
+<li><p>‘orderInfo.leg1.price*’ (number): Price at which the order.</p></li>
+<li><p>‘orderInfo.leg1.triggerPrice’ (number): Trigger price for the GTT
+order. NOTE: for OCO order this leg trigger price should be always
+above LTP</p></li>
+<li><p>‘orderInfo.leg1.qty*’ (int): Quantity for the GTT order leg.</p></li>
+<li><p>‘orderInfo.leg2*’ (object): Details for OCO order leg. Optional and
+included only for OCO orders.</p></li>
+<li><p>‘orderInfo.leg2.price*’ (number): Price at which the second leg of
+the OCO order should be placed.</p></li>
+<li><p>‘orderInfo.leg2.triggerPrice*’ (number): Trigger price for the second
+leg of the OCO order.NOTE: for OCO order this leg trigger price should be always below LTP</p></li>
+<li><p>‘orderInfo.leg2.qty*’ (integer): Quantity for the second leg of the
+OCO order.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.place_multileg_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">place_multileg_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.place_multileg_order" title="Link to this definition">¶</a></dt>
+<dd><p>Places an multileg order based on the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details.</p>
+</dd>
+</dl>
+<p><strong>data (dict):</strong></p>
+<ul>
+<li><p>‘productType’ (str): Type of the product. Possible values: ‘INTRADAY’, ‘MARGIN’.</p></li>
+<li><p>‘offlineOrder’ (bool): Specifies if the order is placed when the market is open (False) or as an AMO order (True).</p></li>
+<li><p>‘orderType’ (str): Type of multileg. Possible values: ‘3L’ for 3 legs and ‘2L’ for 2 legs .</p></li>
+<li><p>‘validity’ (str): Validity of the order. Possible values: ‘IOC’ (Immediate or Cancel).</p></li>
+<li><p>legs (dict): A dictionary containing multiple legs order details.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘symbol’ (str): Symbol of the product. Eg: ‘NSE:SBIN-EQ’.</p></li>
+<li><p>‘qty’ (int): Quantity of the product. Should be in multiples of lot size for derivatives.</p></li>
+<li><p>‘side’ (int): Side of the order. 1 for Buy, -1 for Sell.</p></li>
+<li><p>‘type’ (int): Type of the order. Possible values: 1 for Limit Order.</p></li>
+<li><p>‘limitPrice’ (float): Valid price for Limit and Stoplimit orders.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.place_order">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">place_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.place_order" title="Link to this definition">¶</a></dt>
+<dd><p>Places an order based on the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the order details</p>
+</dd>
+</dl>
+<p><strong>Data dict must contain the following keys: values:</strong></p>
+<ul class="simple">
+<li><p>‘productType’ (str): Type of the product.
+Possible values: ‘CNC’, ‘INTRADAY’, ‘MARGIN’, ‘CO’, ‘BO’.</p></li>
+<li><p>‘side’ (int): Side of the order. 1 for Buy, -1 for Sell.</p></li>
+<li><p>‘symbol’ (str): Symbol of the product. Eg: ‘NSE:SBIN-EQ’.</p></li>
+<li><p>‘qty’ (int): Quantity of the product. Should be in multiples of
+lot size for derivatives.</p></li>
+<li><p>‘disclosedQty’ (int): Default: 0. Disclosed quantity.
+Allowed only for equity.</p></li>
+<li><p>‘type’ (int): Type of the order. 1 for Limit Order,
+2 for Market Order, 3 for Stop Order (SL-M),
+4 for Stoplimit Order (SL-L).</p></li>
+<li><p>‘validity’ (str): Validity of the order. Possible values:
+‘IOC’ (Immediate or Cancel), ‘DAY’ (Valid till the end of the day).</p></li>
+<li><p>‘filledQty’ (int): Filled quantity. Default: 0.</p></li>
+<li><p>‘limitPrice’ (float): Default: 0. Valid price for Limit and Stoplimit
+orders.</p></li>
+<li><p>‘stopPrice’ (float): Default: 0. Valid price for Stop and Stoplimit
+orders.</p></li>
+<li><p>‘offlineOrder’ (bool): Specifies if the order is placed when the
+market is open (False) or as an AMO order (True).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.positions">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.positions" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves information about current open positions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.quotes">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quotes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.quotes" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches quotes data for multiple symbols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symbols</strong> (<em>str</em>) – Comma-separated symbols of the products.
+Maximum symbol limit is 50. Eg: ‘NSE:SBIN-EQ,NSE:HDFC-EQ’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.Fyers.tradebook">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tradebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.Fyers.tradebook" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves daily trade details of the day.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersAuth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aio_trader.fyers.</span></span><span class="sig-name descname"><span class="pre">FyersAuth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redirect_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersAuth" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fyers class for generating access token</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client_id</strong> (<em>str</em>) – APP_ID of the created app.</p></li>
+<li><p><strong>redirect_uri</strong> (<em>str</em>) – URL provided when creating fyers app.</p></li>
+<li><p><strong>secret_key</strong> (<em>str</em>) – App secret key of the created app.</p></li>
+<li><p><strong>state</strong> (<em>str</em>) – A random string used to verify the request</p></li>
+<li><p><strong>scope</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Default None.</p></li>
+<li><p><strong>nonce</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Default None. A random string used to verify the auth token</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">aio_trader.fyers</span><span class="w"> </span><span class="kn">import</span> <span class="n">FyersAuth</span>
+
+<span class="n">fyers_auth</span> <span class="o">=</span> <span class="n">FyersAuth</span><span class="p">(</span>
+    <span class="n">client_id</span><span class="o">=</span><span class="s2">&quot;CLIENT_ID&quot;</span><span class="p">,</span>
+    <span class="n">redirect_uri</span><span class="o">=</span><span class="s2">&quot;https://someurl.com&quot;</span><span class="p">,</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;RANDOM_STRING&quot;</span><span class="p">,</span>
+    <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;SECRET_KEY&quot;</span><span class="p">,</span>
+    <span class="n">nonce</span><span class="o">=</span><span class="s2">&quot;OTHER_RANDOM_STRING&quot;</span>
+<span class="p">)</span>
+
+<span class="n">auth_url</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">generate_authcode</span><span class="p">()</span>
+
+<span class="c1"># After redirect auth_code is available in the redirect url params</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">auth_url</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">auth_code</span> <span class="o">=</span> <span class="s2">&quot;Paste the auth_code generated from the first request&quot;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">fyers_auth</span><span class="o">.</span><span class="n">generate_token</span><span class="p">(</span><span class="n">auth_code</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="s2">&quot;access_token&quot;</span><span class="p">:</span>
+    <span class="n">access_token</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;access_token&quot;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed requesting access_token&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersAuth.generate_authcode">
+<span class="sig-name descname"><span class="pre">generate_authcode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersAuth.generate_authcode" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a url to generate the auth token</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersAuth.generate_token">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersAuth.generate_token" title="Link to this definition">¶</a></dt>
+<dd><p>Makes a request for an access token</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>auth_code</strong> (<em>str</em>) – <cite>auth_code</cite> received after logging into fyers using generate_authcode().</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersAuth.refresh_token">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersAuth.refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Refresh the access token using the refresh_token and user pin.</p>
+<p>Refresh token is valid for 15 days.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refresh_token</strong> (<em>str</em>) – refresh_token received from generate_token()</p></li>
+<li><p><strong>pin</strong> (<em>str</em>) – User login pin</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aio_trader.fyers.</span></span><span class="sig-name descname"><span class="pre">FyersFeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">litemode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClientSession</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersFeed" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder" title="aio_trader.AbstractFeeder.AbstractFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFeeder</span></code></a></p>
+<p>Websocket class for Fyers</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.on_tick">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_tick</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#aio_trader.fyers.FyersFeed" title="aio_trader.fyers.FyersFeed.FyersFeed"><span class="pre">FyersFeed</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aio_trader.fyers.FyersFeed.on_tick" title="Link to this definition">¶</a></dt>
+<dd><p>A user defined function called, when tick data is received.
+It receives the dictionary and a bool value indicating if the
+tick data is parsed.</p>
+<p>def on_tick(feed: FyersFeed, tick: dict, binary=False) -&gt; None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.on_connect">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_connect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#aio_trader.fyers.FyersFeed" title="aio_trader.fyers.FyersFeed.FyersFeed"><span class="pre">FyersFeed</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aio_trader.fyers.FyersFeed.on_connect" title="Link to this definition">¶</a></dt>
+<dd><p>A user defined function called, when a websocket connection is established</p>
+<p>def on_connect(feed: FyersFeed) -&gt; None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.on_error">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable[[FyersFeed,</span> <span class="pre">error:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]],</span> <span class="pre">None]</span></em><a class="headerlink" href="#aio_trader.fyers.FyersFeed.on_error" title="Link to this definition">¶</a></dt>
+<dd><p>A user defined function called, when an error occurs</p>
+<p><strong>Error dictionary has the following key values:</strong></p>
+<ul class="simple">
+<li><p>code: int - Error code</p></li>
+<li><p>message: str - The error message</p></li>
+</ul>
+<p>def on_error(feed: FyersFeed, error: dict) -&gt; None</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Fyers <cite>access_token</cite>.</p></li>
+<li><p><strong>litemode</strong> (<em>bool</em>) – If true, only last traded price is updated in the feed. Default True.</p></li>
+<li><p><strong>parse_data</strong> (<em>bool</em>) – If true, <cite>on_tick</cite> handler receives raw binary/text data. Default True.</p></li>
+<li><p><strong>session</strong> (<em>Optional</em><em>[</em><em>aiohttp.ClientSession</em><em>]</em><em>.</em>) – Client Session for making HTTP requests.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.channel_resume">
+<span class="sig-name descname"><span class="pre">channel_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersFeed.channel_resume" title="Link to this definition">¶</a></dt>
+<dd><p>Resumes the specified channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel</strong> (<em>int</em>) – The channel number to resume.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.close">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersFeed.close" title="Link to this definition">¶</a></dt>
+<dd><p>Perform clean up operations to gracefully exit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.connect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersFeed.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Connect and start the Websocket connection</p>
+<p>Uses the retry decorator to reconnect on error</p>
+<p>&#64;retry(max_retries=5, base_wait=2, max_wait=60)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Any keyword arguments to pass to <cite>aiohttp.ClientSession.ws_connect</cite></p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>kwargs: Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.subscribe">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'SymbolUpdate'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'DepthUpdate'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'SymbolUpdate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersFeed.subscribe" title="Link to this definition">¶</a></dt>
+<dd><p>Subscribes to real-time data updates for the specified symbols.</p>
+<p>symbols = [‘NSE:SBIN-EQ’, ‘NSE:ADANIENT-EQ’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbols</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – A list of symbols to subscribe.</p></li>
+<li><p><strong>data_type</strong> (<em>Literal</em><em>[</em><em>'SymbolUpdate'</em><em>, </em><em>&quot;DepthUpdate&quot;</em><em>]</em>) – Default “SymbolUpdate”. The type of data to subscribe.</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Default 11. The channel to use for subscription.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersFeed.unsubscribe">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'SymbolUpdate'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'DepthUpdate'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'SymbolUpdate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersFeed.unsubscribe" title="Link to this definition">¶</a></dt>
+<dd><p>Unsubscribes from real-time data updates for the specified symbols.</p>
+<p>symbols = [‘NSE:SBIN-EQ’, ‘NSE:ADANIENT-EQ’]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbols</strong> (<em>Literal</em><em>[</em><em>&quot;SymbolUpdate&quot;</em><em>, </em><em>&quot;DepthUpdate&quot;</em><em>]</em>) – A list of symbols to unsubscribe from.</p></li>
+<li><p><strong>data_type</strong> – Default “SymbolUpdate”. The type of data to unsubscribe from.</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Default 11. The channel to use for unsubscription.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aio_trader.fyers.</span></span><span class="sig-name descname"><span class="pre">FyersOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClientSession</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parse_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersOrder" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="abstract.html#aio_trader.AbstractFeeder.AbstractFeeder" title="aio_trader.AbstractFeeder.AbstractFeeder"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractFeeder</span></code></a></p>
+<p>Websocket class for Fyers Order Websocket</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder.on_tick">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_tick</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#aio_trader.fyers.FyersOrder" title="aio_trader.fyers.FyersOrder.FyersOrder"><span class="pre">FyersOrder</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#aio_trader.fyers.FyersOrder.on_tick" title="Link to this definition">¶</a></dt>
+<dd><p>A user defined function called, when an order notification is received.
+It receives the order dictionary and a bool value indicating if the
+order message is parsed.</p>
+<p>def on_tick(feed: FyersOrder, order: dict, binary=False) -&gt; None</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) – Fyers <cite>access_token</cite>.</p></li>
+<li><p><strong>session</strong> (<em>Optional</em><em>[</em><em>aiohttp.ClientSession</em><em>]</em><em>.</em>) – Client Session for making HTTP requests.</p></li>
+<li><p><strong>parse_data</strong> (<em>bool</em>) – If true, <cite>on_tick</cite> handler receives raw binary/text data. Default True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder.close">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aio_trader.fyers.FyersOrder.close" title="Link to this definition">¶</a></dt>
+<dd><p>Perform clean up operations to gracefully exit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder.connect">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersOrder.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Connect and start the Websocket connection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Any keyword arguments to pass to <cite>aiohttp.ClientSession.ws_connect</cite></p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p>kwargs: Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder.subscribe">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersOrder.subscribe" title="Link to this definition">¶</a></dt>
+<dd><p>Subscribes to real-time updates of a specific data type.</p>
+<p>await subscribe(data_type=”OnOrders”)</p>
+<p>await subscribe(data_type=”OnOrders,OnTrades,OnPositions,OnGeneral”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – Can be one of <cite>OnOrders</cite>, <cite>OnTrades</cite>, <cite>OnPositions</cite>, or <cite>OnGeneral</cite>, or a comma separated list of values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aio_trader.fyers.FyersOrder.unsubscribe">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#aio_trader.fyers.FyersOrder.unsubscribe" title="Link to this definition">¶</a></dt>
+<dd><p>Unsubscribes from real-time updates of a specific data type.</p>
+<p>await unsubscribe(data_type=”OnOrders”)</p>
+<p>await unsubscribe(data_type=”OnOrders,OnTrades,OnPositions,OnGeneral”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>str</em>) – Can be one of <cite>OnOrders</cite>, <cite>OnTrades</cite>, <cite>OnPositions</cite>, or <cite>OnGeneral</cite>, or a comma separated list of values</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="dhan.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Dhan Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="kite.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Kite Reference</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Benny Thadikaran
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Fyers Reference</a><ul>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers"><code class="docutils literal notranslate"><span class="pre">Fyers</span></code></a><ul>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.authorize"><code class="docutils literal notranslate"><span class="pre">Fyers.authorize()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.cancel_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_basket_orders()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.cancel_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_gtt_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.cancel_order"><code class="docutils literal notranslate"><span class="pre">Fyers.cancel_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.convert_position"><code class="docutils literal notranslate"><span class="pre">Fyers.convert_position()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.depth"><code class="docutils literal notranslate"><span class="pre">Fyers.depth()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.exit_positions"><code class="docutils literal notranslate"><span class="pre">Fyers.exit_positions()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.funds"><code class="docutils literal notranslate"><span class="pre">Fyers.funds()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.get_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.get_orders()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.get_profile"><code class="docutils literal notranslate"><span class="pre">Fyers.get_profile()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.gtt_orderbook"><code class="docutils literal notranslate"><span class="pre">Fyers.gtt_orderbook()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.history"><code class="docutils literal notranslate"><span class="pre">Fyers.history()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.holdings"><code class="docutils literal notranslate"><span class="pre">Fyers.holdings()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.logout"><code class="docutils literal notranslate"><span class="pre">Fyers.logout()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.market_status"><code class="docutils literal notranslate"><span class="pre">Fyers.market_status()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.modify_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_basket_orders()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.modify_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_gtt_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.modify_order"><code class="docutils literal notranslate"><span class="pre">Fyers.modify_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.optionchain"><code class="docutils literal notranslate"><span class="pre">Fyers.optionchain()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.orderbook"><code class="docutils literal notranslate"><span class="pre">Fyers.orderbook()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.place_basket_orders"><code class="docutils literal notranslate"><span class="pre">Fyers.place_basket_orders()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.place_gtt_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_gtt_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.place_multileg_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_multileg_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.place_order"><code class="docutils literal notranslate"><span class="pre">Fyers.place_order()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.positions"><code class="docutils literal notranslate"><span class="pre">Fyers.positions()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.quotes"><code class="docutils literal notranslate"><span class="pre">Fyers.quotes()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.Fyers.tradebook"><code class="docutils literal notranslate"><span class="pre">Fyers.tradebook()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersAuth"><code class="docutils literal notranslate"><span class="pre">FyersAuth</span></code></a><ul>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersAuth.generate_authcode"><code class="docutils literal notranslate"><span class="pre">FyersAuth.generate_authcode()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersAuth.generate_token"><code class="docutils literal notranslate"><span class="pre">FyersAuth.generate_token()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersAuth.refresh_token"><code class="docutils literal notranslate"><span class="pre">FyersAuth.refresh_token()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed"><code class="docutils literal notranslate"><span class="pre">FyersFeed</span></code></a><ul>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.on_tick"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_tick</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.on_connect"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_connect</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.on_error"><code class="docutils literal notranslate"><span class="pre">FyersFeed.on_error</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.channel_resume"><code class="docutils literal notranslate"><span class="pre">FyersFeed.channel_resume()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.close"><code class="docutils literal notranslate"><span class="pre">FyersFeed.close()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.connect"><code class="docutils literal notranslate"><span class="pre">FyersFeed.connect()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.subscribe"><code class="docutils literal notranslate"><span class="pre">FyersFeed.subscribe()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersFeed.unsubscribe"><code class="docutils literal notranslate"><span class="pre">FyersFeed.unsubscribe()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder"><code class="docutils literal notranslate"><span class="pre">FyersOrder</span></code></a><ul>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder.on_tick"><code class="docutils literal notranslate"><span class="pre">FyersOrder.on_tick</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder.close"><code class="docutils literal notranslate"><span class="pre">FyersOrder.close()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder.connect"><code class="docutils literal notranslate"><span class="pre">FyersOrder.connect()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder.subscribe"><code class="docutils literal notranslate"><span class="pre">FyersOrder.subscribe()</span></code></a></li>
+<li><a class="reference internal" href="#aio_trader.fyers.FyersOrder.unsubscribe"><code class="docutils literal notranslate"><span class="pre">FyersOrder.unsubscribe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=4e2eecee"></script>
+    </body>
+</html>

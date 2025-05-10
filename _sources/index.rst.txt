@@ -12,12 +12,11 @@ Python version: >= 3.8
 
 .. toctree::
 
-   kite_usage
+   usage
+   authorization
    examples
    implementation
-   kite_reference
-   kitefeed_reference
-   utils_reference
+   api_reference
 
 Installation
 ------------
