@@ -254,6 +254,7 @@ class KiteFeed(AbstractFeeder):
         data = []
 
         for packet in packets:
+            tick = None
             packet_len = len(packet)
 
             security_id = self._unpack_int(packet, 0, 4)
@@ -274,48 +275,45 @@ class KiteFeed(AbstractFeeder):
 
             # LTP
             if packet_len == 8:
-                ltp = self._unpack_int(packet, 4, 8) / divisor
-
-                data.append(
-                    dict(
-                        tradable=tradable,
-                        mode="ltp",
-                        security_id=security_id,
-                        ltp=ltp,
-                    )
+                tick = dict(
+                    tradable=tradable,
+                    mode=self.MODE_LTP,
+                    instrument_token=security_id,
+                    last_price=struct.unpack(">I", packet[4:8])[0] / divisor,
                 )
             elif packet_len == 28 or packet_len == 32:
                 ltp, high, low, _open, close, change = struct.unpack(
                     ">IIIIII", packet[4:28]
                 )
 
-                close = close / divisor
                 ltp = ltp / divisor
-
-                change = 0 if close == 0 else (ltp - close) * 100 / close
+                close = close / divisor
 
                 tick = dict(
                     tradable=tradable,
-                    mode="quote",
-                    security_id=security_id,
-                    ltp=ltp,
-                    high=high / divisor,
-                    low=low / divisor,
-                    open=_open / divisor,
-                    close=close,
-                    change=change,
+                    mode=mode,
+                    instrument_token=security_id,
+                    last_price=ltp,
+                    ohlc=dict(
+                        high=high / divisor,
+                        low=low / divisor,
+                        open=_open / divisor,
+                        close=close,
+                    ),
+                    change=0 if close == 0 else (ltp - close) * 100 / close,
                 )
 
                 if packet_len == 32:
                     try:
-                        tick["ts"] = datetime.fromtimestamp(
+                        tick["exchange_timestamp"] = datetime.fromtimestamp(
                             self._unpack_int(packet, 28, 32)
                         )
                     except Exception:
-                        tick["ts"] = None
+                        tick["exchange_timestamp"] = None
 
-                data.append(tick)
-            elif packet_len >= 44:
+            elif packet_len == 44 or packet_len == 184:
+                mode = self.MODE_QUOTE if packet_len == 44 else self.MODE_FULL
+
                 (
                     ltp,
                     ltq,
@@ -332,23 +330,23 @@ class KiteFeed(AbstractFeeder):
                 close = close / divisor
                 ltp = ltp / divisor
 
-                change = 0 if close == 0 else (ltp - close) * 100 / close
-
                 tick = dict(
                     tradable=tradable,
-                    mode="quote",
-                    security_id=security_id,
-                    ltp=ltp,
-                    ltq=ltq,
-                    atp=atp / divisor,
-                    volume=vol,
-                    buy_qty=buy_qty,
-                    sell_qty=sell_qty,
-                    open=_open / divisor,
-                    high=high / divisor,
-                    low=low / divisor,
-                    close=close,
-                    change=change,
+                    mode=mode,
+                    instrument_token=security_id,
+                    last_price=ltp,
+                    last_traded_quantity=ltq,
+                    average_traded_price=atp / divisor,
+                    volume_traded=vol,
+                    total_buy_quantity=buy_qty,
+                    total_sell_quantity=sell_qty,
+                    change=0 if close == 0 else (ltp - close) * 100 / close,
+                    ohlc=dict(
+                        open=_open / divisor,
+                        high=high / divisor,
+                        low=low / divisor,
+                        close=close,
+                    ),
                 )
 
                 if packet_len == 184:
@@ -379,21 +377,21 @@ class KiteFeed(AbstractFeeder):
                         )
 
                         depth["buy" if i < 5 else "sell"].append(
-                            dict(qty=qty, price=price / divisor, orders=orders)
+                            dict(
+                                quantity=qty,
+                                price=price / divisor,
+                                orders=orders,
+                            )
                         )
 
-                    tick.update(
-                        dict(
-                            ltt=ltt,
-                            oi=oi,
-                            oi_high=oi_high,
-                            oi_low=oi_low,
-                            ts=ts,
-                            depth=depth,
-                        )
-                    )
+                    tick["last_trade_time"] = ltt
+                    tick["oi"] = oi
+                    tick["oi_day_high"] = oi_high
+                    tick["oi_day_low"] = oi_low
+                    tick["exchange_timestamp"] = ts
+                    tick["depth"] = depth
 
-                data.append(tick)
+            data.append(tick)
 
         return data
 
