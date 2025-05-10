@@ -9,13 +9,23 @@ def configure_default_logger(name="aio_trader") -> logging.Logger:
     :param name: Name of logger instance to be returned. Default `aio_trader`
     :type name: str
     """
+    logger = logging.getLogger(name)
+    formatter = logging.Formatter("%(levelname)s: %(message)s")
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s",
-    )
+    logger.setLevel(logging.INFO)
 
-    return logging.getLogger(name)
+    stdout_handler = logging.StreamHandler()
+    stdout_handler.setLevel(logging.INFO)
+    stdout_handler.setFormatter(formatter)
+
+    file_handler = logging.FileHandler(DIR / "error.log")
+    file_handler.setLevel(logging.WARNING)
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(stdout_handler)
+    logger.addHandler(file_handler)
+
+    return logger
 
 
 def add_signal_handlers(handler: Callable, *args: Any, **kwargs: Any) -> None:
@@ -107,3 +117,7 @@ async def as_completed(
     for completed_future in asyncio.as_completed(futures_list):
         # await the future to yield the original task
         yield await completed_future
+
+
+if __name__ != "__main__":
+    DIR = Path(__file__).parent
