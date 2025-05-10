@@ -282,8 +282,10 @@ class KiteFeed(AbstractFeeder):
                     last_price=struct.unpack(">I", packet[4:8])[0] / divisor,
                 )
             elif packet_len == 28 or packet_len == 32:
-                ltp, high, low, _open, close, change = struct.unpack(
-                    ">IIIIII", packet[4:28]
+                mode = self.MODE_QUOTE if packet_len == 28 else self.MODE_FULL
+
+                ltp, high, low, _open, close = struct.unpack(
+                    ">IIIII", packet[4:24]
                 )
 
                 ltp = ltp / divisor
@@ -325,7 +327,7 @@ class KiteFeed(AbstractFeeder):
                     high,
                     low,
                     close,
-                ) = struct.unpack(">IIIIIIIIII", bin[4:44])
+                ) = struct.unpack(">IIIIIIIIII", packet[4:44])
 
                 close = close / divisor
                 ltp = ltp / divisor
@@ -356,7 +358,7 @@ class KiteFeed(AbstractFeeder):
                         oi_high,
                         oi_low,
                         ts,
-                    ) = struct.unpack(">IIIII", bin[44:64])
+                    ) = struct.unpack(">IIIII", packet[44:64])
 
                     try:
                         ltt = datetime.fromtimestamp(ts)
