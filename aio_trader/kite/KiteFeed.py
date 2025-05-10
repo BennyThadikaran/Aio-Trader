@@ -1,8 +1,15 @@
-import json, aiohttp, struct, asyncio, logging
+import asyncio
+import json
+import logging
+import struct
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Union
-from ..AbstractFeeder import AbstractFeeder, retry
+
+import aiohttp
+
 from aio_trader.utils import configure_default_logger
+
+from ..AbstractFeeder import AbstractFeeder, retry
 
 
 class KiteFeed(AbstractFeeder):
@@ -23,8 +30,6 @@ class KiteFeed(AbstractFeeder):
     :type parse_data: bool
     :param session: Client Session for making HTTP requests.
     :type session: Optional[aiohttp.ClientSession].
-    :param logger: logger instance for logging.
-    :type logger: Optional[logging.Logger]
     :raises ValueError: If `enctoken` or `access_token` is not provided
     :raises ValueError: If `enctoken` is provided, but `user_id` is missing
     :raises ValueError: If `access_token` is provided, but `api_key` is the default value
@@ -45,6 +50,10 @@ class KiteFeed(AbstractFeeder):
         "bsecds": 6,
     }
 
+    MODE_FULL = "full"
+    MODE_QUOTE = "quote"
+    MODE_LTP = "ltp"
+
     subscribed = {}
     ws: aiohttp.ClientWebSocketResponse
 
@@ -56,7 +65,6 @@ class KiteFeed(AbstractFeeder):
         access_token: Optional[str] = None,
         parse_data: bool = True,
         session: Optional[aiohttp.ClientSession] = None,
-        logger: Optional[logging.Logger] = None,
     ) -> None:
         super().__init__()
 
@@ -68,8 +76,11 @@ class KiteFeed(AbstractFeeder):
         self.connected = False
         self.loop = asyncio.get_event_loop()
         self._shared_session = bool(session)
+        self.subscribed_tokens = dict()
 
-        self.log = logger if logger else configure_default_logger()
+        self.ping_interval = 2.5
+
+        self.log = configure_default_logger(__name__)
 
         if not (self.enctoken or self.access_token):
             raise ValueError("Either enctoken or access_token is required.")
@@ -100,13 +111,6 @@ class KiteFeed(AbstractFeeder):
         else:
             self._initialise_session()
 
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(self, *_):
-        await self.close()
-        return False
-
     async def close(self):
         """Perform clean up operations to gracefully exit"""
 
@@ -114,7 +118,7 @@ class KiteFeed(AbstractFeeder):
             if not self.ws.closed:
 
                 if self.subscribed:
-                    await self.unsubscribe_symbols(list(self.subscribed.keys()))
+                    await self.unsubscribe(list(self.subscribed_tokens.keys()))
 
                 await self.ws.close()
 
@@ -151,20 +155,24 @@ class KiteFeed(AbstractFeeder):
             **kwargs,
         )
 
-        self.connected = not self.ws.closed
+        if self.ws.closed:
+            self.log.warning("Connection failed")
+            return
+
+        self.connected = True
 
         if self.on_connect:
             self.on_connect(self)
 
         async for msg in self.ws:
             # Ignore heartbeat pings
-            if len(msg.data) == 1 or not self.on_tick:
+            if len(msg.data) == 1:
                 continue
 
             is_binary = msg.type == aiohttp.WSMsgType.BINARY
 
             if not self.parse_data:
-                self.on_tick(msg.data, binary=is_binary)
+                self.on_tick(self, msg.data, binary=is_binary)
                 continue
 
             fn = self._parse_binary if is_binary else self._parse_text
@@ -172,50 +180,74 @@ class KiteFeed(AbstractFeeder):
             data = fn(msg.data)
 
             if data:
-                self.on_tick(data, binary=is_binary)
+                self.on_tick(self, data, binary=is_binary)
 
         await self.close()
 
-    async def subscribe_symbols(
-        self,
-        symbols: Union[List[int], Tuple[int]],
-        mode: str = "quote",
-    ) -> None:
+    async def subscribe(self, instrument_tokens: Union[List[int], Tuple[int]]):
         """
-        Subscribe to live market feeds
+        Subscribe to a list of instrument_tokens.
 
-        :param symbols: A collection of instrument tokens
-        :type symbols: List[int] | Tuple[int]
-        :param mode: Default `quote`. One of `quote`, `ltp`, `full`
-        :type mode: str
+        :param instrument_tokens: A collection of instrument tokens
+        :type instrument_tokens: List[int] | Tuple[int]
         """
         try:
-            await self.ws.send_str(
-                json.dumps(dict(a="mode", v=[mode, symbols]))
+            await self.ws.send_json(dict(a="subscribe", v=instrument_tokens))
+        except Exception as e:
+            await self._close(code=0, reason=f"Error while subscribe: {e!r}")
+            return
+
+        for token in instrument_tokens:
+            self.subscribed_tokens[token] = self.MODE_QUOTE
+            self.log.info(
+                f"Subscribed to {len(instrument_tokens)} scripts with mode `quote`"
             )
 
-            for i in symbols:
-                self.subscribed[i] = mode
-
-            self.log.info(f"Subscribed: {symbols}")
-        except Exception as e:
-            await self._close(code=0, reason=f"Error while setting mode: {e}")
-
-    async def unsubscribe_symbols(self, symbols: List[int]) -> None:
+    async def unsubscribe(
+        self, instrument_tokens: Union[List[int], Tuple[int]]
+    ):
         """
-        Unsubscribe from live market feed
+        Unsubscribe the given list of instrument_tokens.
 
-        :param symbols: A collection of instrument tokens
-        :type symbols: List[int] | Tuple[int]
+        :param instrument_tokens: A collection of instrument tokens
+        :type instrument_tokens: List[int] | Tuple[int]
         """
         try:
-            await self.ws.send_str(json.dumps(dict(a="unsubscribe", v=symbols)))
+            await self.ws.send_json(dict(a="unsubscribe", v=instrument_tokens))
 
-            for i in symbols:
-                self.subscribed.pop(i)
-            self.log.info(f"Unsubscribed: {symbols}")
         except Exception as e:
-            await self._close(code=0, reason=f"Error while unsubscribe: {e}")
+            await self._close(code=0, reason=f"Error while unsubscribe: {e!r}")
+            return
+
+        for token in instrument_tokens:
+            self.subscribed_tokens.pop(token)
+
+        self.log.info(f"Unsubscribed {len(instrument_tokens)} scripts")
+
+    async def set_mode(
+        self, mode: str, instrument_tokens: Union[List[int], Tuple[int]]
+    ):
+        """
+        Set streaming mode for the given list of tokens.
+
+        :param mode: Mode to set. It can be one of `ltp`, `quote`, or `full`
+        :type mode: str
+        :param instrument_tokens: A collection of instrument tokens
+        :type instrument_tokens: List[int] | Tuple[int]
+        """
+        try:
+            await self.ws.send_json(dict(a="mode", v=[mode, instrument_tokens]))
+        except Exception as e:
+            await self._close(code=0, reason=f"Error while setting mode: {e!r}")
+            return
+
+        # Update modes
+        for token in instrument_tokens:
+            self.subscribed_tokens[token] = mode
+
+        self.log.info(
+            f"Steaming mode for {len(instrument_tokens)} scripts set to `{mode}`"
+        )
 
     def _parse_binary(self, bin) -> List[Dict]:
         packets = self._split_packets(bin)
@@ -379,17 +411,17 @@ class KiteFeed(AbstractFeeder):
 
         # Order update callback
         if dtype == "order" and self.on_order_update:
-            self.on_order_update(msg)
+            self.on_order_update(self, msg)
 
         if dtype == "error":
             if self.on_error:
                 return self.on_error(self, msg)
 
-            self.log.warn(f"Error: {msg}")
+            self.log.warning(f"Error: {msg}")
 
         if dtype == "messsage":
             if self.on_message:
-                return self.on_message(msg)
+                return self.on_message(self, msg)
 
             self.log.info(f"Message: {msg}")
 
