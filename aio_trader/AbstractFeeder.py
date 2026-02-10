@@ -3,12 +3,14 @@ import logging
 from abc import ABC, abstractmethod
 from functools import wraps
 from typing import Callable, Optional
+import time
 
 import aiohttp
 
 logger = logging.getLogger(__name__)
 
-def retry(max_retries=5, base_wait=2, max_wait=60):
+
+def retry(max_retries=5, base_wait=2, max_wait=60, reset_retry_after=30):
     """
     Decorator that retries a function or method with exponential backoff
     in case of exceptions.
@@ -33,22 +35,29 @@ def retry(max_retries=5, base_wait=2, max_wait=60):
     """
 
     def decorator(method):
-
         @wraps(method)
         async def wrapper(instance, *args, **kwargs):
             retries = 0
+            last_connection_time = None
 
             while retries < max_retries:
                 try:
-                    return await method(instance, *args, **kwargs)
+                    result = await method(instance, *args, **kwargs)
+                    last_connection_time = time.monotonic()
+                    return result
                 except aiohttp.ClientResponseError as e:
                     await instance.close()
-                    return instance.log.warning(
-                        f"Client Response Error: {e.code} {e.message}"
-                    )
-                except aiohttp.ClientConnectionError as e:
                     logger.warning(f"Client Response Error: {e.code} {e.message}")
                     return
+                except (ConnectionError, aiohttp.ClientConnectionError) as e:
+                    if (
+                        last_connection_time
+                        and time.monotonic() - last_connection_time > reset_retry_after
+                    ):
+                        logger.info("Connection was stable - resetting retry count")
+                        retries = 0
+
+                    logger.warning(f"Connection Error: {e}")
 
                     # Calculate the wait time using exponential backoff
                     wait = min(base_wait * (2**retries), max_wait)
