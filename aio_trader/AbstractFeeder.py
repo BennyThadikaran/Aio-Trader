@@ -12,23 +12,42 @@ logger = logging.getLogger(__name__)
 
 def retry(max_retries=5, base_wait=2, max_wait=60, reset_retry_after=30):
     """
-    Decorator that retries a function or method with exponential backoff
-    in case of exceptions.
+    Decorator that retries an async function or method using exponential backoff
+    when network-related exceptions occur.
 
-    Retry terminates if response code is 403: Session Expired
+    Retries are attempted up to `max_retries` times, with the delay between retries
+    growing exponentially based on `base_wait`, capped at `max_wait`.
 
-    :param max_retries: The maximum number of retry attempts. Default 50
+    If a connection remains stable for longer than `reset_retry_after` seconds
+    (i.e., the time since the last successful call exceeds this threshold),
+    the retry counter is reset to zero.
+
+    Retrying stops immediately on certain errors (e.g., client response errors),
+    and the wrapped instance is closed before exiting.
+
+    :param max_retries: Maximum number of retry attempts before giving up.
+        Default is 5.
     :type max_retries: int
-    :param base_wait: The initial delay in seconds before the first retry. Default 2
-    :type max_retries: float
-    :param max_wait_time: The maximum delay in seconds between retries. Default 60
-    :type max_wait_time: float
+
+    :param base_wait: Initial delay in seconds before the first retry.
+        Each subsequent retry doubles this value.
+        Default is 2.
+    :type base_wait: float
+
+    :param max_wait: Maximum delay in seconds between retries.
+        Default is 60.
+    :type max_wait: float
+
+    :param reset_retry_after: Time in seconds after which a stable connection
+        resets the retry counter.
+        Default is 30.
+    :type reset_retry_after: float
 
     Usage:
 
     .. code:: python
 
-        @retry(max_retries=5, base_wait=2, max_wait=60)
+        @retry(max_retries=5, base_wait=2, max_wait=60, reset_retry_after=30)
         async def your_function_or_method(*args, **kwargs):
             # Your function or method logic goes here
             pass
