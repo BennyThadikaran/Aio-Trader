@@ -417,27 +417,27 @@ class KiteFeed(AbstractFeeder):
 
         try:
             data = json.loads(payload)
-        except ValueError:
+        except json.JSONDecodeError:
+            self.log.warning(f"JSON decode error: {payload}")
             return
 
-        msg = data["data"]
         dtype = data["type"]
 
         # Order update callback
         if dtype == "order" and self.on_order_update:
-            self.on_order_update(self, msg)
-
-        if dtype == "error":
+            self.on_order_update(self, data)
+            self.log.info(f"Order: {data}")
+        elif dtype == "error":
             if self.on_error:
-                return self.on_error(self, msg)
+                return self.on_error(self, data)
 
-            self.log.warning(f"Error: {msg}")
-
-        if dtype == "messsage":
+            self.log.warning(f"Error: {data}")
+        else:
+            # Message type
             if self.on_message:
-                return self.on_message(self, msg)
+                return self.on_message(self, data)
 
-            self.log.info(f"Message: {msg}")
+            self.log.info(f"Message: {data}")
 
     def _unpack_int(self, bin, start, end, byte_format="I"):
         """Unpack binary data as unsgined interger."""
