@@ -1,11 +1,10 @@
 import asyncio
 import struct
+import logging
 from collections import defaultdict
 from typing import List, Optional, Tuple
 
 import aiohttp
-
-from aio_trader.utils import configure_default_logger
 
 from ..AbstractFeeder import AbstractFeeder, retry
 
@@ -99,7 +98,7 @@ class DhanFeed(AbstractFeeder):
         self.connected = False
         self._shared_session = bool(session)
 
-        self.log = configure_default_logger(__name__)
+        self.log = logging.getLogger(__name__)
 
         self._mode_dct = dict(
             ltp=self.Ticker, quote=self.Quote, full=self.Full, depth=self.Depth

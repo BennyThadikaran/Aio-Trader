@@ -1,5 +1,6 @@
 import hashlib
 import pickle
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Collection, Optional, Union
@@ -7,7 +8,8 @@ from typing import Collection, Optional, Union
 from throttler import Throttler
 
 from ..AbstractBroker import AbstractBroker
-from ..utils import configure_default_logger
+
+logger = logging.getLogger(__name__)
 
 default_throttlers = [Throttler(rate_limit=10)]
 
@@ -137,8 +139,6 @@ class Kite(AbstractBroker):
         self.enctoken = enctoken
         self.access_token = access_token
 
-        self.log = configure_default_logger(__name__)
-
         self._initialise_session(
             headers={"X-Kite-version": "3"},
             throttlers=default_throttlers,
@@ -218,7 +218,7 @@ class Kite(AbstractBroker):
         api_key = kwargs.get("api_key", None)
 
         if self.enctoken:
-            self.log.info("enctoken set")
+            logger.info("enctoken set")
             return self._set_enctoken(self.enctoken)
 
         kite_connect_args = (request_token, secret, api_key)
@@ -229,7 +229,7 @@ class Kite(AbstractBroker):
             )
 
         if self.access_token:
-            self.log.info("access_token set")
+            logger.info("access_token set")
             return self._set_access_token(api_key, self.access_token)
 
         login_url = "https://kite.zerodha.com"
@@ -251,7 +251,7 @@ class Kite(AbstractBroker):
 
             self.access_token = response["access_token"]
 
-            self.log.info(f"Api login success: {response['login_time']}")
+            logger.info(f"Api login success: {response['login_time']}")
 
             return self._set_access_token(api_key, self.access_token)
 
@@ -265,14 +265,14 @@ class Kite(AbstractBroker):
 
             if datetime.now() > expiry:
                 self.cookie_path.unlink()
-                self.log.info("Cookie expired")
+                logger.info("Cookie expired")
             else:
                 # get enctoken from cookies
                 self.enctoken = self.cookies.get("enctoken").value
-                self.log.info("Reusing enctoken from cookie file")
+                logger.info("Reusing enctoken from cookie file")
                 return self._set_enctoken(self.enctoken)
 
-        self.log.info("Login required")
+        logger.info("Login required")
 
         try:
             if user_id is None:
@@ -321,7 +321,7 @@ class Kite(AbstractBroker):
         self._set_enctoken(self.enctoken)
         login_time = datetime.now().isoformat().replace("T", " ")[:19]
 
-        self.log.info(f"Web Login success: {login_time}")
+        logger.info(f"Web Login success: {login_time}")
 
     async def instruments(self, exchange: Optional[str] = None) -> bytes:
         """

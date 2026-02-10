@@ -1,34 +1,8 @@
 import asyncio
-import logging
 import signal
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any, AsyncGenerator, List
-
-
-def configure_default_logger(name="aio_trader") -> logging.Logger:
-    """Return a configured logger
-
-    :param name: Name of logger instance to be returned. Default `aio_trader`
-    :type name: str
-    """
-    logger = logging.getLogger(name)
-    formatter = logging.Formatter("%(levelname)s: %(message)s")
-
-    logger.setLevel(logging.INFO)
-
-    stdout_handler = logging.StreamHandler()
-    stdout_handler.setLevel(logging.INFO)
-    stdout_handler.setFormatter(formatter)
-
-    file_handler = logging.FileHandler(DIR / "error.log")
-    file_handler.setLevel(logging.WARNING)
-    file_handler.setFormatter(formatter)
-
-    logger.addHandler(stdout_handler)
-    logger.addHandler(file_handler)
-
-    return logger
 
 
 def add_signal_handlers(handler: Callable, *args: Any, **kwargs: Any) -> None:

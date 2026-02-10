@@ -3,11 +3,10 @@ import base64
 import json
 import struct
 import time
+import logging
 from typing import List, Literal, Optional, Tuple
 
 import aiohttp
-
-from aio_trader.utils import configure_default_logger
 
 from ..AbstractFeeder import AbstractFeeder, retry
 from . import maps
@@ -202,7 +201,7 @@ class FyersFeed(AbstractFeeder):
         self.connected = False
         self._shared_session = bool(session)
 
-        self.log = configure_default_logger(__name__)
+        self.log = logging.getLogger(__name__)
 
         self.loop = asyncio.get_running_loop()
 

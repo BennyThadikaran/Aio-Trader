@@ -8,7 +8,6 @@ import aiohttp
 from throttler import Throttler
 
 from ..AbstractBroker import AbstractBroker
-from ..utils import configure_default_logger
 
 
 class Config:
@@ -200,8 +199,6 @@ class Fyers(AbstractBroker):
         base_dir = Path(__file__).parent
         self.cookie_path = base_dir / "fyers_cookies"
         self.client_id = client_id
-
-        self.log = configure_default_logger(__name__)
 
         self._initialise_session(
             headers={

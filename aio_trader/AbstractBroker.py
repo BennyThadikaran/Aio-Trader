@@ -1,4 +1,3 @@
-import logging
 import pathlib
 from abc import ABC, abstractmethod
 from typing import List
@@ -14,7 +13,6 @@ class AbstractBroker(ABC):
 
     session: aiohttp.ClientSession
     cookie_path: pathlib.Path
-    log: logging.Logger
 
     async def __aenter__(self):
         """On entering async context manager"""

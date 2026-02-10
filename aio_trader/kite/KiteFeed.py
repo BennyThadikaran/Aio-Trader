@@ -7,8 +7,6 @@ from typing import Dict, List, Optional, Tuple, Union
 
 import aiohttp
 
-from aio_trader.utils import configure_default_logger
-
 from ..AbstractFeeder import AbstractFeeder, retry
 
 
@@ -80,7 +78,7 @@ class KiteFeed(AbstractFeeder):
 
         self.ping_interval = 2.5
 
-        self.log = configure_default_logger(__name__)
+        self.log = logging.getLogger(__name__)
 
         if not (self.enctoken or self.access_token):
             raise ValueError("Either enctoken or access_token is required.")

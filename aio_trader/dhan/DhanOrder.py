@@ -1,10 +1,10 @@
 import asyncio
 import json
+import logging
 from typing import Optional
 
 import aiohttp
 
-from aio_trader.utils import configure_default_logger
 
 from ..AbstractFeeder import AbstractFeeder, retry
 
@@ -51,7 +51,7 @@ class DhanOrder(AbstractFeeder):
         self.connected = False
         self._shared_session = bool(session)
 
-        self.log = configure_default_logger(__name__)
+        self.log = logging.getLogger(__name__)
 
         self.loop = asyncio.get_running_loop()
 

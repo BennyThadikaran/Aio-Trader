@@ -1,12 +1,13 @@
 import asyncio
 import json
 import pathlib
+import logging
 from typing import Any, Dict, List, Optional
 
 import aiohttp
 from throttler import Throttler
 
-from .utils import configure_default_logger
+logger = logging.getLogger(__name__)
 
 
 def retry(max_retries=5, base_wait=3, max_wait=30):
@@ -31,7 +32,6 @@ def retry(max_retries=5, base_wait=3, max_wait=30):
     """
 
     def decorator(method):
-
         async def wrapper(instance, *args, **kwargs):
             retries = 0
 
@@ -43,22 +43,21 @@ def retry(max_retries=5, base_wait=3, max_wait=30):
                     json.JSONDecodeError,
                     ConnectionError,
                 ) as e:
-                    instance.logger.warning(
-                        f"Attempt {retries + 1} failed: {e}"
-                    )
+                    logger.warning(f"Attempt {retries + 1} failed: {e}")
 
                     # Calculate the wait time using exponential backoff
                     wait = min(base_wait * (2**retries), max_wait)
 
-                    instance.logger.info(f"Retrying in {wait} seconds...")
+                    logger.info(f"Retrying in {wait} seconds...")
                     await asyncio.sleep(wait)
 
                     retries += 1
                 except RuntimeError as e:
                     await instance.close_session()
-                    return instance.logger.exception(f"An error occurred {e}")
+                    logger.exception(f"An error occurred {e}")
+                    return
 
-            instance.logger.warn("Exceeded maximum retry attempts. Exiting.")
+            logger.warning("Exceeded maximum retry attempts. Exiting.")
 
         return wrapper
 
@@ -84,7 +83,6 @@ class AsyncRequest:
         **kwargs,
     ) -> None:
         self.session_args: Dict[str, Any] = kwargs
-        self.logger = configure_default_logger(__name__)
         self.cookie_path = cookie_path
 
         self.throttlers = throttlers
@@ -146,9 +144,7 @@ class AsyncRequest:
             if response.status == 403:
                 if self.cookie_path and self.cookie_path.exists():
                     self.cookie_path.unlink()
-                    self.logger.info(
-                        "Cookie file deleted. Try logging in again"
-                    )
+                    logger.info("Cookie file deleted. Try logging in again")
 
                 raise RuntimeError("403: Forbidden")
 

@@ -7,7 +7,6 @@ from webbrowser import open as web_open
 from throttler import Throttler
 
 from ..AbstractBroker import AbstractBroker
-from ..utils import configure_default_logger
 
 default_throttlers = [Throttler(rate_limit=20)]
 
@@ -83,7 +82,6 @@ class Dhan(AbstractBroker):
         self.access_token = access_token
         self.base_url = "https://api.dhan.co/v2"
 
-        self.log = configure_default_logger(__name__)
         self.headers = {
             "access-token": access_token,
             "Content-type": "application/json",

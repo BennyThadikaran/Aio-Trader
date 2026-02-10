@@ -1,10 +1,12 @@
 import asyncio
+import logging
 from abc import ABC, abstractmethod
 from functools import wraps
 from typing import Callable, Optional
 
 import aiohttp
 
+logger = logging.getLogger(__name__)
 
 def retry(max_retries=5, base_wait=2, max_wait=60):
     """
@@ -45,21 +47,23 @@ def retry(max_retries=5, base_wait=2, max_wait=60):
                         f"Client Response Error: {e.code} {e.message}"
                     )
                 except aiohttp.ClientConnectionError as e:
-                    instance.log.warning(f"Connection Error: {e}")
+                    logger.warning(f"Client Response Error: {e.code} {e.message}")
+                    return
 
                     # Calculate the wait time using exponential backoff
                     wait = min(base_wait * (2**retries), max_wait)
 
-                    instance.log.info(f"Retrying in {wait} seconds...")
+                    logger.info(f"Retrying in {wait} seconds...")
                     await asyncio.sleep(wait)
 
                     retries += 1
                 except Exception as e:
                     await instance.close()
-                    return instance.log.exception("An error occurred: %s", e)
+                    logger.exception("An error occurred: %s", e)
+                    return
 
             await instance.close()
-            instance.log.warn("Exceeded maximum retry attempts. Exiting.")
+            logger.warning("Exceeded maximum retry attempts. Exiting.")
 
         return wrapper
 
