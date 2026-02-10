@@ -510,7 +510,7 @@ class Dhan(AbstractBroker):
             quantity1=int(quantity1),
         )
 
-        if tag != None and tag != "":
+        if tag is not None and tag != "":
             payload["correlationId"] = tag
 
         return await self.req.post(
