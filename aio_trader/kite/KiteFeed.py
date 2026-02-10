@@ -162,25 +162,41 @@ class KiteFeed(AbstractFeeder):
         if self.on_connect:
             self.on_connect(self)
 
-        async for msg in self.ws:
-            # Ignore heartbeat pings
-            if len(msg.data) == 1:
-                continue
+        try:
+            async for msg in self.ws:
+                if msg.type in (
+                    aiohttp.WSMsgType.ERROR,
+                    aiohttp.WSMsgType.CLOSE,
+                    aiohttp.WSMsgType.CLOSED,
+                ):
+                    raise ConnectionError(f"Websocket closed: {msg.data} | {msg.extra}")
 
-            is_binary = msg.type == aiohttp.WSMsgType.BINARY
+                # Ignore heartbeat pings
+                if msg.type == aiohttp.WSMsgType.PONG:
+                    continue
 
-            if not self.parse_data:
-                self.on_tick(self, msg.data, binary=is_binary)
-                continue
+                if not self.parse_data:
+                    self.on_tick(self, msg.data)
+                    continue
 
-            fn = self._parse_binary if is_binary else self._parse_text
+                if msg.type == aiohttp.WSMsgType.BINARY:
+                    data = self._parse_binary(msg.data)
+                else:
+                    data = self._parse_text(msg.data)
 
-            data = fn(msg.data)
+                if data:
+                    self.on_tick(self, data)
+        except asyncio.CancelledError:
+            # Catch KeyboardInterupt to avoid retries
+            self.log.info("User exit")
+            return
 
-            if data:
-                self.on_tick(self, data, binary=is_binary)
+        # In case user terminated the session, wait for session to close
+        await asyncio.sleep(1)
 
-        await self.close()
+        # If session is closed, its likely user terminated, retry the connection
+        if not self.session.closed:
+            raise ConnectionError("Websocket connection closed unexpectedly")
 
     async def subscribe(self, instrument_tokens: Union[List[int], Tuple[int]]):
         """
