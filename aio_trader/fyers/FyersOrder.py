@@ -88,7 +88,10 @@ class FyersOrder(AbstractFeeder):
         """
 
         async with self.session.ws_connect(
-            self.WSS_URL, heartbeat=self.ping_interval, **kwargs
+            self.WSS_URL,
+            headers=dict(authorization=f"{self.client_id}:{self.access_token}"),
+            heartbeat=self.ping_interval,
+            **kwargs,
         ) as ws:
 
             self.ws = ws
