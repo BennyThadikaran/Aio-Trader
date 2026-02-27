@@ -1001,7 +1001,7 @@ class FyersFeed(AbstractFeeder):
                             self.resp[self.index_sym[topic_id]], "index"
                         )
 
-    def __acknowledgement_msg(self, message_number: int) -> bytearray:
+    def __acknowledgement_msg(self, message_number: int) -> bytes:
         """
         Create a message in bytearray for acknowledgement.
 
@@ -1028,7 +1028,7 @@ class FyersFeed(AbstractFeeder):
         buffer_msg.extend(struct.pack(">H", field_size))
         buffer_msg.extend(struct.pack(">I", field_value))
 
-        return buffer_msg
+        return bytes(buffer_msg)
 
     def __response_output(self, data: dict, data_type: str) -> object:
         """
@@ -1267,7 +1267,7 @@ class FyersFeed(AbstractFeeder):
         self.running_channels.add(self.channel_num)
         self.active_channel = self.channel_num
 
-    def __channel_pause_msg(self, channel: int) -> bytearray:
+    def __channel_pause_msg(self, channel: int) -> bytes:
         """
         Create a message in bytearray for channel pause.
 
@@ -1296,9 +1296,9 @@ class FyersFeed(AbstractFeeder):
         field.extend(struct.pack(">Q", channel_bits))
         data.extend(field)
 
-        return data
+        return bytes(data)
 
-    def __channel_resume_msg(self, channel: int) -> bytearray:
+    def __channel_resume_msg(self, channel: int) -> bytes:
         """
         Create a message in bytearray for channel resume.
 
@@ -1327,7 +1327,7 @@ class FyersFeed(AbstractFeeder):
         field.extend(struct.pack(">Q", channel_bits))
         data.extend(field)
 
-        return data
+        return bytes(data)
 
     async def __symbol_conversion(self, symbolslst: list):
         """
@@ -1420,7 +1420,7 @@ class FyersFeed(AbstractFeeder):
 
         return symbol_dict
 
-    def __unsubscription_msg(self, symbols: list) -> bytearray:
+    def __unsubscription_msg(self, symbols: list) -> bytes:
         """
         Create a message in bytearray for unsubscription message.
 
@@ -1461,9 +1461,9 @@ class FyersFeed(AbstractFeeder):
         buffer_msg.extend(struct.pack(">H", 1))
         buffer_msg.append(self.channel_num)
 
-        return buffer_msg
+        return bytes(buffer_msg)
 
-    def __subscription_msg(self, symbols: list) -> bytearray:
+    def __subscription_msg(self, symbols: list) -> bytes:
         """
         Create a message in bytearray for symbol subscription.
 
@@ -1510,9 +1510,9 @@ class FyersFeed(AbstractFeeder):
         buffer_msg.append(2)
         buffer_msg.extend(struct.pack(">H", 1))
         buffer_msg.append(self.channel_num)
-        return buffer_msg
+        return bytes(buffer_msg)
 
-    def __access_token_msg(self) -> bytearray:
+    def __access_token_msg(self) -> bytes:
         """
         Create a message in bytearray for token.
 
@@ -1561,9 +1561,9 @@ class FyersFeed(AbstractFeeder):
         byte_buffer.extend(struct.pack("!H", field4_size))
         byte_buffer.extend(self.source.encode())
 
-        return byte_buffer
+        return bytes(byte_buffer)
 
-    def __lite_mode_msg(self) -> bytearray:
+    def __lite_mode_msg(self) -> bytes:
         """
         Create a message in bytearray for lite mode connection.
 
@@ -1597,9 +1597,9 @@ class FyersFeed(AbstractFeeder):
         field_2.extend(struct.pack("B", 76))
         data.extend(field_2)
 
-        return data
+        return bytes(data)
 
-    def __full_mode_msg(self) -> bytearray:
+    def __full_mode_msg(self) -> bytes:
         """
         Create a message in bytearray for full mode connection.
 
@@ -1635,4 +1635,4 @@ class FyersFeed(AbstractFeeder):
 
         data.extend(field_2)
 
-        return data
+        return bytes(data)
