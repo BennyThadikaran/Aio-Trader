@@ -178,7 +178,7 @@ class FyersFeed(AbstractFeeder):
     :type litemode: bool
     :param parse_data: If true, `on_tick` handler receives raw binary/text data. Default True.
     :type parse_data: bool
-    :param session: Client Session for making HTTP requests.
+    :param session: Default None. Client Session for making HTTP requests.
     :type session: Optional[aiohttp.ClientSession].
     """
 

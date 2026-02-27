@@ -24,7 +24,7 @@ class FyersOrder(AbstractFeeder):
 
     :param access_token: Fyers `access_token`.
     :type access_token: str
-    :param session: Client Session for making HTTP requests.
+    :param session: Default None. Client Session for making HTTP requests.
     :type session: Optional[aiohttp.ClientSession].
     :param parse_data: If true, `on_tick` handler receives raw binary/text data. Default True.
     :type parse_data: bool
@@ -35,7 +35,7 @@ class FyersOrder(AbstractFeeder):
     def __init__(
         self,
         access_token: str,
-        session: Optional[aiohttp.ClientSession],
+        session: Optional[aiohttp.ClientSession] = None,
         parse_data: bool = True,
     ) -> None:
 
