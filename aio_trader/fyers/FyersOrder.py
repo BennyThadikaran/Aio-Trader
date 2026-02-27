@@ -40,16 +40,17 @@ class FyersOrder(AbstractFeeder):
 
     def __init__(
         self,
+        client_id: str,
         access_token: str,
         session: Optional[aiohttp.ClientSession] = None,
         parse_data: bool = True,
     ) -> None:
-
         super().__init__()
 
-        self.parse_data = parse_data
         self.access_token = access_token
+        self.client_id = client_id
 
+        self.parse_data = parse_data
         self.connected = False
         self._shared_session = bool(session)
 
@@ -107,7 +108,9 @@ class FyersOrder(AbstractFeeder):
                 return
 
             self.connected = True
-            self.log.info("Subscribed to order updates")
+
+            if self.on_connect:
+                self.on_connect(self)
 
             async for msg in self.ws:
                 if msg == "pong":
