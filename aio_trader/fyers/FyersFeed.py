@@ -468,7 +468,7 @@ class FyersFeed(AbstractFeeder):
             self._valid_token = True
 
             self.__hsm_token = decode_token["hsm_key"]
-        except:
+        except Exception:
             self.log.warning(INVALID_TOKEN)
 
             if self.on_error:
