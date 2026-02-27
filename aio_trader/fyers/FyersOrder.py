@@ -72,7 +72,6 @@ class FyersOrder(AbstractFeeder):
 
     async def close(self):
         """Perform clean up operations to gracefully exit"""
-
         if self.connected and hasattr(self, "ws") and not self.ws.closed:
             await self.ws.close()
 
@@ -93,14 +92,12 @@ class FyersOrder(AbstractFeeder):
         :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
         :type: kwargs: Any
         """
-
         async with self.session.ws_connect(
             self.WSS_URL,
             headers=dict(authorization=f"{self.client_id}:{self.access_token}"),
             heartbeat=self.ping_interval,
             **kwargs,
         ) as ws:
-
             self.ws = ws
 
             if self.ws.closed:
@@ -154,9 +151,7 @@ class FyersOrder(AbstractFeeder):
             else:
                 self.data_type.append(self.socket_type[elem])
 
-        await self.ws.send_json(
-            dict(T="SUB_ORD", SLIST=self.data_type, SUB_T=1)
-        )
+        await self.ws.send_json(dict(T="SUB_ORD", SLIST=self.data_type, SUB_T=1))
 
     async def unsubscribe(self, data_type: str) -> None:
         """
@@ -169,7 +164,6 @@ class FyersOrder(AbstractFeeder):
         :param data_type: Can be one of `OnOrders`, `OnTrades`, `OnPositions`, or `OnGeneral`, or a comma separated list of values
         :type data_type: str
         """
-
         if not hasattr(self, "ws") or self.ws.closed:
             return
 
@@ -177,9 +171,7 @@ class FyersOrder(AbstractFeeder):
             self.socket_type[_type] for _type in data_type.split(",")
         )
 
-        await self.ws.send_json(
-            dict(T="SUB_ORD", SLIST=self.data_type, SUB_T=-1)
-        )
+        await self.ws.send_json(dict(T="SUB_ORD", SLIST=self.data_type, SUB_T=-1))
 
     def __parse_position_data(self, msg: Dict) -> Dict:
         """

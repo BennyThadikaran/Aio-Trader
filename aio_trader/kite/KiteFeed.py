@@ -111,10 +111,8 @@ class KiteFeed(AbstractFeeder):
 
     async def close(self):
         """Perform clean up operations to gracefully exit"""
-
         if hasattr(self, "ws"):
             if not self.ws.closed:
-
                 if self.subscribed:
                     await self.unsubscribe(list(self.subscribed_tokens.keys()))
 
@@ -145,7 +143,6 @@ class KiteFeed(AbstractFeeder):
         :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
         :type: kwargs: Any
         """
-
         self.ws = await self.session.ws_connect(
             self.WSS_URL,
             heartbeat=self.ping_interval,
@@ -217,9 +214,7 @@ class KiteFeed(AbstractFeeder):
                 f"Subscribed to {len(instrument_tokens)} scripts with mode `quote`"
             )
 
-    async def unsubscribe(
-        self, instrument_tokens: Union[List[int], Tuple[int]]
-    ):
+    async def unsubscribe(self, instrument_tokens: Union[List[int], Tuple[int]]):
         """
         Unsubscribe the given list of instrument_tokens.
 
@@ -298,9 +293,7 @@ class KiteFeed(AbstractFeeder):
             elif packet_len == 28 or packet_len == 32:
                 mode = self.MODE_QUOTE if packet_len == 28 else self.MODE_FULL
 
-                ltp, high, low, _open, close = struct.unpack(
-                    ">IIIII", packet[4:24]
-                )
+                ltp, high, low, _open, close = struct.unpack(">IIIII", packet[4:24])
 
                 ltp = ltp / divisor
                 close = close / divisor
@@ -388,9 +381,7 @@ class KiteFeed(AbstractFeeder):
 
                     for i, p in enumerate(range(64, packet_len, 12)):
                         # last 2 bytes are padding, ignore it
-                        qty, price, orders = struct.unpack(
-                            ">IIH", bin[p : p + 10]
-                        )
+                        qty, price, orders = struct.unpack(">IIH", bin[p : p + 10])
 
                         depth["buy" if i < 5 else "sell"].append(
                             dict(
@@ -441,7 +432,6 @@ class KiteFeed(AbstractFeeder):
 
     def _unpack_int(self, bin, start, end, byte_format="I"):
         """Unpack binary data as unsgined interger."""
-
         return struct.unpack(">" + byte_format, bin[start:end])[0]
 
     def _split_packets(self, bin):

@@ -1,9 +1,9 @@
 import asyncio
 import base64
 import json
+import logging
 import struct
 import time
-import logging
 from typing import List, Literal, Optional, Tuple
 
 import aiohttp
@@ -39,7 +39,10 @@ INDEX_DEPTH_ERROR_MESSAGE = "Index does not have market depth"
 
 class SymbolConversion:
     def __init__(
-        self, access_token: str, data_type: str, session: aiohttp.ClientSession
+        self,
+        access_token: str,
+        data_type: str,
+        session: aiohttp.ClientSession,
     ):
         """
         Initializes a SymbolConversion instance.
@@ -111,19 +114,13 @@ class SymbolConversion:
                         exch_token = symbol.split(":")[1].split("-")[0]
 
                     hsm_symbol = "if" + "|" + segment + "|" + exch_token
-                elif (
-                    self.data_type == "DepthUpdate"
-                    and symbol_split[-1] != "INDEX"
-                ):
+                elif self.data_type == "DepthUpdate" and symbol_split[-1] != "INDEX":
                     exch_token = fytoken[10:]
                     hsm_symbol = f"dp|{segment}|{exch_token}"
                 elif self.data_type == "SymbolUpdate":
                     exch_token = fytoken[10:]
                     hsm_symbol = f"sf|{segment}|{exch_token}"
-                elif (
-                    self.data_type == "DepthUpdate"
-                    and symbol_split[-1] == "INDEX"
-                ):
+                elif self.data_type == "DepthUpdate" and symbol_split[-1] == "INDEX":
                     update_dict = False
                     dp_index_flag = True
 
@@ -136,7 +133,6 @@ class SymbolConversion:
             return (datadict, wrong_symbol, dp_index_flag, "")
 
         elif data["s"] == "error":
-
             return ({}, [], dp_index_flag, data["message"])
 
 
@@ -239,7 +235,6 @@ class FyersFeed(AbstractFeeder):
 
     async def close(self):
         """Perform clean up operations to gracefully exit"""
-
         if self.connected and hasattr(self, "ws") and not self.ws.closed:
             await self.ws.close()
 
@@ -264,7 +259,6 @@ class FyersFeed(AbstractFeeder):
         :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
         :type: kwargs: Any
         """
-
         if self.__access_token_to_hsmtoken() and self._valid_token:
             self.ws = await self.session.ws_connect(
                 self.WSS_URL,
@@ -304,7 +298,7 @@ class FyersFeed(AbstractFeeder):
     async def unsubscribe(
         self,
         symbols: List[str],
-        data_type: Literal["SymbolUpdate", "DepthUpdate"]= "SymbolUpdate",
+        data_type: Literal["SymbolUpdate", "DepthUpdate"] = "SymbolUpdate",
         channel: int = 11,
     ):
         """
@@ -340,8 +334,7 @@ class FyersFeed(AbstractFeeder):
         if len(self.unsub_symbol) != 0:
             total_symbols = len(self.unsub_symbol)
             symbol_chunks = [
-                self.unsub_symbol[i : i + 1500]
-                for i in range(0, total_symbols, 1500)
+                self.unsub_symbol[i : i + 1500] for i in range(0, total_symbols, 1500)
             ]
             for symbols in symbol_chunks:
                 message = self.__unsubscription_msg(symbols)
@@ -352,16 +345,13 @@ class FyersFeed(AbstractFeeder):
             if self.on_error:
                 self.on_error(
                     self,
-                    dict(
-                        code=INVALID_CODE,
-                        message=INVALID_SYMBOLS
-                    ),
+                    dict(code=INVALID_CODE, message=INVALID_SYMBOLS),
                 )
 
     async def subscribe(
         self,
         symbols: List[str],
-        data_type: Literal['SymbolUpdate', "DepthUpdate"]= "SymbolUpdate",
+        data_type: Literal["SymbolUpdate", "DepthUpdate"] = "SymbolUpdate",
         channel: int = 11,
     ):
         """
@@ -373,7 +363,7 @@ class FyersFeed(AbstractFeeder):
         :type symbols: List[str]
         :param data_type: Default "SymbolUpdate". The type of data to subscribe.
         :type data_type: Literal['SymbolUpdate', "DepthUpdate"]
-        :param channel: Default 11. The channel to use for subscription. 
+        :param channel: Default 11. The channel to use for subscription.
         :type channel: int
 
         """
@@ -395,10 +385,7 @@ class FyersFeed(AbstractFeeder):
             if self.on_error:
                 self.on_error(
                     self,
-                    dict(
-                        code=LIMIT_EXCEED_CODE,
-                        message=LIMIT_EXCEED_MSG_5000
-                    ),
+                    dict(code=LIMIT_EXCEED_CODE, message=LIMIT_EXCEED_MSG_5000),
                 )
             return
 
@@ -458,10 +445,7 @@ class FyersFeed(AbstractFeeder):
                 if self.on_error:
                     self.on_error(
                         self,
-                        dict(
-                            code=TOKEN_EXPIRED,
-                            message=TOKEN_EXPIRED_MSG
-                        ),
+                        dict(code=TOKEN_EXPIRED, message=TOKEN_EXPIRED_MSG),
                     )
                 return False
 
@@ -483,8 +467,6 @@ class FyersFeed(AbstractFeeder):
             return False
 
         return True
-
-    
 
     def __auth_resp(self, data: bytearray):
         """
@@ -531,10 +513,7 @@ class FyersFeed(AbstractFeeder):
             if self.on_error:
                 self.on_error(
                     self,
-                    dict(
-                        code=SUBS_ERROR_CODE,
-                        message=SUBSCRIBE_FAIL
-                    ),
+                    dict(code=SUBS_ERROR_CODE, message=SUBSCRIBE_FAIL),
                 )
 
     def __unsubscribe_resp(self, data: bytearray):
@@ -547,7 +526,6 @@ class FyersFeed(AbstractFeeder):
         Returns:
             dict: The unsubscription response as a dictionary with keys 'code', 'message', and 's'.
         """
-
         offset = 5
         field_length = struct.unpack("H", data[offset : offset + 2])[0]
 
@@ -558,7 +536,6 @@ class FyersFeed(AbstractFeeder):
         offset += field_length
 
         if string_val == "K":
-
             self.log.info("Unsubscribed")
 
             for symbol in self.unsub_symbol:
@@ -616,7 +593,6 @@ class FyersFeed(AbstractFeeder):
             data_type = struct.unpack("B", data[9:10])[0]
 
             if data_type == 83:  # Snapshot datafeed
-
                 topic_id = struct.unpack("H", data[10:12])[0]
                 topic_name_len = struct.unpack("B", data[12:13])[0]
                 topic_name = data[13 : 13 + topic_name_len].decode("utf-8")
@@ -629,15 +605,11 @@ class FyersFeed(AbstractFeeder):
 
                     self.resp[self.dp_sym[topic_id]] = {}
 
-                    field_count = struct.unpack("B", data[offset : offset + 1])[
-                        0
-                    ]
+                    field_count = struct.unpack("B", data[offset : offset + 1])[0]
                     offset += 1
 
                     for index in range(field_count):
-                        value = struct.unpack(">i", data[offset : offset + 4])[
-                            0
-                        ]
+                        value = struct.unpack(">i", data[offset : offset + 4])[0]
                         offset += 4
 
                         if value != -2147483648:
@@ -647,9 +619,7 @@ class FyersFeed(AbstractFeeder):
 
                     offset += 2
 
-                    multiplier = struct.unpack(">H", data[offset : offset + 2])[
-                        0
-                    ]
+                    multiplier = struct.unpack(">H", data[offset : offset + 2])[0]
 
                     self.resp[self.dp_sym[topic_id]]["multiplier"] = multiplier
 
@@ -664,9 +634,7 @@ class FyersFeed(AbstractFeeder):
                     val = ["exchange", "exchange_token", "symbol"]
 
                     for i in range(3):
-                        string_len = struct.unpack(
-                            "B", data[offset : offset + 1]
-                        )[0]
+                        string_len = struct.unpack("B", data[offset : offset + 1])[0]
 
                         offset += 1
 
@@ -680,30 +648,20 @@ class FyersFeed(AbstractFeeder):
 
                     self.resp[self.dp_sym[topic_id]]["type"] = "dp"
 
-                    self.resp[topic_name]["symbol"] = self.symbol_token[
-                        topic_name
-                    ]
+                    self.resp[topic_name]["symbol"] = self.symbol_token[topic_name]
 
-                    self.__response_output(
-                        self.resp[self.dp_sym[topic_id]], "depth"
-                    )
+                    self.__response_output(self.resp[self.dp_sym[topic_id]], "depth")
 
                 elif topic_name[:2] == "if":
-
                     self.index_sym[topic_id] = topic_name
                     self.resp[self.index_sym[topic_id]] = {}
 
                     # field_count - 21 in scrips , 25 in depth , 6 in index
-                    field_count = struct.unpack("B", data[offset : offset + 1])[
-                        0
-                    ]
+                    field_count = struct.unpack("B", data[offset : offset + 1])[0]
                     offset += 1
 
                     for index in range(field_count):
-
-                        value = struct.unpack(">i", data[offset : offset + 4])[
-                            0
-                        ]
+                        value = struct.unpack(">i", data[offset : offset + 4])[0]
                         offset += 4
 
                         if value != -2147483648:
@@ -713,13 +671,9 @@ class FyersFeed(AbstractFeeder):
 
                     offset += 2
 
-                    multiplier = struct.unpack(">H", data[offset : offset + 2])[
-                        0
-                    ]
+                    multiplier = struct.unpack(">H", data[offset : offset + 2])[0]
 
-                    self.resp[self.index_sym[topic_id]][
-                        "multiplier"
-                    ] = multiplier
+                    self.resp[self.index_sym[topic_id]]["multiplier"] = multiplier
 
                     offset += 2
 
@@ -732,9 +686,7 @@ class FyersFeed(AbstractFeeder):
                     val = ["exchange", "exchange_token", "symbol"]
 
                     for i in range(3):
-                        string_len = struct.unpack(
-                            "B", data[offset : offset + 1]
-                        )[0]
+                        string_len = struct.unpack("B", data[offset : offset + 1])[0]
 
                         offset += 1
 
@@ -742,21 +694,15 @@ class FyersFeed(AbstractFeeder):
                             "utf-8", errors="ignore"
                         )
 
-                        self.resp[self.index_sym[topic_id]][
-                            val[i]
-                        ] = string_data
+                        self.resp[self.index_sym[topic_id]][val[i]] = string_data
 
                         offset += string_len
 
-                    self.resp[topic_name]["symbol"] = self.symbol_token[
-                        topic_name
-                    ]
+                    self.resp[topic_name]["symbol"] = self.symbol_token[topic_name]
 
                     self.resp[self.index_sym[topic_id]]["type"] = "if"
 
-                    self.__response_output(
-                        self.resp[self.index_sym[topic_id]], "index"
-                    )
+                    self.__response_output(self.resp[self.index_sym[topic_id]], "index")
 
                 elif topic_name[:2] == "sf":
                     self.scrips_sym[topic_id] = topic_name
@@ -764,16 +710,12 @@ class FyersFeed(AbstractFeeder):
                     self.resp[self.scrips_sym[topic_id]] = {}
 
                     # field_count - 21 in scrips , 25 in depth , 6 in index
-                    field_count = struct.unpack("B", data[offset : offset + 1])[
-                        0
-                    ]
+                    field_count = struct.unpack("B", data[offset : offset + 1])[0]
 
                     offset += 1
 
                     for index in range(field_count):
-                        value = struct.unpack(">i", data[offset : offset + 4])[
-                            0
-                        ]
+                        value = struct.unpack(">i", data[offset : offset + 4])[0]
 
                         offset += 4
 
@@ -784,46 +726,34 @@ class FyersFeed(AbstractFeeder):
 
                     offset += 2
 
-                    multiplier = struct.unpack(">H", data[offset : offset + 2])[
-                        0
-                    ]
+                    multiplier = struct.unpack(">H", data[offset : offset + 2])[0]
 
-                    self.resp[self.scrips_sym[topic_id]][
-                        "multiplier"
-                    ] = multiplier
+                    self.resp[self.scrips_sym[topic_id]]["multiplier"] = multiplier
 
                     offset += 2
 
                     precision = struct.unpack("B", data[offset : offset + 1])[0]
 
-                    self.resp[self.scrips_sym[topic_id]][
-                        "precision"
-                    ] = precision
+                    self.resp[self.scrips_sym[topic_id]]["precision"] = precision
 
                     offset += 1
 
                     val = ["exchange", "exchange_token", "symbol"]
 
                     for i in range(3):
-                        string_len = struct.unpack(
-                            "B", data[offset : offset + 1]
-                        )[0]
+                        string_len = struct.unpack("B", data[offset : offset + 1])[0]
 
                         offset += 1
 
-                        string_data = bytes(
-                            data[offset : offset + string_len]
-                        ).decode("utf-8", errors="ignore")
+                        string_data = bytes(data[offset : offset + string_len]).decode(
+                            "utf-8", errors="ignore"
+                        )
 
-                        self.resp[self.scrips_sym[topic_id]][
-                            val[i]
-                        ] = string_data
+                        self.resp[self.scrips_sym[topic_id]][val[i]] = string_data
 
                         offset += string_len
 
-                    self.resp[topic_name]["symbol"] = self.symbol_token[
-                        topic_name
-                    ]
+                    self.resp[topic_name]["symbol"] = self.symbol_token[topic_name]
 
                     self.resp[self.scrips_sym[topic_id]]["type"] = "sf"
 
@@ -854,20 +784,13 @@ class FyersFeed(AbstractFeeder):
                     # if field_count == 20 or field_count == 21:
                     if topic_id in self.scrips_sym:
                         if (
-                            maps.data_val[index]
-                            in self.resp[self.scrips_sym[topic_id]]
+                            maps.data_val[index] in self.resp[self.scrips_sym[topic_id]]
                             and self.resp[self.scrips_sym[topic_id]][
                                 maps.data_val[index]
                             ]
                             != value
                             and value != -2147483648
-                        ):
-                            self.resp[self.scrips_sym[topic_id]][
-                                maps.data_val[index]
-                            ] = value
-
-                            self.update_tick = True
-                        elif (
+                        ) or (
                             maps.data_val[index]
                             not in self.resp[self.scrips_sym[topic_id]]
                             and value != -2147483648
@@ -875,25 +798,19 @@ class FyersFeed(AbstractFeeder):
                             self.resp[self.scrips_sym[topic_id]][
                                 maps.data_val[index]
                             ] = value
+
                             self.update_tick = True
 
                         sf_flag = True
                     elif topic_id in self.index_sym:
                         if (
-                            maps.index_val[index]
-                            in self.resp[self.index_sym[topic_id]]
+                            maps.index_val[index] in self.resp[self.index_sym[topic_id]]
                             and self.resp[self.index_sym[topic_id]][
                                 maps.index_val[index]
                             ]
                             != value
                             and value != "-2147483648"
-                        ):
-
-                            self.resp[self.index_sym[topic_id]][
-                                maps.index_val[index]
-                            ] = value
-                            self.update_tick = True
-                        elif (
+                        ) or (
                             maps.index_val[index]
                             not in self.resp[self.index_sym[topic_id]]
                             and value != -2147483648
@@ -905,19 +822,13 @@ class FyersFeed(AbstractFeeder):
                         idx_flag = True
                     elif topic_id in self.dp_sym:
                         if (
-                            maps.depth_value[index]
-                            in self.resp[self.dp_sym[topic_id]]
+                            maps.depth_value[index] in self.resp[self.dp_sym[topic_id]]
                             and self.resp[self.dp_sym[topic_id]][
                                 maps.depth_value[index]
                             ]
                             != value
                             and value != -2147483648
-                        ):
-                            self.resp[self.dp_sym[topic_id]][
-                                maps.depth_value[index]
-                            ] = value
-                            self.update_tick = True
-                        elif (
+                        ) or (
                             maps.depth_value[index]
                             not in self.resp[self.dp_sym[topic_id]]
                             and value != -2147483648
@@ -942,7 +853,6 @@ class FyersFeed(AbstractFeeder):
                         )
 
             elif data_type == 76:  # lite mode datafeed
-
                 offset += 1
 
                 topic_id = struct.unpack("H", data[offset : offset + 2])[0]
@@ -952,22 +862,16 @@ class FyersFeed(AbstractFeeder):
                 sf_flag, idx_flag = False, False
 
                 if topic_id in self.scrips_sym:
-
                     # for index in range(3):
                     value = struct.unpack(">i", data[offset : offset + 4])[0]
 
                     offset += 4
 
                     if (
-                        value
-                        != self.resp[self.scrips_sym[topic_id]][
-                            maps.data_val[0]
-                        ]
+                        value != self.resp[self.scrips_sym[topic_id]][maps.data_val[0]]
                         and value != -2147483648
                     ):
-                        self.resp[self.scrips_sym[topic_id]][
-                            maps.data_val[0]
-                        ] = value
+                        self.resp[self.scrips_sym[topic_id]][maps.data_val[0]] = value
 
                         sf_flag = True
 
@@ -977,21 +881,15 @@ class FyersFeed(AbstractFeeder):
                             self.resp[self.scrips_sym[topic_id]], "scrips"
                         )
                 elif topic_id in self.index_sym:
-
                     value = struct.unpack(">i", data[offset : offset + 4])[0]
 
                     offset += 4
 
                     if (
-                        value
-                        != self.resp[self.index_sym[topic_id]][
-                            maps.index_val[0]
-                        ]
+                        value != self.resp[self.index_sym[topic_id]][maps.index_val[0]]
                         and value != -2147483648
                     ):
-                        self.resp[self.index_sym[topic_id]][
-                            maps.index_val[0]
-                        ] = value
+                        self.resp[self.index_sym[topic_id]][maps.index_val[0]] = value
 
                         idx_flag = True
 
@@ -1075,18 +973,15 @@ class FyersFeed(AbstractFeeder):
                 )
         else:
             if data_type == "depth":
-
                 for i, val in enumerate(maps.depth_value):
                     if val in data_resp and i < 10:
                         response[val] = data_resp[val] / (
-                            (10 ** data_resp["precision"])
-                            * data_resp["multiplier"]
+                            (10 ** data_resp["precision"]) * data_resp["multiplier"]
                         )
                     elif val in data_resp:
                         response[val] = data_resp[val]
 
             elif data_type == "scrips":
-
                 for i, val in enumerate(maps.data_val):
                     if (
                         val in data_resp
@@ -1094,8 +989,7 @@ class FyersFeed(AbstractFeeder):
                         and val not in ["upper_ckt", "lower_ckt"]
                     ):
                         response[val] = data_resp[val] / (
-                            (10 ** data_resp["precision"])
-                            * data_resp["multiplier"]
+                            (10 ** data_resp["precision"]) * data_resp["multiplier"]
                         )
 
                     elif val in data_resp:
@@ -1130,8 +1024,7 @@ class FyersFeed(AbstractFeeder):
                 for i, val in enumerate(maps.index_val):
                     if val in data_resp and i in [0, 1, 3, 4, 5]:
                         response[val] = data_resp[val] / (
-                            (10 ** data_resp["precision"])
-                            * data_resp["multiplier"]
+                            (10 ** data_resp["precision"]) * data_resp["multiplier"]
                         )
                     elif val in data_resp:
                         response[val] = data_resp[val]
@@ -1141,11 +1034,7 @@ class FyersFeed(AbstractFeeder):
                             (response["ltp"] - response["prev_close_price"]), 2
                         )
                         response["chp"] = round(
-                            (
-                                response["ch"]
-                                / response["prev_close_price"]
-                                * 100
-                            ),
+                            (response["ch"] / response["prev_close_price"] * 100),
                             2,
                         )
 
@@ -1176,9 +1065,7 @@ class FyersFeed(AbstractFeeder):
         offset += field_length
 
         if string_val == "K":
-            self.log.info(
-                "Channel Paused" if channeltype == 7 else "Channel Resumed"
-            )
+            self.log.info("Channel Paused" if channeltype == 7 else "Channel Resumed")
         else:
             self.log.warning(CHANNEL_CHANGE_FAIL)
 
@@ -1210,7 +1097,6 @@ class FyersFeed(AbstractFeeder):
         Returns:
             dict: The lite/full mode response as a dictionary with keys 'code', 'message', and 's'.
         """
-
         offset = 3
 
         # Unpack the field count
@@ -1363,9 +1249,7 @@ class FyersFeed(AbstractFeeder):
                 )
             return
 
-        symbol_chunks = [
-            symbolslst[i : i + 500] for i in range(0, total_symbols, 500)
-        ]
+        symbol_chunks = [symbolslst[i : i + 500] for i in range(0, total_symbols, 500)]
 
         conv = SymbolConversion(self.access_token, self.data_type, self.session)
 
@@ -1439,9 +1323,7 @@ class FyersFeed(AbstractFeeder):
             scrips_data.append(len(scrip_bytes))
             scrips_data.extend(scrip_bytes)
 
-        data_len = (
-            18 + len(scrips_data) + len(self.access_token) + len(self.source)
-        )
+        data_len = 18 + len(scrips_data) + len(self.access_token) + len(self.source)
 
         request_type = 5
         field_count = 2
@@ -1473,7 +1355,6 @@ class FyersFeed(AbstractFeeder):
         Returns:
             bytearray: The subscription message in bytearray format.
         """
-
         self.scrips_per_channel[self.channel_num] += symbols
         self.scrips = symbols
         self.scrips_data = bytearray()
@@ -1486,10 +1367,7 @@ class FyersFeed(AbstractFeeder):
             self.scrips_data.extend(scrip_bytes)
 
         data_len = (
-            18
-            + len(self.scrips_data)
-            + len(self.access_token)
-            + len(self.source)
+            18 + len(self.scrips_data) + len(self.access_token) + len(self.source)
         )
 
         request_type = 4

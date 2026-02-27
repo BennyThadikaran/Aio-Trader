@@ -5,7 +5,6 @@ from typing import Optional
 
 import aiohttp
 
-
 from ..AbstractFeeder import AbstractFeeder, retry
 
 
@@ -41,7 +40,6 @@ class DhanOrder(AbstractFeeder):
         session: Optional[aiohttp.ClientSession] = None,
         parse_data: bool = True,
     ) -> None:
-
         super().__init__()
 
         self.parse_data = parse_data
@@ -62,7 +60,6 @@ class DhanOrder(AbstractFeeder):
 
     async def close(self):
         """Perform clean up operations to gracefully exit"""
-
         if self.connected and hasattr(self, "ws") and not self.ws.closed:
             await self.ws.close()
 
@@ -86,11 +83,9 @@ class DhanOrder(AbstractFeeder):
         :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
         :type: kwargs: Any
         """
-
         async with self.session.ws_connect(
             self.WSS_URL, heartbeat=self.ping_interval, **kwargs
         ) as ws:
-
             self.ws = ws
 
             self.connected = not self.ws.closed

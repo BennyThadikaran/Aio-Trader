@@ -1,6 +1,6 @@
 import hashlib
-import pickle
 import logging
+import pickle
 from datetime import datetime
 from pathlib import Path
 from typing import Collection, Optional, Union
@@ -134,7 +134,6 @@ class Kite(AbstractBroker):
         enctoken: Optional[str] = None,
         access_token: Optional[str] = None,
     ):
-
         self.cookie_path = self.base_dir / "kite_cookies"
         self.enctoken = enctoken
         self.access_token = access_token
@@ -146,12 +145,10 @@ class Kite(AbstractBroker):
 
     def _get_cookie(self):
         """Load the pickle format cookie file"""
-
         return pickle.loads(self.cookie_path.read_bytes())
 
     def _set_cookie(self, cookies):
         """Save the cookies to pickle formatted file"""
-
         cookies["expiry"] = (
             datetime.now()
             .replace(
@@ -209,13 +206,12 @@ class Kite(AbstractBroker):
         If no cookie file exists or has expired, prompt for missing arguments, request the
         `enctoken`, update the headers and return.
         """
-
-        request_token = kwargs.get("request_token", None)
-        secret = kwargs.get("secret", None)
-        user_id = kwargs.get("user_id", None)
-        password = kwargs.get("password", None)
-        twofa = kwargs.get("twofa", None)
-        api_key = kwargs.get("api_key", None)
+        request_token = kwargs.get("request_token")
+        secret = kwargs.get("secret")
+        user_id = kwargs.get("user_id")
+        password = kwargs.get("password")
+        twofa = kwargs.get("twofa")
+        api_key = kwargs.get("api_key")
 
         if self.enctoken:
             logger.info("enctoken set")
@@ -237,7 +233,7 @@ class Kite(AbstractBroker):
         if request_token and secret:
             # API LOGIN
             checksum = hashlib.sha256(
-                f"{api_key}{request_token}{secret}".encode("utf-8")
+                f"{api_key}{request_token}{secret}".encode()
             ).hexdigest()
 
             response = await self.req.post(
@@ -259,9 +255,7 @@ class Kite(AbstractBroker):
         if self.cookie_path.exists():
             self.cookies = self._get_cookie()
 
-            expiry = datetime.fromtimestamp(
-                float(self.cookies.get("expiry").value)
-            )
+            expiry = datetime.fromtimestamp(float(self.cookies.get("expiry").value))
 
             if datetime.now() > expiry:
                 self.cookie_path.unlink()
@@ -345,7 +339,6 @@ class Kite(AbstractBroker):
             # Load data into pandas Dataframe
             df = pd.read_csv(io.BytesIO(data), index_col='tradingsymbol')
         """
-
         endpoint = "instruments"
 
         if self._type == "KITE_WEB" and exchange:
@@ -371,7 +364,6 @@ class Kite(AbstractBroker):
             await kite.quote('NSE:INFY')
             await kite.quote(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
         """
-
         if not isinstance(instruments, str) and len(instruments) > 500:
             raise ValueError("Instruments length cannot exceed 500")
 
@@ -396,7 +388,6 @@ class Kite(AbstractBroker):
             await kite.ohlc('NSE:INFY')
             await kite.ohlc(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
         """
-
         if not isinstance(instruments, str) and len(instruments) > 1000:
             raise ValueError("Instruments length cannot exceed 1000")
 
@@ -421,7 +412,6 @@ class Kite(AbstractBroker):
             await kite.ltp('NSE:INFY')
             await kite.ltp(['NSE:INFY', 'NSE:RELIANCE', 'NSE:HDFCBANK'])
         """
-
         if not isinstance(instruments, str) and len(instruments) > 1000:
             raise ValueError("Instruments length cannot exceed 1000")
 
@@ -433,17 +423,14 @@ class Kite(AbstractBroker):
 
     async def holdings(self) -> dict:
         """Return the list of long term equity holdings"""
-
         return await self.req.get(f"{self.base_url}/portfolio/holdings")
 
     async def positions(self) -> dict:
         """Retrieve the list of short term positions"""
-
         return await self.req.get(f"{self.base_url}/portfolio/positions")
 
     async def auctions(self) -> dict:
         """Retrieve the list of auctions that are currently being held"""
-
         return await self.req.get(f"{self.base_url}/portfolio/auctions")
 
     async def margins(self, segment: Optional[str] = None) -> dict:
@@ -453,7 +440,6 @@ class Kite(AbstractBroker):
         :param segment: One of `equity` or `commodity`
         :type segment: Optional[str]
         """
-
         url = f"{self.base_url}/user/margins"
 
         if segment:
@@ -463,7 +449,6 @@ class Kite(AbstractBroker):
 
     async def profile(self) -> dict:
         """Retrieve the user profile"""
-
         return await self.req.get(f"{self.base_url}/user/profile")
 
     async def historical_data(
@@ -490,7 +475,6 @@ class Kite(AbstractBroker):
         :param oi: Pass True to get OI data (F & O)
         :type oi: bool
         """
-
         kite_web_url = "https://kite.zerodha.com/oms"
 
         endpoint = f"instruments/historical/{instrument_token}/{interval}"
@@ -575,7 +559,6 @@ class Kite(AbstractBroker):
 
         **Parameters are not validated**
         """
-
         params = {k: v for k, v in locals().items() if v is not None}
 
         params.pop("self")
@@ -616,7 +599,6 @@ class Kite(AbstractBroker):
         :param disclosed_quantity:
         :type disclosed_quantity: Optional[int] = None
         """
-
         params = {k: v for k, v in locals().items() if v}
 
         params.pop("self")
@@ -635,7 +617,6 @@ class Kite(AbstractBroker):
         :param order_id:
         :type order_id: str
         """
-
         return await self.req.delete(
             f"{self.base_url}/orders/{variety}/{order_id}",
             throttlers=order_throttlers,
@@ -643,7 +624,6 @@ class Kite(AbstractBroker):
 
     async def orders(self) -> dict:
         """Get list of all orders for the day"""
-
         return await self.req.get(
             f"{self.base_url}/orders", throttlers=order_throttlers
         )
@@ -654,14 +634,12 @@ class Kite(AbstractBroker):
         :param order_id:
         :type order_id: str
         """
-
         return await self.req.get(
             f"{self.base_url}/orders/{order_id}", throttlers=order_throttlers
         )
 
     async def trades(self) -> dict:
         """Get the list of all executed trades for the day"""
-
         return await self.req.get(
             f"{self.base_url}/trades", throttlers=order_throttlers
         )
@@ -672,7 +650,6 @@ class Kite(AbstractBroker):
         :param order_id:
         :type order_id: str
         """
-
         return await self.req.get(
             f"{self.base_url}/orders/{order_id}/trades",
             throttlers=order_throttlers,

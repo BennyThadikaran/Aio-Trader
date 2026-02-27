@@ -1,9 +1,9 @@
 import asyncio
 import logging
+import time
 from abc import ABC, abstractmethod
 from functools import wraps
 from typing import Callable, Optional
-import time
 
 import aiohttp
 

@@ -18,7 +18,6 @@ def add_signal_handlers(handler: Callable, *args: Any, **kwargs: Any) -> None:
     :param kwargs: Keyword arguments to pass to handler function
     :type kwargs: Any
     """
-
     loop = asyncio.get_event_loop()
 
     for i in (signal.SIGINT, signal.SIGTERM):

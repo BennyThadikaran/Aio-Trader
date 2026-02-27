@@ -11,7 +11,6 @@ from ..AbstractBroker import AbstractBroker
 
 
 class Config:
-
     # URL's
     API = "https://api-t1.fyers.in/api/v3"
     DATA_API = "https://api-t1.fyers.in/data"
@@ -277,9 +276,7 @@ class Fyers(AbstractBroker):
         :param data: Default None. The data containing the order ID.
         :type data: Optional[dict]
         """
-        return await self.req.get(
-            f"{Config.API}{Config.orderbook}", params=data
-        )
+        return await self.req.get(f"{Config.API}{Config.orderbook}", params=data)
 
     async def gtt_orderbook(self, data: Optional[dict] = None) -> dict:
         """
@@ -288,9 +285,7 @@ class Fyers(AbstractBroker):
         :param data: Default None.
         :type data: Optional[dict]
         """
-        return await self.req.get(
-            f"{Config.API}{Config.gtt_orders}", params=data
-        )
+        return await self.req.get(f"{Config.API}{Config.gtt_orders}", params=data)
 
     async def market_status(self) -> dict:
         """
@@ -314,9 +309,7 @@ class Fyers(AbstractBroker):
         - convertTo (str): The new product type to convert the positions to.
 
         """
-        return await self.req.get(
-            f"{Config.API}{Config.convert_position}", params=data
-        )
+        return await self.req.get(f"{Config.API}{Config.convert_position}", params=data)
 
     async def cancel_order(self, data: dict) -> dict:
         """
@@ -331,9 +324,7 @@ class Fyers(AbstractBroker):
           If not provided, all open positions will be closed.
 
         """
-        return await self.req.delete(
-            f"{Config.API}{Config.orders_endpoint}", json=data
-        )
+        return await self.req.delete(f"{Config.API}{Config.orders_endpoint}", json=data)
 
     async def cancel_gtt_order(self, data: dict) -> dict:
         """
@@ -348,9 +339,7 @@ class Fyers(AbstractBroker):
           e.g., "25010700000001".
 
         """
-        return await self.req.delete(
-            f"{Config.API}{Config.gtt_orders_sync}", json=data
-        )
+        return await self.req.delete(f"{Config.API}{Config.gtt_orders_sync}", json=data)
 
     async def place_order(self, data: dict) -> dict:
         """
@@ -383,9 +372,7 @@ class Fyers(AbstractBroker):
           market is open (False) or as an AMO order (True).
 
         """
-        return await self.req.post(
-            f"{Config.API}{Config.orders_endpoint}", json=data
-        )
+        return await self.req.post(f"{Config.API}{Config.orders_endpoint}", json=data)
 
     async def place_gtt_order(self, data: dict) -> dict:
         """
@@ -423,9 +410,7 @@ class Fyers(AbstractBroker):
           OCO order.
 
         """
-        return await self.req.post(
-            f"{Config.API}{Config.gtt_orders_sync}", json=data
-        )
+        return await self.req.post(f"{Config.API}{Config.gtt_orders_sync}", json=data)
 
     async def modify_order(self, data: dict) -> dict:
         """
@@ -527,9 +512,7 @@ class Fyers(AbstractBroker):
             - 'limitPrice' (float): Valid price for Limit and Stoplimit orders.
 
         """
-        return await self.req.post(
-            f"{Config.API}{Config.multileg_orders}", json=data
-        )
+        return await self.req.post(f"{Config.API}{Config.multileg_orders}", json=data)
 
     async def cancel_basket_orders(self, data: dict) -> dict:
         """
@@ -543,9 +526,7 @@ class Fyers(AbstractBroker):
         - order_ids (list): A list of order IDs to be cancelled.
 
         """
-        return await self.req.delete(
-            f"{Config.API}{Config.multi_orders}", json=data
-        )
+        return await self.req.delete(f"{Config.API}{Config.multi_orders}", json=data)
 
     async def place_basket_orders(self, orders: List[dict]) -> dict:
         """
@@ -572,9 +553,7 @@ class Fyers(AbstractBroker):
         - 'takeProfit' (float): Valid price for BO orders.
 
         """
-        return await self.req.post(
-            f"{Config.API}{Config.multi_orders}", json=orders
-        )
+        return await self.req.post(f"{Config.API}{Config.multi_orders}", json=orders)
 
     async def modify_basket_orders(self, orders: List[dict]):
         """
@@ -633,9 +612,7 @@ class Fyers(AbstractBroker):
           Set to 1 for continuous data.
 
         """
-        return await self.req.get(
-            f"{Config.DATA_API}{Config.history}", params=data
-        )
+        return await self.req.get(f"{Config.DATA_API}{Config.history}", params=data)
 
     async def quotes(self, data: str) -> dict:
         """
@@ -645,9 +622,7 @@ class Fyers(AbstractBroker):
             Maximum symbol limit is 50. Eg: 'NSE:SBIN-EQ,NSE:HDFC-EQ'.
         :type symbols: str
         """
-        return await self.req.get(
-            f"{Config.DATA_API}{Config.quotes}", params=data
-        )
+        return await self.req.get(f"{Config.DATA_API}{Config.quotes}", params=data)
 
     async def depth(self, data: dict) -> dict:
         """

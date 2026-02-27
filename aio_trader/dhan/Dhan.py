@@ -68,9 +68,7 @@ class Dhan(AbstractBroker):
 
     # CSV URL for Security ID List
     COMPACT_CSV_URL = "https://images.dhan.co/api-data/api-scrip-master.csv"
-    DETAILED_CSV_URL = (
-        "https://images.dhan.co/api-data/api-scrip-master-detailed.csv"
-    )
+    DETAILED_CSV_URL = "https://images.dhan.co/api-data/api-scrip-master-detailed.csv"
 
     def __init__(
         self,
@@ -104,7 +102,6 @@ class Dhan(AbstractBroker):
         """
         Retrieve a list of all orders requested in a day with their last updated status.
         """
-
         return await self.req.get(
             f"{self.base_url}/orders",
             throttlers=order_throttlers,
@@ -365,9 +362,7 @@ class Dhan(AbstractBroker):
 
         if after_market_order:
             if amo_time not in ("OPEN", "OPEN_30", "OPEN_60"):
-                raise ValueError(
-                    "amo_time value must be ['OPEN','OPEN_30','OPEN_60']"
-                )
+                raise ValueError("amo_time value must be ['OPEN','OPEN_30','OPEN_60']")
 
             payload["amoTime"] = amo_time
 
@@ -649,9 +644,7 @@ class Dhan(AbstractBroker):
         """
         return await self.req.get(f"{self.base_url}/edis/inquire/{isin}")
 
-    async def kill_switch(
-        self, action: Literal["activate", "deactivate"]
-    ) -> dict:
+    async def kill_switch(self, action: Literal["activate", "deactivate"]) -> dict:
         """
         Control kill switch for user, which will disable trading for current trading day.
 
@@ -733,9 +726,7 @@ class Dhan(AbstractBroker):
 
         return await self.req.get(url)
 
-    async def get_trade_history(
-        self, from_date, to_date, page_number=0
-    ) -> dict:
+    async def get_trade_history(self, from_date, to_date, page_number=0) -> dict:
         """
         Retrieve the trade history for a specific date range.
 
@@ -976,9 +967,7 @@ class Dhan(AbstractBroker):
             headers=self.headers_w_client_id,
         )
 
-    async def expiry_list(
-        self, under_security_id, under_exchange_segment
-    ) -> dict:
+    async def expiry_list(self, under_security_id, under_exchange_segment) -> dict:
         """
         Retrieve the dates of all expiries for a specified underlying instrument.
 
@@ -1010,6 +999,4 @@ class Dhan(AbstractBroker):
         IST = timezone(timedelta(hours=5, minutes=30))
         dt = datetime.fromtimestamp(epoch, IST)
 
-        if dt.time() == datetime.min.time():
-            return dt.date()
         return dt

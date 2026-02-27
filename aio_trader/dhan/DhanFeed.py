@@ -1,6 +1,6 @@
 import asyncio
-import struct
 import logging
+import struct
 from collections import defaultdict
 from typing import List, Optional, Tuple
 
@@ -124,7 +124,6 @@ class DhanFeed(AbstractFeeder):
 
     async def close(self):
         """Perform clean up operations to gracefully exit"""
-
         if self.connected and hasattr(self, "ws") and not self.ws.closed:
             feed_request_code = 12
             message_length = 83
@@ -163,7 +162,6 @@ class DhanFeed(AbstractFeeder):
         :param kwargs: Any keyword arguments to pass to `aiohttp.ClientSession.ws_connect`
         :type: kwargs: Any
         """
-
         self.ws = await self.session.ws_connect(
             f"{self.WSS_URL}?version={self.version}&token={self.access_token}&clientId={self.client_id}&authType=2",
             heartbeat=self.ping_interval,
@@ -249,7 +247,6 @@ class DhanFeed(AbstractFeeder):
                 (DhanFeed.NSE, "11915", DhanFeed.Depth),
             ]
         """
-
         self.subscribed = list(set(self.subscribed).difference(symbols))
 
         processed = self._validate_and_process_tuples(self.subscribed)
@@ -286,7 +283,6 @@ class DhanFeed(AbstractFeeder):
                 (DhanFeed.NSE, "11915", DhanFeed.Depth),
             ]
         """
-
         self.subscribed = list(set(self.subscribed).difference(symbols))
 
         instruments = self._validate_and_process_tuples(self.subscribed)
@@ -374,9 +370,7 @@ class DhanFeed(AbstractFeeder):
         )
 
     def _process_market_depth(self, bin):
-        *_, segment, id, ltp, depth_bin = struct.unpack(
-            "<BHBIf100s", bin[0:112]
-        )
+        *_, segment, id, ltp, depth_bin = struct.unpack("<BHBIf100s", bin[0:112])
 
         packet_format = "<IIHHff"
         depth = []
@@ -460,15 +454,11 @@ class DhanFeed(AbstractFeeder):
             self.log.warning(self._disconnect_str_map[code])
 
     @staticmethod
-    def _validate_and_process_tuples(
-        tuples_list: List[Tuple], batch_size=100
-    ) -> dict:
+    def _validate_and_process_tuples(tuples_list: List[Tuple], batch_size=100) -> dict:
         tuple_lengths = set(len(tup) for tup in tuples_list)
 
         if len(tuple_lengths) > 1:
-            raise ValueError(
-                "All tuples must be of same size, either all 2 or all 3."
-            )
+            raise ValueError("All tuples must be of same size, either all 2 or all 3.")
 
         processed_tuples = set()
 

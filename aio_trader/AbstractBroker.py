@@ -31,13 +31,11 @@ class AbstractBroker(ABC):
 
     async def close(self):
         """Close the Requests session"""
-
         if self.session and not self.session.closed:
             await self.session.close()
 
     def _initialise_session(self, headers: dict, throttlers: List[Throttler]):
         """Start a aiohttp.ClientSession and assign a default throttler"""
-
         tcp_connector = aiohttp.TCPConnector(
             ttl_dns_cache=375 * 60, resolver=aiohttp.resolver.AsyncResolver()
         )
