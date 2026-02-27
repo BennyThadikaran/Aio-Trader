@@ -16,12 +16,12 @@ class DhanFeed(AbstractFeeder):
     Only supports v2 of the API
 
     .. py:property:: DhanFeed.on_tick
-       :type: Callable[[DhanFeed, Dict[str, Any], bool], None]
+       :type: Callable[[DhanFeed, Dict[str, Any]], None]
 
        A user defined function that receives the tick data as
-       a dict and a bool value indicating if the message is parsed.
+       a dict.
 
-       def on_tick(feed: DhanFeed, tick: Dict[str, Any], binary=False) -> None
+       def on_tick(feed: DhanFeed, tick: Dict[str, Any]) -> None
 
     .. py:property:: DhanFeed.on_connect
        :type: Callable[[DhanFeed, ], None]
@@ -181,13 +181,13 @@ class DhanFeed(AbstractFeeder):
 
         async for msg in self.ws:
             if not self.parse_data:
-                return self.on_tick(self, msg.data, binary=True)
+                return self.on_tick(self, msg.data)
 
             first_byte = struct.unpack("<B", msg.data[0:1])[0]
 
             data = self._binary_parser_map[str(first_byte)](msg.data)
 
-            self.on_tick(self, data, binary=False)
+            self.on_tick(self, data)
 
     async def subscribe(
         self,

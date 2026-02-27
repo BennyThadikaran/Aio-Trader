@@ -14,7 +14,7 @@ class DhanOrder(AbstractFeeder):
     Websocket class for Dhan Order Websocket
 
     .. py:property:: DhanOrder.on_tick
-       :type: Callable[[DhanOrder, Dict[str, Any], bool], None]
+       :type: Callable[[DhanOrder, Dict[str, Any]], None]
 
        A user defined function called when order notification is received.
        Called with the order message as a dict and a bool value indicating
@@ -22,7 +22,7 @@ class DhanOrder(AbstractFeeder):
 
        Must be attached to the class to receive order updates
 
-       def on_tick(feed: DhanOrder, order: dict, binary=False) -> None
+       def on_tick(feed: DhanOrder, order: dict) -> None
 
     :param access_token: Fyers `access_token`.
     :type access_token: str
@@ -108,6 +108,4 @@ class DhanOrder(AbstractFeeder):
             self.log.info("Subscribed to order updates")
 
             async for msg in self.ws:
-                self.on_tick(
-                    json.loads(msg.data) if self.parse_data else msg.data
-                )
+                self.on_tick(json.loads(msg.data) if self.parse_data else msg.data)

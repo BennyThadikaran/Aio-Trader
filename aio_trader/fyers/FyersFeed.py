@@ -145,13 +145,11 @@ class FyersFeed(AbstractFeeder):
     Websocket class for Fyers
 
     .. py:property:: FyersFeed.on_tick
-       :type: Callable[[FyersFeed, Dict[str, Any], bool], None]
+       :type: Callable[[FyersFeed, Dict[str, Any]], None]
 
        A user defined function called, when tick data is received.
-       It receives the dictionary and a bool value indicating if the
-       tick data is parsed.
 
-       def on_tick(feed: FyersFeed, tick: dict, binary=False) -> None
+       def on_tick(feed: FyersFeed, tick: dict) -> None
 
     .. py:property:: FyersFeed.on_connect
        :type: Callable[[FyersFeed], None]
@@ -294,7 +292,7 @@ class FyersFeed(AbstractFeeder):
 
         async for msg in self.ws:
             if not self.parse_data:
-                return self.on_tick(self, msg.data, binary=True)
+                return self.on_tick(self, msg.data)
 
             _, resp_type = struct.unpack("!HB", msg.data[:3])
 
@@ -1152,7 +1150,7 @@ class FyersFeed(AbstractFeeder):
                         )
 
         if self.on_tick:
-            self.on_tick(self, response, binary=False)
+            self.on_tick(self, response)
 
     def __resume_pause_resp(self, data: bytearray, channeltype: int):
         """

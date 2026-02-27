@@ -14,13 +14,19 @@ class FyersOrder(AbstractFeeder):
     Websocket class for Fyers Order Websocket
 
     .. py:property:: FyersOrder.on_tick
-       :type: Callable[[FyersOrder, Dict[str, Any], bool], None]
+       :type: Callable[[FyersOrder, Dict[str, Any]], None]
 
        A user defined function called, when an order notification is received.
-       It receives the order dictionary and a bool value indicating if the
-       order message is parsed.
+       It receives the order dictionary.
 
-       def on_tick(feed: FyersOrder, order: dict, binary=False) -> None
+       def on_tick(feed: FyersOrder, order: dict) -> None
+
+    .. py:property:: FyersOrder.on_connect
+       :type: Callable[[FyersOrder], None]
+
+       A user defined function called, when a Websocket connection is established.
+
+       def on_connect(feed: FyersOrder) -> None
 
     :param access_token: Fyers `access_token`.
     :type access_token: str
@@ -108,7 +114,7 @@ class FyersOrder(AbstractFeeder):
                     continue
 
                 if not self.parse_data:
-                    return self.on_tick(msg.data)
+                    return self.on_tick(self, msg.data)
 
                 data = json.loads(msg.data)
 
@@ -121,7 +127,7 @@ class FyersOrder(AbstractFeeder):
                 else:
                     processed = data
 
-                self.on_tick(processed)
+                self.on_tick(self, processed)
 
     async def subscribe(self, data_type: str) -> None:
         """
