@@ -10,12 +10,6 @@ description = "Async Python library for various Indian stock brokers."
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.8"
-dependencies = [
-  "aiodns==3.2.*",
-  "aiohttp==3.9.*",
-  "Brotli==1.1.*",
-  "throttler==1.2.*",
-]
 keywords = ["kite", "kiteconnect", "zerodha", "algo-trading", "stock-market", "historical-data", "intraday-data"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -29,6 +23,11 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Programming Language :: Python :: 3 :: Only",
     "Operating System :: OS Independent",
+dependencies = [
+  "aiodns==4",
+  "aiohttp==3.9.5",
+  "brotli==1.1",
+  "throttler==1.2.3",
 ]
 
 [project.urls]
