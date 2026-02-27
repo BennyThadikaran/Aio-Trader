@@ -1,38 +1,45 @@
 [build-system]
-requires = ["hatchling"]
 build-backend = "hatchling.build"
+requires = [ "hatchling" ]
 
 [project]
-name = "aio_trader"
+name = "aio-trader"
 version = "0.1.0"
-author = "Benny Thadikaran"
 description = "Async Python library for various Indian stock brokers."
 readme = "README.md"
-license = {file = "LICENSE"}
+keywords = [ "algo-trading", "historical-data", "intraday-data", "kite", "kiteconnect", "stock-market", "zerodha" ]
+license = { file = "LICENSE" }
 requires-python = ">=3.8"
-keywords = ["kite", "kiteconnect", "zerodha", "algo-trading", "stock-market", "historical-data", "intraday-data"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Financial and Insurance Industry",
-    "Programming Language :: Python",
-    "Natural Language :: English",
-    "Topic :: Office/Business :: Financial :: Investment",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3 :: Only",
-    "Operating System :: OS Independent",
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Office/Business :: Financial :: Investment",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
   "aiodns==4",
   "aiohttp==3.9.5",
   "brotli==1.1",
   "throttler==1.2.3",
 ]
+urls.Homepage = "https://github.com/BennyThadikaran/aio-trader/issues"
+urls.Issues = "https://github.com/BennyThadikaran/aio-trader"
+author = "Benny Thadikaran"
 
-[project.urls]
-Homepage = "https://github.com/BennyThadikaran/aio-trader/issues"
-Issues = "https://github.com/BennyThadikaran/aio-trader"
 [tool.ruff]
 target-version = "py38"
 format.indent-style = "space"
