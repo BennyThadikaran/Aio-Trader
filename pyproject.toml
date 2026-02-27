@@ -36,6 +36,10 @@ dependencies = [
   "brotli==1.1",
   "throttler==1.2.3",
 ]
+optional-dependencies.docs = [
+  "furo==2025.9.25",
+  "sphinx==8.2.3",
+]
 urls.Homepage = "https://github.com/BennyThadikaran/aio-trader/issues"
 urls.Issues = "https://github.com/BennyThadikaran/aio-trader"
 author = "Benny Thadikaran"
