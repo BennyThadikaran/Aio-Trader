@@ -2,8 +2,6 @@
 Utils Reference
 ===============
 
-.. autofunction:: aio_trader.utils.configure_default_logger
-
 .. autofunction:: aio_trader.utils.add_signal_handlers
 
 `See example Handling Keyboard Interrupt for usage <examples.html#handling-keyboard-interrupt>`_
